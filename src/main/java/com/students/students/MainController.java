@@ -49,6 +49,7 @@ public class MainController implements Initializable {
                 Stage stage = new Stage();
                 stage.setTitle("Management");
                 stage.setScene(scene);
+                stage.setResizable(false);
                 stage.show();
             } else {
                 lb.setText("Credentials not valid!");
