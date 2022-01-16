@@ -19,7 +19,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
+//@SuppressWarnings("all")
 public class etudiantController implements Initializable {
+    
+    private final DbUtils db = new DbUtils();
+    private final HashMap<String, String> lst = new HashMap<String, String>();
+    private final List<String> columnNames = new ArrayList<>();
+    
     @FXML
     TableView<ObservableList<String>> tv;
     @FXML
@@ -32,15 +38,10 @@ public class etudiantController implements Initializable {
     Button ins, edt;
     @FXML
     CheckBox cb, cb1;
-    private DbUtils db = new DbUtils();
-    private ResultSet resultSet;
-    private HashMap<String, String> lst = new HashMap<String, String>();
-    
-    private List<String> columnNames = new ArrayList<>();
     
     private void buildData (String query) throws SQLException {
         if (!tv.getColumns().isEmpty()) tv.getColumns().removeAll(tv.getColumns());
-        resultSet = db.runQuery(query);
+        ResultSet resultSet = db.runQuery(query);
         ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
         
         for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
@@ -78,7 +79,6 @@ public class etudiantController implements Initializable {
     private void getClassCount () {
         if (!cls.getItems().isEmpty()) cls.getItems().removeAll(cls.getItems());
         String query = "SELECT DISTINCT `class` FROM `ens_class` WHERE `ens_class`.`niv_scho` = " + niv.getValue();
-        System.out.println(query);
         ResultSet rs = db.runQuery(query);
         try {
             while (rs.next()) cls.getItems().add(rs.getString("class"));
@@ -140,6 +140,9 @@ public class etudiantController implements Initializable {
         clearText(gh, mu, in, sp, sc, ci);
         clearStyle(ar, mt, ph, is, fr, en);
         clearStyle(gh, mu, in, sp, sc, ci);
+        failAll(ar, mt, ph, is, fr, en);
+        failAll(gh, mu, in, sp, sc, ci);
+        check();
     }
     
     private void clearText (TextField ar, TextField mt, TextField ph, TextField is, TextField fr, TextField en) {
@@ -160,6 +163,15 @@ public class etudiantController implements Initializable {
         en.getStylesheets().removeAll(en.getStyle());
     }
     
+    private void failAll (TextField ar, TextField mt, TextField ph, TextField is, TextField fr, TextField en) {
+        lst.replace(ar.getId(), "fail");
+        lst.replace(mt.getId(), "fail");
+        lst.replace(ph.getId(), "fail");
+        lst.replace(is.getId(), "fail");
+        lst.replace(fr.getId(), "fail");
+        lst.replace(en.getId(), "fail");
+    }
+    
     @FXML
     private void acceptDigitOnly (KeyEvent ae) {
         TextField src = (TextField) ae.getSource();
@@ -167,7 +179,7 @@ public class etudiantController implements Initializable {
         lst.putIfAbsent(src.getId(), "fail");
         double d;
         if (!str.isEmpty()) {
-            if (str.matches("[0-9]+") && str.length() <= 2) {
+            if (str.matches("\\d+(\\.\\d+)?") && str.length() <= 5) {
                 d = Double.parseDouble(str);
                 if (d >= 00.00 && d <= 20.00) {
                     src.setStyle("-fx-border-color: green");
@@ -188,6 +200,16 @@ public class etudiantController implements Initializable {
     }
     
     private void check () {
+        if (cb.isSelected() && cb1.isSelected()) {
+            ins.setDisable(lst.containsValue("fail") || lst.size() < 10);
+            edt.setDisable(lst.containsValue("fail") || lst.size() < 10);
+            return;
+        }
+        if (cb.isSelected() || cb1.isSelected()) {
+            ins.setDisable(lst.containsValue("fail") || lst.size() < 11);
+            edt.setDisable(lst.containsValue("fail") || lst.size() < 11);
+            return;
+        }
         ins.setDisable(lst.containsValue("fail") || lst.size() < 12);
         edt.setDisable(lst.containsValue("fail") || lst.size() < 12);
     }
@@ -205,8 +227,9 @@ public class etudiantController implements Initializable {
         String table = "notes_moy";
         switchNotesTable();
         String query =
-         "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + getDouble(in) + "," + getDouble(mu);
-        db.run(query);
+         "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + (cb.isSelected() ? null : getDouble(in)) + "," + (cb1.isSelected() ? null : getDouble(mu)) + ")";
+        if (db.run(query).equals("Execution Successful")) id.setStyle("-fx-text-fill: green");
+        else id.setStyle("-fx-text-fill: red");
     }
     
     private double getDouble (TextField tf) {
