@@ -1,22 +1,15 @@
 package com.students.students;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 //@SuppressWarnings("all")
@@ -39,50 +32,21 @@ public class etudiantController implements Initializable {
     @FXML
     CheckBox cb, cb1;
     
-    private void buildData (String query) throws SQLException {
-        if (!tv.getColumns().isEmpty()) tv.getColumns().removeAll(tv.getColumns());
-        ResultSet resultSet = db.runQuery(query);
-        ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
-        
-        for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
-            
-            final int j = i;
-            TableColumn col = new TableColumn(resultSet.getMetaData().getColumnName(i + 1));
-            col.setCellValueFactory((Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>) param -> {
-                if (param.getValue().get(j) != null) {
-                    return new SimpleStringProperty(param.getValue().get(j).toString());
-                } else {
-                    return null;
-                }
-            });
-            
-            tv.getColumns().addAll(col);
-            this.columnNames.add(col.getText());
-        }
-        
-        while (resultSet.next()) {
-            //Iterate Row
-            ObservableList<String> row = FXCollections.observableArrayList();
-            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                //Iterate Column
-                row.add(resultSet.getString(i));
-            }
-            data.add(row);
-            
-        }
-        
-        //FINALLY ADDED TO TableView
-        tv.setItems(data);
-    }
-    
     @FXML
     private void getClassCount () {
+        Set<Integer> set = new LinkedHashSet<>();
         if (!cls.getItems().isEmpty()) cls.getItems().removeAll(cls.getItems());
-        String query = "SELECT DISTINCT `class` FROM `ens_class` WHERE `ens_class`.`niv_scho` = " + niv.getValue();
+        String query = "SELECT `ens_class`.`class`,`stu_class`.`class` FROM `ens_class`,`stu_class` WHERE `stu_class`.`niv_scho` = " + niv.getValue() + " AND `ens_class`.`niv_scho` = " + niv.getValue();
         ResultSet rs = db.runQuery(query);
         try {
-            while (rs.next()) cls.getItems().add(rs.getString("class"));
-            buildData("SELECT name,last_name,class FROM StudentsList,stu_class WHERE StudentsList.stu_id = stu_class.stu_id AND niv_scho = " + niv.getValue());
+            while (rs.next()) {
+                set.add(rs.getInt(1));
+                set.add(rs.getInt(2));
+            }
+            for (int cl : set) {
+                cls.getItems().add(cl + "");
+            }
+            db.populateData(tv, "SELECT name,last_name,class FROM StudentsList,stu_class WHERE StudentsList.stu_id = stu_class.stu_id AND niv_scho = " + niv.getValue());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,8 +60,8 @@ public class etudiantController implements Initializable {
         ResultSet rs = db.runQuery(query);
         try {
             while (rs.next()) etu.getItems().add(rs.getString("stu_id").concat(" " + rs.getString("name").concat(" " + rs.getString("last_name"))));
-            buildData("SELECT `stu_class`.`stu_id` AS `ID` ,`name` AS `Nom`, `last_name` AS `Prenom` FROM StudentsList, stu_class WHERE niv_scho = " + niv.getValue() + " AND class = " + cls.getValue() + " AND StudentsList.stu_id = " +
-             "stu_class.stu_id");
+            db.populateData(tv, "SELECT `stu_class`.`stu_id` AS `ID` ,`name` AS `Nom`, `last_name` AS `Prenom` FROM StudentsList, stu_class WHERE niv_scho = " + niv.getValue() + " AND class = " + cls.getValue() + " AND StudentsList" +
+             ".stu_id " + "=" + " " + "stu_class.stu_id");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -109,7 +73,9 @@ public class etudiantController implements Initializable {
         String[] stu = etu.getValue().split(" ");
         id.setText(stu[0]);
         try {
-            buildData("SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " AND " + "notes_moy.stu_id = " + id.getText());
+            db.populateData(tv,
+             "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " " + "AND " +
+              "notes_moy.stu_id = " + id.getText());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,7 +84,9 @@ public class etudiantController implements Initializable {
     @FXML
     private void showSpecModul () {
         try {
-            buildData("SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " AND " + "notes_moy.stu_id = " + id.getText());
+            db.populateData(tv,
+             "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " " + "AND " +
+              "notes_moy.stu_id = " + id.getText());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -128,7 +96,7 @@ public class etudiantController implements Initializable {
     private void showSpecific () {
         String query = "SELECT * FROM " + switchNotesTable() + " WHERE stu_id = " + id.getText();
         try {
-            buildData(query);
+            db.populateData(tv, query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -261,7 +229,7 @@ public class etudiantController implements Initializable {
     @Override
     public void initialize (URL location, ResourceBundle resources) {
         try {
-            buildData("SELECT * FROM StudentsList");
+            db.populateData(tv, "SELECT * FROM StudentsList");
             niv.getItems().addAll("1", "2", "3", "4");
             nt.getItems().addAll("CC", "Devoir", "Examen");
             nt.setValue("CC");
