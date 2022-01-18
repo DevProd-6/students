@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class etudiantController implements Initializable {
     
     private final DbUtils db = new DbUtils();
-    private final HashMap<String, String> lst = new HashMap<String, String>();
+    private final HashMap<String, String> lst = new HashMap<>();
     private final List<String> columnNames = new ArrayList<>();
     
     @FXML
