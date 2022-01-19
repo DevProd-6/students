@@ -1,9 +1,9 @@
 drop
-database if exists students;
+    database if exists students;
 create
-database if not exists students;
+    database if not exists students;
 use
-students;
+    students;
 create table `users`
 (
     `usr` varchar(25),
@@ -11,9 +11,27 @@ create table `users`
 );
 insert into `users`
 values ('admin', 'admin');
+create table `EnsiegnantsList`
+(
+    `id`        int auto_increment primary key,
+    `name`      varchar(30),
+    `last_name` varchar(30),
+    `date_nais` date,
+    `email`     varchar(50),
+    `num_tel`   varchar(10),
+    `gender`    varchar(1)
+);
+create table `ens_class`
+(
+    `ens_id`   int,
+    `niv_scho` int(1),
+    `class`    int(2),
+    foreign key (`ens_id`) references EnsiegnantsList (`id`)
+);
+
 create table StudentsList
 (
-    `stu_id`    int auto_increment primary key,
+    `id`        int auto_increment primary key,
     `name`      varchar(35),
     `last_name` varchar(35),
     `date_nais` date,
@@ -24,7 +42,7 @@ create table `stu_class`
     `stu_id`   int,
     `niv_scho` int(1),
     `class`    int(2),
-    foreign key (`stu_id`) references StudentsList (`stu_id`)
+    foreign key (`stu_id`) references StudentsList (`id`)
 );
 create table `notes_moy`
 (
@@ -41,7 +59,7 @@ create table `notes_moy`
     `science_moy`      double,
     `informatique_moy` double,
     `civil_moy`        double,
-    foreign key (`stu_id`) references StudentsList (`stu_id`)
+    foreign key (`stu_id`) references StudentsList (`id`)
 );
 create table `notes_exmn`
 (
@@ -58,7 +76,8 @@ create table `notes_exmn`
     `science_ex`      double,
     `informatique_ex` double,
     `civil_ex`        double,
-    foreign key (`stu_id`) references StudentsList (`stu_id`)
+    `design_ex`       double,
+    foreign key (`stu_id`) references StudentsList (`id`)
 );
 create table `notes_dv`
 (
@@ -75,7 +94,8 @@ create table `notes_dv`
     `science_dv`      double,
     `informatique_dv` double,
     `civil_dv`        double,
-    foreign key (`stu_id`) references StudentsList (`stu_id`)
+    `design_dv`       double,
+    foreign key (`stu_id`) references StudentsList (`id`)
 );
 create table `notes_cc`
 (
@@ -92,2607 +112,2609 @@ create table `notes_cc`
     `science_cc`      double,
     `informatique_cc` double,
     `music_cc`        double,
-    foreign key (`stu_id`) references StudentsList (`stu_id`)
+    `design_c`        double,
+    foreign key (`stu_id`) references StudentsList (`id`)
 );
-create table `EnsiegnantsList`
+create table `remark`
 (
-    `ens_id`    int auto_increment primary key,
-    `name`      varchar(30),
-    `last_name` varchar(30),
-    `date_nais` date,
-    `email`     varchar(50),
-    `num_tel`   varchar(10),
-    `gender`    varchar(1)
-);
-create table `ens_class`
-(
-    `ens_id`   int,
-    `niv_scho` int(1),
-    `class`    int(2),
-    foreign key (`ens_id`) references EnsiegnantsList (`ens_id`)
+    `stu_id`           int,
+    `math_rem`         varchar(13),
+    `arabic_rem`       varchar(13),
+    `french_rem`       varchar(13),
+    `english_rem`      varchar(13),
+    `islamic_rem`      varchar(13),
+    `civil_rem`        varchar(13),
+    `geo_histo_rem`    varchar(13),
+    `sport_rem`        varchar(13),
+    `physics_rem`      varchar(13),
+    `science_rem`      varchar(13),
+    `informatique_rem` varchar(13),
+    `music_rem`        varchar(13),
+    `design_rem`       varchar(13),
+    foreign key (`stu_id`) references StudentsList (`id`)
 );
 
 /* Insert Students names*/
 insert into StudentsList (`name`, `last_name`)
-values ("Dorene", "Dorene");
+values ('Dorene', 'Dorene');
 insert into StudentsList (`name`, `last_name`)
-values ("Doretha", "Doretha");
+values ('Doretha', 'Doretha');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorethea", "Dorethea");
+values ('Dorethea', 'Dorethea');
 insert into StudentsList (`name`, `last_name`)
-values ("Doretta", "Doretta");
+values ('Doretta', 'Doretta');
 insert into StudentsList (`name`, `last_name`)
-values ("Dori", "Dori");
+values ('Dori', 'Dori');
 insert into StudentsList (`name`, `last_name`)
-values ("Doria", "Doria");
+values ('Doria', 'Doria');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorian", "Dorian");
+values ('Dorian', 'Dorian');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorie", "Dorie");
+values ('Dorie', 'Dorie');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorinda", "Dorinda");
+values ('Dorinda', 'Dorinda');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorine", "Dorine");
+values ('Dorine', 'Dorine');
 insert into StudentsList (`name`, `last_name`)
-values ("Doris", "Doris");
+values ('Doris', 'Doris');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorla", "Dorla");
+values ('Dorla', 'Dorla');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorotha", "Dorotha");
+values ('Dorotha', 'Dorotha');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorothea", "Dorothea");
+values ('Dorothea', 'Dorothea');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorothy", "Dorothy");
+values ('Dorothy', 'Dorothy');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorris", "Dorris");
+values ('Dorris', 'Dorris');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorsey", "Dorsey");
+values ('Dorsey', 'Dorsey');
 insert into StudentsList (`name`, `last_name`)
-values ("Dortha", "Dortha");
+values ('Dortha', 'Dortha');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorthea", "Dorthea");
+values ('Dorthea', 'Dorthea');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorthey", "Dorthey");
+values ('Dorthey', 'Dorthey');
 insert into StudentsList (`name`, `last_name`)
-values ("Dorthy", "Dorthy");
+values ('Dorthy', 'Dorthy');
 insert into StudentsList (`name`, `last_name`)
-values ("Dot", "Dot");
+values ('Dot', 'Dot');
 insert into StudentsList (`name`, `last_name`)
-values ("Dottie", "Dottie");
+values ('Dottie', 'Dottie');
 insert into StudentsList (`name`, `last_name`)
-values ("Dotty", "Dotty");
+values ('Dotty', 'Dotty');
 insert into StudentsList (`name`, `last_name`)
-values ("Doug", "Doug");
+values ('Doug', 'Doug');
 insert into StudentsList (`name`, `last_name`)
-values ("Douglas", "Douglas");
+values ('Douglas', 'Douglas');
 insert into StudentsList (`name`, `last_name`)
-values ("Douglass", "Douglass");
+values ('Douglass', 'Douglass');
 insert into StudentsList (`name`, `last_name`)
-values ("Dovie", "Dovie");
+values ('Dovie', 'Dovie');
 insert into StudentsList (`name`, `last_name`)
-values ("Doyle", "Doyle");
+values ('Doyle', 'Doyle');
 insert into StudentsList (`name`, `last_name`)
-values ("Dreama", "Dreama");
+values ('Dreama', 'Dreama');
 insert into StudentsList (`name`, `last_name`)
-values ("Drema", "Drema");
+values ('Drema', 'Drema');
 insert into StudentsList (`name`, `last_name`)
-values ("Drew", "Drew");
+values ('Drew', 'Drew');
 insert into StudentsList (`name`, `last_name`)
-values ("Drucilla", "Drucilla");
+values ('Drucilla', 'Drucilla');
 insert into StudentsList (`name`, `last_name`)
-values ("Drusilla", "Drusilla");
+values ('Drusilla', 'Drusilla');
 insert into StudentsList (`name`, `last_name`)
-values ("Duane", "Duane");
+values ('Duane', 'Duane');
 insert into StudentsList (`name`, `last_name`)
-values ("Dudley", "Dudley");
+values ('Dudley', 'Dudley');
 insert into StudentsList (`name`, `last_name`)
-values ("Dulce", "Dulce");
+values ('Dulce', 'Dulce');
 insert into StudentsList (`name`, `last_name`)
-values ("Dulcie", "Dulcie");
+values ('Dulcie', 'Dulcie');
 insert into StudentsList (`name`, `last_name`)
-values ("Duncan", "Duncan");
+values ('Duncan', 'Duncan');
 insert into StudentsList (`name`, `last_name`)
-values ("Dung", "Dung");
+values ('Dung', 'Dung');
 insert into StudentsList (`name`, `last_name`)
-values ("Dusti", "Dusti");
+values ('Dusti', 'Dusti');
 insert into StudentsList (`name`, `last_name`)
-values ("Dustin", "Dustin");
+values ('Dustin', 'Dustin');
 insert into StudentsList (`name`, `last_name`)
-values ("Dusty", "Dusty");
+values ('Dusty', 'Dusty');
 insert into StudentsList (`name`, `last_name`)
-values ("Dwain", "Dwain");
+values ('Dwain', 'Dwain');
 insert into StudentsList (`name`, `last_name`)
-values ("Dwana", "Dwana");
+values ('Dwana', 'Dwana');
 insert into StudentsList (`name`, `last_name`)
-values ("Dwayne", "Dwayne");
+values ('Dwayne', 'Dwayne');
 insert into StudentsList (`name`, `last_name`)
-values ("Dwight", "Dwight");
+values ('Dwight', 'Dwight');
 insert into StudentsList (`name`, `last_name`)
-values ("Dyan", "Dyan");
+values ('Dyan', 'Dyan');
 insert into StudentsList (`name`, `last_name`)
-values ("Dylan", "Dylan");
+values ('Dylan', 'Dylan');
 insert into StudentsList (`name`, `last_name`)
-values ("Earl", "Earl");
+values ('Earl', 'Earl');
 insert into StudentsList (`name`, `last_name`)
-values ("Earle", "Earle");
+values ('Earle', 'Earle');
 insert into StudentsList (`name`, `last_name`)
-values ("Earlean", "Earlean");
+values ('Earlean', 'Earlean');
 insert into StudentsList (`name`, `last_name`)
-values ("Earleen", "Earleen");
+values ('Earleen', 'Earleen');
 insert into StudentsList (`name`, `last_name`)
-values ("Earlene", "Earlene");
+values ('Earlene', 'Earlene');
 insert into StudentsList (`name`, `last_name`)
-values ("Earlie", "Earlie");
+values ('Earlie', 'Earlie');
 insert into StudentsList (`name`, `last_name`)
-values ("Earline", "Earline");
+values ('Earline', 'Earline');
 insert into StudentsList (`name`, `last_name`)
-values ("Earnest", "Earnest");
+values ('Earnest', 'Earnest');
 insert into StudentsList (`name`, `last_name`)
-values ("Earnestine", "Earnestine");
+values ('Earnestine', 'Earnestine');
 insert into StudentsList (`name`, `last_name`)
-values ("Eartha", "Eartha");
+values ('Eartha', 'Eartha');
 insert into StudentsList (`name`, `last_name`)
-values ("Easter", "Easter");
+values ('Easter', 'Easter');
 insert into StudentsList (`name`, `last_name`)
-values ("Eboni", "Eboni");
+values ('Eboni', 'Eboni');
 insert into StudentsList (`name`, `last_name`)
-values ("Ebonie", "Ebonie");
+values ('Ebonie', 'Ebonie');
 insert into StudentsList (`name`, `last_name`)
-values ("Ebony", "Ebony");
+values ('Ebony', 'Ebony');
 insert into StudentsList (`name`, `last_name`)
-values ("Echo", "Echo");
+values ('Echo', 'Echo');
 insert into StudentsList (`name`, `last_name`)
-values ("Ed", "Ed");
+values ('Ed', 'Ed');
 insert into StudentsList (`name`, `last_name`)
-values ("Eda", "Eda");
+values ('Eda', 'Eda');
 insert into StudentsList (`name`, `last_name`)
-values ("Edda", "Edda");
+values ('Edda', 'Edda');
 insert into StudentsList (`name`, `last_name`)
-values ("Eddie", "Eddie");
+values ('Eddie', 'Eddie');
 insert into StudentsList (`name`, `last_name`)
-values ("Eddy", "Eddy");
+values ('Eddy', 'Eddy');
 insert into StudentsList (`name`, `last_name`)
-values ("Edelmira", "Edelmira");
+values ('Edelmira', 'Edelmira');
 insert into StudentsList (`name`, `last_name`)
-values ("Eden", "Eden");
+values ('Eden', 'Eden');
 insert into StudentsList (`name`, `last_name`)
-values ("Edgar", "Edgar");
+values ('Edgar', 'Edgar');
 insert into StudentsList (`name`, `last_name`)
-values ("Edgardo", "Edgardo");
+values ('Edgardo', 'Edgardo');
 insert into StudentsList (`name`, `last_name`)
-values ("Edie", "Edie");
+values ('Edie', 'Edie');
 insert into StudentsList (`name`, `last_name`)
-values ("Edison", "Edison");
+values ('Edison', 'Edison');
 insert into StudentsList (`name`, `last_name`)
-values ("Edith", "Edith");
+values ('Edith', 'Edith');
 insert into StudentsList (`name`, `last_name`)
-values ("Edmond", "Edmond");
+values ('Edmond', 'Edmond');
 insert into StudentsList (`name`, `last_name`)
-values ("Edmund", "Edmund");
+values ('Edmund', 'Edmund');
 insert into StudentsList (`name`, `last_name`)
-values ("Edmundo", "Edmundo");
+values ('Edmundo', 'Edmundo');
 insert into StudentsList (`name`, `last_name`)
-values ("Edna", "Edna");
+values ('Edna', 'Edna');
 insert into StudentsList (`name`, `last_name`)
-values ("Edra", "Edra");
+values ('Edra', 'Edra');
 insert into StudentsList (`name`, `last_name`)
-values ("Edris", "Edris");
+values ('Edris', 'Edris');
 insert into StudentsList (`name`, `last_name`)
-values ("Eduardo", "Eduardo");
+values ('Eduardo', 'Eduardo');
 insert into StudentsList (`name`, `last_name`)
-values ("Edward", "Edward");
+values ('Edward', 'Edward');
 insert into StudentsList (`name`, `last_name`)
-values ("Edwardo", "Edwardo");
+values ('Edwardo', 'Edwardo');
 insert into StudentsList (`name`, `last_name`)
-values ("Edwin", "Edwin");
+values ('Edwin', 'Edwin');
 insert into StudentsList (`name`, `last_name`)
-values ("Edwina", "Edwina");
+values ('Edwina', 'Edwina');
 insert into StudentsList (`name`, `last_name`)
-values ("Edyth", "Edyth");
+values ('Edyth', 'Edyth');
 insert into StudentsList (`name`, `last_name`)
-values ("Edythe", "Edythe");
+values ('Edythe', 'Edythe');
 insert into StudentsList (`name`, `last_name`)
-values ("Effie", "Effie");
+values ('Effie', 'Effie');
 insert into StudentsList (`name`, `last_name`)
-values ("Efrain", "Efrain");
+values ('Efrain', 'Efrain');
 insert into StudentsList (`name`, `last_name`)
-values ("Efren", "Efren");
+values ('Efren', 'Efren');
 insert into StudentsList (`name`, `last_name`)
-values ("Ehtel", "Ehtel");
+values ('Ehtel', 'Ehtel');
 insert into StudentsList (`name`, `last_name`)
-values ("Eileen", "Eileen");
+values ('Eileen', 'Eileen');
 insert into StudentsList (`name`, `last_name`)
-values ("Eilene", "Eilene");
+values ('Eilene', 'Eilene');
 insert into StudentsList (`name`, `last_name`)
-values ("Ela", "Ela");
+values ('Ela', 'Ela');
 insert into StudentsList (`name`, `last_name`)
-values ("Eladia", "Eladia");
+values ('Eladia', 'Eladia');
 insert into StudentsList (`name`, `last_name`)
-values ("Elaina", "Elaina");
+values ('Elaina', 'Elaina');
 insert into StudentsList (`name`, `last_name`)
-values ("Elaine", "Elaine");
+values ('Elaine', 'Elaine');
 insert into StudentsList (`name`, `last_name`)
-values ("Elana", "Elana");
+values ('Elana', 'Elana');
 insert into StudentsList (`name`, `last_name`)
-values ("Elane", "Elane");
+values ('Elane', 'Elane');
 insert into StudentsList (`name`, `last_name`)
-values ("Elanor", "Elanor");
+values ('Elanor', 'Elanor');
 insert into StudentsList (`name`, `last_name`)
-values ("Elayne", "Elayne");
+values ('Elayne', 'Elayne');
 insert into StudentsList (`name`, `last_name`)
-values ("Elba", "Elba");
+values ('Elba', 'Elba');
 insert into StudentsList (`name`, `last_name`)
-values ("Elbert", "Elbert");
+values ('Elbert', 'Elbert');
 insert into StudentsList (`name`, `last_name`)
-values ("Elda", "Elda");
+values ('Elda', 'Elda');
 insert into StudentsList (`name`, `last_name`)
-values ("Elden", "Elden");
+values ('Elden', 'Elden');
 insert into StudentsList (`name`, `last_name`)
-values ("Eldon", "Eldon");
+values ('Eldon', 'Eldon');
 insert into StudentsList (`name`, `last_name`)
-values ("Eldora", "Eldora");
+values ('Eldora', 'Eldora');
 insert into StudentsList (`name`, `last_name`)
-values ("Eldridge", "Eldridge");
+values ('Eldridge', 'Eldridge');
 insert into StudentsList (`name`, `last_name`)
-values ("Eleanor", "Eleanor");
+values ('Eleanor', 'Eleanor');
 insert into StudentsList (`name`, `last_name`)
-values ("Eleanora", "Eleanora");
+values ('Eleanora', 'Eleanora');
 insert into StudentsList (`name`, `last_name`)
-values ("Eleanore", "Eleanore");
+values ('Eleanore', 'Eleanore');
 insert into StudentsList (`name`, `last_name`)
-values ("Elease", "Elease");
+values ('Elease', 'Elease');
 insert into StudentsList (`name`, `last_name`)
-values ("Elena", "Elena");
+values ('Elena', 'Elena');
 insert into StudentsList (`name`, `last_name`)
-values ("Elene", "Elene");
+values ('Elene', 'Elene');
 insert into StudentsList (`name`, `last_name`)
-values ("Eleni", "Eleni");
+values ('Eleni', 'Eleni');
 insert into StudentsList (`name`, `last_name`)
-values ("Elenor", "Elenor");
+values ('Elenor', 'Elenor');
 insert into StudentsList (`name`, `last_name`)
-values ("Elenora", "Elenora");
+values ('Elenora', 'Elenora');
 insert into StudentsList (`name`, `last_name`)
-values ("Elenore", "Elenore");
+values ('Elenore', 'Elenore');
 insert into StudentsList (`name`, `last_name`)
-values ("Eleonor", "Eleonor");
+values ('Eleonor', 'Eleonor');
 insert into StudentsList (`name`, `last_name`)
-values ("Eleonora", "Eleonora");
+values ('Eleonora', 'Eleonora');
 insert into StudentsList (`name`, `last_name`)
-values ("Eleonore", "Eleonore");
+values ('Eleonore', 'Eleonore');
 insert into StudentsList (`name`, `last_name`)
-values ("Elfreda", "Elfreda");
+values ('Elfreda', 'Elfreda');
 insert into StudentsList (`name`, `last_name`)
-values ("Elfrieda", "Elfrieda");
+values ('Elfrieda', 'Elfrieda');
 insert into StudentsList (`name`, `last_name`)
-values ("Elfriede", "Elfriede");
+values ('Elfriede', 'Elfriede');
 insert into StudentsList (`name`, `last_name`)
-values ("Eli", "Eli");
+values ('Eli', 'Eli');
 insert into StudentsList (`name`, `last_name`)
-values ("Elia", "Elia");
+values ('Elia', 'Elia');
 insert into StudentsList (`name`, `last_name`)
-values ("Eliana", "Eliana");
+values ('Eliana', 'Eliana');
 insert into StudentsList (`name`, `last_name`)
-values ("Elias", "Elias");
+values ('Elias', 'Elias');
 insert into StudentsList (`name`, `last_name`)
-values ("Elicia", "Elicia");
+values ('Elicia', 'Elicia');
 insert into StudentsList (`name`, `last_name`)
-values ("Elida", "Elida");
+values ('Elida', 'Elida');
 insert into StudentsList (`name`, `last_name`)
-values ("Elidia", "Elidia");
+values ('Elidia', 'Elidia');
 insert into StudentsList (`name`, `last_name`)
-values ("Elijah", "Elijah");
+values ('Elijah', 'Elijah');
 insert into StudentsList (`name`, `last_name`)
-values ("Elin", "Elin");
+values ('Elin', 'Elin');
 insert into StudentsList (`name`, `last_name`)
-values ("Elina", "Elina");
+values ('Elina', 'Elina');
 insert into StudentsList (`name`, `last_name`)
-values ("Elinor", "Elinor");
+values ('Elinor', 'Elinor');
 insert into StudentsList (`name`, `last_name`)
-values ("Elinore", "Elinore");
+values ('Elinore', 'Elinore');
 insert into StudentsList (`name`, `last_name`)
-values ("Elisa", "Elisa");
+values ('Elisa', 'Elisa');
 insert into StudentsList (`name`, `last_name`)
-values ("Elisabeth", "Elisabeth");
+values ('Elisabeth', 'Elisabeth');
 insert into StudentsList (`name`, `last_name`)
-values ("Elise", "Elise");
+values ('Elise', 'Elise');
 insert into StudentsList (`name`, `last_name`)
-values ("Eliseo", "Eliseo");
+values ('Eliseo', 'Eliseo');
 insert into StudentsList (`name`, `last_name`)
-values ("Elisha", "Elisha");
+values ('Elisha', 'Elisha');
 insert into StudentsList (`name`, `last_name`)
-values ("Elissa", "Elissa");
+values ('Elissa', 'Elissa');
 insert into StudentsList (`name`, `last_name`)
-values ("Eliz", "Eliz");
+values ('Eliz', 'Eliz');
 insert into StudentsList (`name`, `last_name`)
-values ("Eliza", "Eliza");
+values ('Eliza', 'Eliza');
 insert into StudentsList (`name`, `last_name`)
-values ("Elizabet", "Elizabet");
+values ('Elizabet', 'Elizabet');
 insert into StudentsList (`name`, `last_name`)
-values ("Elizabeth", "Elizabeth");
+values ('Elizabeth', 'Elizabeth');
 insert into StudentsList (`name`, `last_name`)
-values ("Elizbeth", "Elizbeth");
+values ('Elizbeth', 'Elizbeth');
 insert into StudentsList (`name`, `last_name`)
-values ("Elizebeth", "Elizebeth");
+values ('Elizebeth', 'Elizebeth');
 insert into StudentsList (`name`, `last_name`)
-values ("Elke", "Elke");
+values ('Elke', 'Elke');
 insert into StudentsList (`name`, `last_name`)
-values ("Ella", "Ella");
+values ('Ella', 'Ella');
 insert into StudentsList (`name`, `last_name`)
-values ("Ellamae", "Ellamae");
+values ('Ellamae', 'Ellamae');
 insert into StudentsList (`name`, `last_name`)
-values ("Ellan", "Ellan");
+values ('Ellan', 'Ellan');
 insert into StudentsList (`name`, `last_name`)
-values ("Ellen", "Ellen");
+values ('Ellen', 'Ellen');
 insert into StudentsList (`name`, `last_name`)
-values ("Ellena", "Ellena");
+values ('Ellena', 'Ellena');
 insert into StudentsList (`name`, `last_name`)
-values ("Elli", "Elli");
+values ('Elli', 'Elli');
 insert into StudentsList (`name`, `last_name`)
-values ("Ellie", "Ellie");
+values ('Ellie', 'Ellie');
 insert into StudentsList (`name`, `last_name`)
-values ("Elliot", "Elliot");
+values ('Elliot', 'Elliot');
 insert into StudentsList (`name`, `last_name`)
-values ("Elliott", "Elliott");
+values ('Elliott', 'Elliott');
 insert into StudentsList (`name`, `last_name`)
-values ("Ellis", "Ellis");
+values ('Ellis', 'Ellis');
 insert into StudentsList (`name`, `last_name`)
-values ("Ellsworth", "Ellsworth");
+values ('Ellsworth', 'Ellsworth');
 insert into StudentsList (`name`, `last_name`)
-values ("Elly", "Elly");
+values ('Elly', 'Elly');
 insert into StudentsList (`name`, `last_name`)
-values ("Ellyn", "Ellyn");
+values ('Ellyn', 'Ellyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Elma", "Elma");
+values ('Elma', 'Elma');
 insert into StudentsList (`name`, `last_name`)
-values ("Elmer", "Elmer");
+values ('Elmer', 'Elmer');
 insert into StudentsList (`name`, `last_name`)
-values ("Elmira", "Elmira");
+values ('Elmira', 'Elmira');
 insert into StudentsList (`name`, `last_name`)
-values ("Elmo", "Elmo");
+values ('Elmo', 'Elmo');
 insert into StudentsList (`name`, `last_name`)
-values ("Elna", "Elna");
+values ('Elna', 'Elna');
 insert into StudentsList (`name`, `last_name`)
-values ("Elnora", "Elnora");
+values ('Elnora', 'Elnora');
 insert into StudentsList (`name`, `last_name`)
-values ("Elodia", "Elodia");
+values ('Elodia', 'Elodia');
 insert into StudentsList (`name`, `last_name`)
-values ("Elois", "Elois");
+values ('Elois', 'Elois');
 insert into StudentsList (`name`, `last_name`)
-values ("Eloisa", "Eloisa");
+values ('Eloisa', 'Eloisa');
 insert into StudentsList (`name`, `last_name`)
-values ("Eloise", "Eloise");
+values ('Eloise', 'Eloise');
 insert into StudentsList (`name`, `last_name`)
-values ("Elouise", "Elouise");
+values ('Elouise', 'Elouise');
 insert into StudentsList (`name`, `last_name`)
-values ("Eloy", "Eloy");
+values ('Eloy', 'Eloy');
 insert into StudentsList (`name`, `last_name`)
-values ("Elroy", "Elroy");
+values ('Elroy', 'Elroy');
 insert into StudentsList (`name`, `last_name`)
-values ("Elsa", "Elsa");
+values ('Elsa', 'Elsa');
 insert into StudentsList (`name`, `last_name`)
-values ("Else", "Else");
+values ('Else', 'Else');
 insert into StudentsList (`name`, `last_name`)
-values ("Elsie", "Elsie");
+values ('Elsie', 'Elsie');
 insert into StudentsList (`name`, `last_name`)
-values ("Elsy", "Elsy");
+values ('Elsy', 'Elsy');
 insert into StudentsList (`name`, `last_name`)
-values ("Elton", "Elton");
+values ('Elton', 'Elton');
 insert into StudentsList (`name`, `last_name`)
-values ("Elva", "Elva");
+values ('Elva', 'Elva');
 insert into StudentsList (`name`, `last_name`)
-values ("Elvera", "Elvera");
+values ('Elvera', 'Elvera');
 insert into StudentsList (`name`, `last_name`)
-values ("Elvia", "Elvia");
+values ('Elvia', 'Elvia');
 insert into StudentsList (`name`, `last_name`)
-values ("Elvie", "Elvie");
+values ('Elvie', 'Elvie');
 insert into StudentsList (`name`, `last_name`)
-values ("Elvin", "Elvin");
+values ('Elvin', 'Elvin');
 insert into StudentsList (`name`, `last_name`)
-values ("Elvina", "Elvina");
+values ('Elvina', 'Elvina');
 insert into StudentsList (`name`, `last_name`)
-values ("Elvira", "Elvira");
+values ('Elvira', 'Elvira');
 insert into StudentsList (`name`, `last_name`)
-values ("Elvis", "Elvis");
+values ('Elvis', 'Elvis');
 insert into StudentsList (`name`, `last_name`)
-values ("Elwanda", "Elwanda");
+values ('Elwanda', 'Elwanda');
 insert into StudentsList (`name`, `last_name`)
-values ("Elwood", "Elwood");
+values ('Elwood', 'Elwood');
 insert into StudentsList (`name`, `last_name`)
-values ("Elyse", "Elyse");
+values ('Elyse', 'Elyse');
 insert into StudentsList (`name`, `last_name`)
-values ("Elza", "Elza");
+values ('Elza', 'Elza');
 insert into StudentsList (`name`, `last_name`)
-values ("Ema", "Ema");
+values ('Ema', 'Ema');
 insert into StudentsList (`name`, `last_name`)
-values ("Emanuel", "Emanuel");
+values ('Emanuel', 'Emanuel');
 insert into StudentsList (`name`, `last_name`)
-values ("Emelda", "Emelda");
+values ('Emelda', 'Emelda');
 insert into StudentsList (`name`, `last_name`)
-values ("Emelia", "Emelia");
+values ('Emelia', 'Emelia');
 insert into StudentsList (`name`, `last_name`)
-values ("Emelina", "Emelina");
+values ('Emelina', 'Emelina');
 insert into StudentsList (`name`, `last_name`)
-values ("Emeline", "Emeline");
+values ('Emeline', 'Emeline');
 insert into StudentsList (`name`, `last_name`)
-values ("Emely", "Emely");
+values ('Emely', 'Emely');
 insert into StudentsList (`name`, `last_name`)
-values ("Emerald", "Emerald");
+values ('Emerald', 'Emerald');
 insert into StudentsList (`name`, `last_name`)
-values ("Emerita", "Emerita");
+values ('Emerita', 'Emerita');
 insert into StudentsList (`name`, `last_name`)
-values ("Emerson", "Emerson");
+values ('Emerson', 'Emerson');
 insert into StudentsList (`name`, `last_name`)
-values ("Emery", "Emery");
+values ('Emery', 'Emery');
 insert into StudentsList (`name`, `last_name`)
-values ("Emiko", "Emiko");
+values ('Emiko', 'Emiko');
 insert into StudentsList (`name`, `last_name`)
-values ("Emil", "Emil");
+values ('Emil', 'Emil');
 insert into StudentsList (`name`, `last_name`)
-values ("Emile", "Emile");
+values ('Emile', 'Emile');
 insert into StudentsList (`name`, `last_name`)
-values ("Emilee", "Emilee");
+values ('Emilee', 'Emilee');
 insert into StudentsList (`name`, `last_name`)
-values ("Emilia", "Emilia");
+values ('Emilia', 'Emilia');
 insert into StudentsList (`name`, `last_name`)
-values ("Emilie", "Emilie");
+values ('Emilie', 'Emilie');
 insert into StudentsList (`name`, `last_name`)
-values ("Emilio", "Emilio");
+values ('Emilio', 'Emilio');
 insert into StudentsList (`name`, `last_name`)
-values ("Emily", "Emily");
+values ('Emily', 'Emily');
 insert into StudentsList (`name`, `last_name`)
-values ("Emma", "Emma");
+values ('Emma', 'Emma');
 insert into StudentsList (`name`, `last_name`)
-values ("Emmaline", "Emmaline");
+values ('Emmaline', 'Emmaline');
 insert into StudentsList (`name`, `last_name`)
-values ("Emmanuel", "Emmanuel");
+values ('Emmanuel', 'Emmanuel');
 insert into StudentsList (`name`, `last_name`)
-values ("Emmett", "Emmett");
+values ('Emmett', 'Emmett');
 insert into StudentsList (`name`, `last_name`)
-values ("Emmie", "Emmie");
+values ('Emmie', 'Emmie');
 insert into StudentsList (`name`, `last_name`)
-values ("Emmitt", "Emmitt");
+values ('Emmitt', 'Emmitt');
 insert into StudentsList (`name`, `last_name`)
-values ("Emmy", "Emmy");
+values ('Emmy', 'Emmy');
 insert into StudentsList (`name`, `last_name`)
-values ("Emogene", "Emogene");
+values ('Emogene', 'Emogene');
 insert into StudentsList (`name`, `last_name`)
-values ("Emory", "Emory");
+values ('Emory', 'Emory');
 insert into StudentsList (`name`, `last_name`)
-values ("Ena", "Ena");
+values ('Ena', 'Ena');
 insert into StudentsList (`name`, `last_name`)
-values ("Enda", "Enda");
+values ('Enda', 'Enda');
 insert into StudentsList (`name`, `last_name`)
-values ("Enedina", "Enedina");
+values ('Enedina', 'Enedina');
 insert into StudentsList (`name`, `last_name`)
-values ("Eneida", "Eneida");
+values ('Eneida', 'Eneida');
 insert into StudentsList (`name`, `last_name`)
-values ("Enid", "Enid");
+values ('Enid', 'Enid');
 insert into StudentsList (`name`, `last_name`)
-values ("Enoch", "Enoch");
+values ('Enoch', 'Enoch');
 insert into StudentsList (`name`, `last_name`)
-values ("Enola", "Enola");
+values ('Enola', 'Enola');
 insert into StudentsList (`name`, `last_name`)
-values ("Enrique", "Enrique");
+values ('Enrique', 'Enrique');
 insert into StudentsList (`name`, `last_name`)
-values ("Enriqueta", "Enriqueta");
+values ('Enriqueta', 'Enriqueta');
 insert into StudentsList (`name`, `last_name`)
-values ("Epifania", "Epifania");
+values ('Epifania', 'Epifania');
 insert into StudentsList (`name`, `last_name`)
-values ("Era", "Era");
+values ('Era', 'Era');
 insert into StudentsList (`name`, `last_name`)
-values ("Erasmo", "Erasmo");
+values ('Erasmo', 'Erasmo');
 insert into StudentsList (`name`, `last_name`)
-values ("Eric", "Eric");
+values ('Eric', 'Eric');
 insert into StudentsList (`name`, `last_name`)
-values ("Erica", "Erica");
+values ('Erica', 'Erica');
 insert into StudentsList (`name`, `last_name`)
-values ("Erich", "Erich");
+values ('Erich', 'Erich');
 insert into StudentsList (`name`, `last_name`)
-values ("Erick", "Erick");
+values ('Erick', 'Erick');
 insert into StudentsList (`name`, `last_name`)
-values ("Ericka", "Ericka");
+values ('Ericka', 'Ericka');
 insert into StudentsList (`name`, `last_name`)
-values ("Erik", "Erik");
+values ('Erik', 'Erik');
 insert into StudentsList (`name`, `last_name`)
-values ("Erika", "Erika");
+values ('Erika', 'Erika');
 insert into StudentsList (`name`, `last_name`)
-values ("Erin", "Erin");
+values ('Erin', 'Erin');
 insert into StudentsList (`name`, `last_name`)
-values ("Erinn", "Erinn");
+values ('Erinn', 'Erinn');
 insert into StudentsList (`name`, `last_name`)
-values ("Erlene", "Erlene");
+values ('Erlene', 'Erlene');
 insert into StudentsList (`name`, `last_name`)
-values ("Erlinda", "Erlinda");
+values ('Erlinda', 'Erlinda');
 insert into StudentsList (`name`, `last_name`)
-values ("Erline", "Erline");
+values ('Erline', 'Erline');
 insert into StudentsList (`name`, `last_name`)
-values ("Erma", "Erma");
+values ('Erma', 'Erma');
 insert into StudentsList (`name`, `last_name`)
-values ("Ermelinda", "Ermelinda");
+values ('Ermelinda', 'Ermelinda');
 insert into StudentsList (`name`, `last_name`)
-values ("Erminia", "Erminia");
+values ('Erminia', 'Erminia');
 insert into StudentsList (`name`, `last_name`)
-values ("Erna", "Erna");
+values ('Erna', 'Erna');
 insert into StudentsList (`name`, `last_name`)
-values ("Ernest", "Ernest");
+values ('Ernest', 'Ernest');
 insert into StudentsList (`name`, `last_name`)
-values ("Ernestina", "Ernestina");
+values ('Ernestina', 'Ernestina');
 insert into StudentsList (`name`, `last_name`)
-values ("Ernestine", "Ernestine");
+values ('Ernestine', 'Ernestine');
 insert into StudentsList (`name`, `last_name`)
-values ("Ernesto", "Ernesto");
+values ('Ernesto', 'Ernesto');
 insert into StudentsList (`name`, `last_name`)
-values ("Ernie", "Ernie");
+values ('Ernie', 'Ernie');
 insert into StudentsList (`name`, `last_name`)
-values ("Errol", "Errol");
+values ('Errol', 'Errol');
 insert into StudentsList (`name`, `last_name`)
-values ("Ervin", "Ervin");
+values ('Ervin', 'Ervin');
 insert into StudentsList (`name`, `last_name`)
-values ("Erwin", "Erwin");
+values ('Erwin', 'Erwin');
 insert into StudentsList (`name`, `last_name`)
-values ("Eryn", "Eryn");
+values ('Eryn', 'Eryn');
 insert into StudentsList (`name`, `last_name`)
-values ("Esmeralda", "Esmeralda");
+values ('Esmeralda', 'Esmeralda');
 insert into StudentsList (`name`, `last_name`)
-values ("Esperanza", "Esperanza");
+values ('Esperanza', 'Esperanza');
 insert into StudentsList (`name`, `last_name`)
-values ("Essie", "Essie");
+values ('Essie', 'Essie');
 insert into StudentsList (`name`, `last_name`)
-values ("Esta", "Esta");
+values ('Esta', 'Esta');
 insert into StudentsList (`name`, `last_name`)
-values ("Esteban", "Esteban");
+values ('Esteban', 'Esteban');
 insert into StudentsList (`name`, `last_name`)
-values ("Estefana", "Estefana");
+values ('Estefana', 'Estefana');
 insert into StudentsList (`name`, `last_name`)
-values ("Estela", "Estela");
+values ('Estela', 'Estela');
 insert into StudentsList (`name`, `last_name`)
-values ("Estell", "Estell");
+values ('Estell', 'Estell');
 insert into StudentsList (`name`, `last_name`)
-values ("Estella", "Estella");
+values ('Estella', 'Estella');
 insert into StudentsList (`name`, `last_name`)
-values ("Estelle", "Estelle");
+values ('Estelle', 'Estelle');
 insert into StudentsList (`name`, `last_name`)
-values ("Ester", "Ester");
+values ('Ester', 'Ester');
 insert into StudentsList (`name`, `last_name`)
-values ("Esther", "Esther");
+values ('Esther', 'Esther');
 insert into StudentsList (`name`, `last_name`)
-values ("Estrella", "Estrella");
+values ('Estrella', 'Estrella');
 insert into StudentsList (`name`, `last_name`)
-values ("Etha", "Etha");
+values ('Etha', 'Etha');
 insert into StudentsList (`name`, `last_name`)
-values ("Ethan", "Ethan");
+values ('Ethan', 'Ethan');
 insert into StudentsList (`name`, `last_name`)
-values ("Ethel", "Ethel");
+values ('Ethel', 'Ethel');
 insert into StudentsList (`name`, `last_name`)
-values ("Ethelene", "Ethelene");
+values ('Ethelene', 'Ethelene');
 insert into StudentsList (`name`, `last_name`)
-values ("Ethelyn", "Ethelyn");
+values ('Ethelyn', 'Ethelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Ethyl", "Ethyl");
+values ('Ethyl', 'Ethyl');
 insert into StudentsList (`name`, `last_name`)
-values ("Etsuko", "Etsuko");
+values ('Etsuko', 'Etsuko');
 insert into StudentsList (`name`, `last_name`)
-values ("Etta", "Etta");
+values ('Etta', 'Etta');
 insert into StudentsList (`name`, `last_name`)
-values ("Ettie", "Ettie");
+values ('Ettie', 'Ettie');
 insert into StudentsList (`name`, `last_name`)
-values ("Eufemia", "Eufemia");
+values ('Eufemia', 'Eufemia');
 insert into StudentsList (`name`, `last_name`)
-values ("Eugena", "Eugena");
+values ('Eugena', 'Eugena');
 insert into StudentsList (`name`, `last_name`)
-values ("Eugene", "Eugene");
+values ('Eugene', 'Eugene');
 insert into StudentsList (`name`, `last_name`)
-values ("Eugenia", "Eugenia");
+values ('Eugenia', 'Eugenia');
 insert into StudentsList (`name`, `last_name`)
-values ("Eugenie", "Eugenie");
+values ('Eugenie', 'Eugenie');
 insert into StudentsList (`name`, `last_name`)
-values ("Eugenio", "Eugenio");
+values ('Eugenio', 'Eugenio');
 insert into StudentsList (`name`, `last_name`)
-values ("Eula", "Eula");
+values ('Eula', 'Eula');
 insert into StudentsList (`name`, `last_name`)
-values ("Eulah", "Eulah");
+values ('Eulah', 'Eulah');
 insert into StudentsList (`name`, `last_name`)
-values ("Eulalia", "Eulalia");
+values ('Eulalia', 'Eulalia');
 insert into StudentsList (`name`, `last_name`)
-values ("Eun", "Eun");
+values ('Eun', 'Eun');
 insert into StudentsList (`name`, `last_name`)
-values ("Euna", "Euna");
+values ('Euna', 'Euna');
 insert into StudentsList (`name`, `last_name`)
-values ("Eunice", "Eunice");
+values ('Eunice', 'Eunice');
 insert into StudentsList (`name`, `last_name`)
-values ("Eura", "Eura");
+values ('Eura', 'Eura');
 insert into StudentsList (`name`, `last_name`)
-values ("Eusebia", "Eusebia");
+values ('Eusebia', 'Eusebia');
 insert into StudentsList (`name`, `last_name`)
-values ("Eusebio", "Eusebio");
+values ('Eusebio', 'Eusebio');
 insert into StudentsList (`name`, `last_name`)
-values ("Eustolia", "Eustolia");
+values ('Eustolia', 'Eustolia');
 insert into StudentsList (`name`, `last_name`)
-values ("Eva", "Eva");
+values ('Eva', 'Eva');
 insert into StudentsList (`name`, `last_name`)
-values ("Evalyn", "Evalyn");
+values ('Evalyn', 'Evalyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Evan", "Evan");
+values ('Evan', 'Evan');
 insert into StudentsList (`name`, `last_name`)
-values ("Evangelina", "Evangelina");
+values ('Evangelina', 'Evangelina');
 insert into StudentsList (`name`, `last_name`)
-values ("Evangeline", "Evangeline");
+values ('Evangeline', 'Evangeline');
 insert into StudentsList (`name`, `last_name`)
-values ("Eve", "Eve");
+values ('Eve', 'Eve');
 insert into StudentsList (`name`, `last_name`)
-values ("Evelia", "Evelia");
+values ('Evelia', 'Evelia');
 insert into StudentsList (`name`, `last_name`)
-values ("Evelin", "Evelin");
+values ('Evelin', 'Evelin');
 insert into StudentsList (`name`, `last_name`)
-values ("Evelina", "Evelina");
+values ('Evelina', 'Evelina');
 insert into StudentsList (`name`, `last_name`)
-values ("Eveline", "Eveline");
+values ('Eveline', 'Eveline');
 insert into StudentsList (`name`, `last_name`)
-values ("Evelyn", "Evelyn");
+values ('Evelyn', 'Evelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Evelyne", "Evelyne");
+values ('Evelyne', 'Evelyne');
 insert into StudentsList (`name`, `last_name`)
-values ("Evelynn", "Evelynn");
+values ('Evelynn', 'Evelynn');
 insert into StudentsList (`name`, `last_name`)
-values ("Everett", "Everett");
+values ('Everett', 'Everett');
 insert into StudentsList (`name`, `last_name`)
-values ("Everette", "Everette");
+values ('Everette', 'Everette');
 insert into StudentsList (`name`, `last_name`)
-values ("Evette", "Evette");
+values ('Evette', 'Evette');
 insert into StudentsList (`name`, `last_name`)
-values ("Evia", "Evia");
+values ('Evia', 'Evia');
 insert into StudentsList (`name`, `last_name`)
-values ("Evie", "Evie");
+values ('Evie', 'Evie');
 insert into StudentsList (`name`, `last_name`)
-values ("Evita", "Evita");
+values ('Evita', 'Evita');
 insert into StudentsList (`name`, `last_name`)
-values ("Evon", "Evon");
+values ('Evon', 'Evon');
 insert into StudentsList (`name`, `last_name`)
-values ("Evonne", "Evonne");
+values ('Evonne', 'Evonne');
 insert into StudentsList (`name`, `last_name`)
-values ("Ewa", "Ewa");
+values ('Ewa', 'Ewa');
 insert into StudentsList (`name`, `last_name`)
-values ("Exie", "Exie");
+values ('Exie', 'Exie');
 insert into StudentsList (`name`, `last_name`)
-values ("Ezekiel", "Ezekiel");
+values ('Ezekiel', 'Ezekiel');
 insert into StudentsList (`name`, `last_name`)
-values ("Ezequiel", "Ezequiel");
+values ('Ezequiel', 'Ezequiel');
 insert into StudentsList (`name`, `last_name`)
-values ("Ezra", "Ezra");
+values ('Ezra', 'Ezra');
 insert into StudentsList (`name`, `last_name`)
-values ("Fabian", "Fabian");
+values ('Fabian', 'Fabian');
 insert into StudentsList (`name`, `last_name`)
-values ("Fabiola", "Fabiola");
+values ('Fabiola', 'Fabiola');
 insert into StudentsList (`name`, `last_name`)
-values ("Fae", "Fae");
+values ('Fae', 'Fae');
 insert into StudentsList (`name`, `last_name`)
-values ("Fairy", "Fairy");
+values ('Fairy', 'Fairy');
 insert into StudentsList (`name`, `last_name`)
-values ("Faith", "Faith");
+values ('Faith', 'Faith');
 insert into StudentsList (`name`, `last_name`)
-values ("Fallon", "Fallon");
+values ('Fallon', 'Fallon');
 insert into StudentsList (`name`, `last_name`)
-values ("Fannie", "Fannie");
+values ('Fannie', 'Fannie');
 insert into StudentsList (`name`, `last_name`)
-values ("Fanny", "Fanny");
+values ('Fanny', 'Fanny');
 insert into StudentsList (`name`, `last_name`)
-values ("Farah", "Farah");
+values ('Farah', 'Farah');
 insert into StudentsList (`name`, `last_name`)
-values ("Farrah", "Farrah");
+values ('Farrah', 'Farrah');
 insert into StudentsList (`name`, `last_name`)
-values ("Fatima", "Fatima");
+values ('Fatima', 'Fatima');
 insert into StudentsList (`name`, `last_name`)
-values ("Fatimah", "Fatimah");
+values ('Fatimah', 'Fatimah');
 insert into StudentsList (`name`, `last_name`)
-values ("Faustina", "Faustina");
+values ('Faustina', 'Faustina');
 insert into StudentsList (`name`, `last_name`)
-values ("Faustino", "Faustino");
+values ('Faustino', 'Faustino');
 insert into StudentsList (`name`, `last_name`)
-values ("Fausto", "Fausto");
+values ('Fausto', 'Fausto');
 insert into StudentsList (`name`, `last_name`)
-values ("Faviola", "Faviola");
+values ('Faviola', 'Faviola');
 insert into StudentsList (`name`, `last_name`)
-values ("Fawn", "Fawn");
+values ('Fawn', 'Fawn');
 insert into StudentsList (`name`, `last_name`)
-values ("Fay", "Fay");
+values ('Fay', 'Fay');
 insert into StudentsList (`name`, `last_name`)
-values ("Faye", "Faye");
+values ('Faye', 'Faye');
 insert into StudentsList (`name`, `last_name`)
-values ("Fe", "Fe");
+values ('Fe', 'Fe');
 insert into StudentsList (`name`, `last_name`)
-values ("Federico", "Federico");
+values ('Federico', 'Federico');
 insert into StudentsList (`name`, `last_name`)
-values ("Felecia", "Felecia");
+values ('Felecia', 'Felecia');
 insert into StudentsList (`name`, `last_name`)
-values ("Felica", "Felica");
+values ('Felica', 'Felica');
 insert into StudentsList (`name`, `last_name`)
-values ("Felice", "Felice");
+values ('Felice', 'Felice');
 insert into StudentsList (`name`, `last_name`)
-values ("Felicia", "Felicia");
+values ('Felicia', 'Felicia');
 insert into StudentsList (`name`, `last_name`)
-values ("Felicidad", "Felicidad");
+values ('Felicidad', 'Felicidad');
 insert into StudentsList (`name`, `last_name`)
-values ("Felicita", "Felicita");
+values ('Felicita', 'Felicita');
 insert into StudentsList (`name`, `last_name`)
-values ("Felicitas", "Felicitas");
+values ('Felicitas', 'Felicitas');
 insert into StudentsList (`name`, `last_name`)
-values ("Felipa", "Felipa");
+values ('Felipa', 'Felipa');
 insert into StudentsList (`name`, `last_name`)
-values ("Felipe", "Felipe");
+values ('Felipe', 'Felipe');
 insert into StudentsList (`name`, `last_name`)
-values ("Felisa", "Felisa");
+values ('Felisa', 'Felisa');
 insert into StudentsList (`name`, `last_name`)
-values ("Felisha", "Felisha");
+values ('Felisha', 'Felisha');
 insert into StudentsList (`name`, `last_name`)
-values ("Felix", "Felix");
+values ('Felix', 'Felix');
 insert into StudentsList (`name`, `last_name`)
-values ("Felton", "Felton");
+values ('Felton', 'Felton');
 insert into StudentsList (`name`, `last_name`)
-values ("Ferdinand", "Ferdinand");
+values ('Ferdinand', 'Ferdinand');
 insert into StudentsList (`name`, `last_name`)
-values ("Fermin", "Fermin");
+values ('Fermin', 'Fermin');
 insert into StudentsList (`name`, `last_name`)
-values ("Fermina", "Fermina");
+values ('Fermina', 'Fermina');
 insert into StudentsList (`name`, `last_name`)
-values ("Fern", "Fern");
+values ('Fern', 'Fern');
 insert into StudentsList (`name`, `last_name`)
-values ("Fernanda", "Fernanda");
+values ('Fernanda', 'Fernanda');
 insert into StudentsList (`name`, `last_name`)
-values ("Fernande", "Fernande");
+values ('Fernande', 'Fernande');
 insert into StudentsList (`name`, `last_name`)
-values ("Fernando", "Fernando");
+values ('Fernando', 'Fernando');
 insert into StudentsList (`name`, `last_name`)
-values ("Ferne", "Ferne");
+values ('Ferne', 'Ferne');
 insert into StudentsList (`name`, `last_name`)
-values ("Fidel", "Fidel");
+values ('Fidel', 'Fidel');
 insert into StudentsList (`name`, `last_name`)
-values ("Fidela", "Fidela");
+values ('Fidela', 'Fidela');
 insert into StudentsList (`name`, `last_name`)
-values ("Fidelia", "Fidelia");
+values ('Fidelia', 'Fidelia');
 insert into StudentsList (`name`, `last_name`)
-values ("Filiberto", "Filiberto");
+values ('Filiberto', 'Filiberto');
 insert into StudentsList (`name`, `last_name`)
-values ("Filomena", "Filomena");
+values ('Filomena', 'Filomena');
 insert into StudentsList (`name`, `last_name`)
-values ("Fiona", "Fiona");
+values ('Fiona', 'Fiona');
 insert into StudentsList (`name`, `last_name`)
-values ("Flavia", "Flavia");
+values ('Flavia', 'Flavia');
 insert into StudentsList (`name`, `last_name`)
-values ("Fleta", "Fleta");
+values ('Fleta', 'Fleta');
 insert into StudentsList (`name`, `last_name`)
-values ("Fletcher", "Fletcher");
+values ('Fletcher', 'Fletcher');
 insert into StudentsList (`name`, `last_name`)
-values ("Flo", "Flo");
+values ('Flo', 'Flo');
 insert into StudentsList (`name`, `last_name`)
-values ("Flor", "Flor");
+values ('Flor', 'Flor');
 insert into StudentsList (`name`, `last_name`)
-values ("Flora", "Flora");
+values ('Flora', 'Flora');
 insert into StudentsList (`name`, `last_name`)
-values ("Florance", "Florance");
+values ('Florance', 'Florance');
 insert into StudentsList (`name`, `last_name`)
-values ("Florence", "Florence");
+values ('Florence', 'Florence');
 insert into StudentsList (`name`, `last_name`)
-values ("Florencia", "Florencia");
+values ('Florencia', 'Florencia');
 insert into StudentsList (`name`, `last_name`)
-values ("Florencio", "Florencio");
+values ('Florencio', 'Florencio');
 insert into StudentsList (`name`, `last_name`)
-values ("Florene", "Florene");
+values ('Florene', 'Florene');
 insert into StudentsList (`name`, `last_name`)
-values ("Florentina", "Florentina");
+values ('Florentina', 'Florentina');
 insert into StudentsList (`name`, `last_name`)
-values ("Florentino", "Florentino");
+values ('Florentino', 'Florentino');
 insert into StudentsList (`name`, `last_name`)
-values ("Floretta", "Floretta");
+values ('Floretta', 'Floretta');
 insert into StudentsList (`name`, `last_name`)
-values ("Floria", "Floria");
+values ('Floria', 'Floria');
 insert into StudentsList (`name`, `last_name`)
-values ("Florida", "Florida");
+values ('Florida', 'Florida');
 insert into StudentsList (`name`, `last_name`)
-values ("Florinda", "Florinda");
+values ('Florinda', 'Florinda');
 insert into StudentsList (`name`, `last_name`)
-values ("Florine", "Florine");
+values ('Florine', 'Florine');
 insert into StudentsList (`name`, `last_name`)
-values ("Florrie", "Florrie");
+values ('Florrie', 'Florrie');
 insert into StudentsList (`name`, `last_name`)
-values ("Flossie", "Flossie");
+values ('Flossie', 'Flossie');
 insert into StudentsList (`name`, `last_name`)
-values ("Floy", "Floy");
+values ('Floy', 'Floy');
 insert into StudentsList (`name`, `last_name`)
-values ("Floyd", "Floyd");
+values ('Floyd', 'Floyd');
 insert into StudentsList (`name`, `last_name`)
-values ("Fonda", "Fonda");
+values ('Fonda', 'Fonda');
 insert into StudentsList (`name`, `last_name`)
-values ("Forest", "Forest");
+values ('Forest', 'Forest');
 insert into StudentsList (`name`, `last_name`)
-values ("Forrest", "Forrest");
+values ('Forrest', 'Forrest');
 insert into StudentsList (`name`, `last_name`)
-values ("Foster", "Foster");
+values ('Foster', 'Foster');
 insert into StudentsList (`name`, `last_name`)
-values ("Fran", "Fran");
+values ('Fran', 'Fran');
 insert into StudentsList (`name`, `last_name`)
-values ("France", "France");
+values ('France', 'France');
 insert into StudentsList (`name`, `last_name`)
-values ("Francene", "Francene");
+values ('Francene', 'Francene');
 insert into StudentsList (`name`, `last_name`)
-values ("Frances", "Frances");
+values ('Frances', 'Frances');
 insert into StudentsList (`name`, `last_name`)
-values ("Francesca", "Francesca");
+values ('Francesca', 'Francesca');
 insert into StudentsList (`name`, `last_name`)
-values ("Francesco", "Francesco");
+values ('Francesco', 'Francesco');
 insert into StudentsList (`name`, `last_name`)
-values ("Franchesca", "Franchesca");
+values ('Franchesca', 'Franchesca');
 insert into StudentsList (`name`, `last_name`)
-values ("Francie", "Francie");
+values ('Francie', 'Francie');
 insert into StudentsList (`name`, `last_name`)
-values ("Francina", "Francina");
+values ('Francina', 'Francina');
 insert into StudentsList (`name`, `last_name`)
-values ("Francine", "Francine");
+values ('Francine', 'Francine');
 insert into StudentsList (`name`, `last_name`)
-values ("Francis", "Francis");
+values ('Francis', 'Francis');
 insert into StudentsList (`name`, `last_name`)
-values ("Francisca", "Francisca");
+values ('Francisca', 'Francisca');
 insert into StudentsList (`name`, `last_name`)
-values ("Francisco", "Francisco");
+values ('Francisco', 'Francisco');
 insert into StudentsList (`name`, `last_name`)
-values ("Francoise", "Francoise");
+values ('Francoise', 'Francoise');
 insert into StudentsList (`name`, `last_name`)
-values ("Frank", "Frank");
+values ('Frank', 'Frank');
 insert into StudentsList (`name`, `last_name`)
-values ("Frankie", "Frankie");
+values ('Frankie', 'Frankie');
 insert into StudentsList (`name`, `last_name`)
-values ("Franklin", "Franklin");
+values ('Franklin', 'Franklin');
 insert into StudentsList (`name`, `last_name`)
-values ("Franklyn", "Franklyn");
+values ('Franklyn', 'Franklyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Fransisca", "Fransisca");
+values ('Fransisca', 'Fransisca');
 insert into StudentsList (`name`, `last_name`)
-values ("Fred", "Fred");
+values ('Fred', 'Fred');
 insert into StudentsList (`name`, `last_name`)
-values ("Freda", "Freda");
+values ('Freda', 'Freda');
 insert into StudentsList (`name`, `last_name`)
-values ("Fredda", "Fredda");
+values ('Fredda', 'Fredda');
 insert into StudentsList (`name`, `last_name`)
-values ("Freddie", "Freddie");
+values ('Freddie', 'Freddie');
 insert into StudentsList (`name`, `last_name`)
-values ("Freddy", "Freddy");
+values ('Freddy', 'Freddy');
 insert into StudentsList (`name`, `last_name`)
-values ("Frederic", "Frederic");
+values ('Frederic', 'Frederic');
 insert into StudentsList (`name`, `last_name`)
-values ("Frederica", "Frederica");
+values ('Frederica', 'Frederica');
 insert into StudentsList (`name`, `last_name`)
-values ("Frederick", "Frederick");
+values ('Frederick', 'Frederick');
 insert into StudentsList (`name`, `last_name`)
-values ("Fredericka", "Fredericka");
+values ('Fredericka', 'Fredericka');
 insert into StudentsList (`name`, `last_name`)
-values ("Fredia", "Fredia");
+values ('Fredia', 'Fredia');
 insert into StudentsList (`name`, `last_name`)
-values ("Fredric", "Fredric");
+values ('Fredric', 'Fredric');
 insert into StudentsList (`name`, `last_name`)
-values ("Fredrick", "Fredrick");
+values ('Fredrick', 'Fredrick');
 insert into StudentsList (`name`, `last_name`)
-values ("Fredricka", "Fredricka");
+values ('Fredricka', 'Fredricka');
 insert into StudentsList (`name`, `last_name`)
-values ("Freeda", "Freeda");
+values ('Freeda', 'Freeda');
 insert into StudentsList (`name`, `last_name`)
-values ("Freeman", "Freeman");
+values ('Freeman', 'Freeman');
 insert into StudentsList (`name`, `last_name`)
-values ("Freida", "Freida");
+values ('Freida', 'Freida');
 insert into StudentsList (`name`, `last_name`)
-values ("Frida", "Frida");
+values ('Frida', 'Frida');
 insert into StudentsList (`name`, `last_name`)
-values ("Frieda", "Frieda");
+values ('Frieda', 'Frieda');
 insert into StudentsList (`name`, `last_name`)
-values ("Fritz", "Fritz");
+values ('Fritz', 'Fritz');
 insert into StudentsList (`name`, `last_name`)
-values ("Fumiko", "Fumiko");
+values ('Fumiko', 'Fumiko');
 insert into StudentsList (`name`, `last_name`)
-values ("Gabriel", "Gabriel");
+values ('Gabriel', 'Gabriel');
 insert into StudentsList (`name`, `last_name`)
-values ("Gabriela", "Gabriela");
+values ('Gabriela', 'Gabriela');
 insert into StudentsList (`name`, `last_name`)
-values ("Gabriele", "Gabriele");
+values ('Gabriele', 'Gabriele');
 insert into StudentsList (`name`, `last_name`)
-values ("Gabriella", "Gabriella");
+values ('Gabriella', 'Gabriella');
 insert into StudentsList (`name`, `last_name`)
-values ("Gabrielle", "Gabrielle");
+values ('Gabrielle', 'Gabrielle');
 insert into StudentsList (`name`, `last_name`)
-values ("Gail", "Gail");
+values ('Gail', 'Gail');
 insert into StudentsList (`name`, `last_name`)
-values ("Gala", "Gala");
+values ('Gala', 'Gala');
 insert into StudentsList (`name`, `last_name`)
-values ("Gale", "Gale");
+values ('Gale', 'Gale');
 insert into StudentsList (`name`, `last_name`)
-values ("Galen", "Galen");
+values ('Galen', 'Galen');
 insert into StudentsList (`name`, `last_name`)
-values ("Galina", "Galina");
+values ('Galina', 'Galina');
 insert into StudentsList (`name`, `last_name`)
-values ("Garfield", "Garfield");
+values ('Garfield', 'Garfield');
 insert into StudentsList (`name`, `last_name`)
-values ("Garland", "Garland");
+values ('Garland', 'Garland');
 insert into StudentsList (`name`, `last_name`)
-values ("Garnet", "Garnet");
+values ('Garnet', 'Garnet');
 insert into StudentsList (`name`, `last_name`)
-values ("Garnett", "Garnett");
+values ('Garnett', 'Garnett');
 insert into StudentsList (`name`, `last_name`)
-values ("Garret", "Garret");
+values ('Garret', 'Garret');
 insert into StudentsList (`name`, `last_name`)
-values ("Garrett", "Garrett");
+values ('Garrett', 'Garrett');
 insert into StudentsList (`name`, `last_name`)
-values ("Garry", "Garry");
+values ('Garry', 'Garry');
 insert into StudentsList (`name`, `last_name`)
-values ("Garth", "Garth");
+values ('Garth', 'Garth');
 insert into StudentsList (`name`, `last_name`)
-values ("Gary", "Gary");
+values ('Gary', 'Gary');
 insert into StudentsList (`name`, `last_name`)
-values ("Gaston", "Gaston");
+values ('Gaston', 'Gaston');
 insert into StudentsList (`name`, `last_name`)
-values ("Gavin", "Gavin");
+values ('Gavin', 'Gavin');
 insert into StudentsList (`name`, `last_name`)
-values ("Gay", "Gay");
+values ('Gay', 'Gay');
 insert into StudentsList (`name`, `last_name`)
-values ("Gaye", "Gaye");
+values ('Gaye', 'Gaye');
 insert into StudentsList (`name`, `last_name`)
-values ("Gayla", "Gayla");
+values ('Gayla', 'Gayla');
 insert into StudentsList (`name`, `last_name`)
-values ("Gayle", "Gayle");
+values ('Gayle', 'Gayle');
 insert into StudentsList (`name`, `last_name`)
-values ("Gaylene", "Gaylene");
+values ('Gaylene', 'Gaylene');
 insert into StudentsList (`name`, `last_name`)
-values ("Gaylord", "Gaylord");
+values ('Gaylord', 'Gaylord');
 insert into StudentsList (`name`, `last_name`)
-values ("Gaynell", "Gaynell");
+values ('Gaynell', 'Gaynell');
 insert into StudentsList (`name`, `last_name`)
-values ("Gaynelle", "Gaynelle");
+values ('Gaynelle', 'Gaynelle');
 insert into StudentsList (`name`, `last_name`)
-values ("Gearldine", "Gearldine");
+values ('Gearldine', 'Gearldine');
 insert into StudentsList (`name`, `last_name`)
-values ("Gema", "Gema");
+values ('Gema', 'Gema');
 insert into StudentsList (`name`, `last_name`)
-values ("Gemma", "Gemma");
+values ('Gemma', 'Gemma');
 insert into StudentsList (`name`, `last_name`)
-values ("Gena", "Gena");
+values ('Gena', 'Gena');
 insert into StudentsList (`name`, `last_name`)
-values ("Genaro", "Genaro");
+values ('Genaro', 'Genaro');
 insert into StudentsList (`name`, `last_name`)
-values ("Gene", "Gene");
+values ('Gene', 'Gene');
 insert into StudentsList (`name`, `last_name`)
-values ("Genesis", "Genesis");
+values ('Genesis', 'Genesis');
 insert into StudentsList (`name`, `last_name`)
-values ("Geneva", "Geneva");
+values ('Geneva', 'Geneva');
 insert into StudentsList (`name`, `last_name`)
-values ("Genevie", "Genevie");
+values ('Genevie', 'Genevie');
 insert into StudentsList (`name`, `last_name`)
-values ("Genevieve", "Genevieve");
+values ('Genevieve', 'Genevieve');
 insert into StudentsList (`name`, `last_name`)
-values ("Genevive", "Genevive");
+values ('Genevive', 'Genevive');
 insert into StudentsList (`name`, `last_name`)
-values ("Genia", "Genia");
+values ('Genia', 'Genia');
 insert into StudentsList (`name`, `last_name`)
-values ("Genie", "Genie");
+values ('Genie', 'Genie');
 insert into StudentsList (`name`, `last_name`)
-values ("Genna", "Genna");
+values ('Genna', 'Genna');
 insert into StudentsList (`name`, `last_name`)
-values ("Gennie", "Gennie");
+values ('Gennie', 'Gennie');
 insert into StudentsList (`name`, `last_name`)
-values ("Genny", "Genny");
+values ('Genny', 'Genny');
 insert into StudentsList (`name`, `last_name`)
-values ("Genoveva", "Genoveva");
+values ('Genoveva', 'Genoveva');
 insert into StudentsList (`name`, `last_name`)
-values ("Geoffrey", "Geoffrey");
+values ('Geoffrey', 'Geoffrey');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgann", "Georgann");
+values ('Georgann', 'Georgann');
 insert into StudentsList (`name`, `last_name`)
-values ("George", "George");
+values ('George', 'George');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgeann", "Georgeann");
+values ('Georgeann', 'Georgeann');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgeanna", "Georgeanna");
+values ('Georgeanna', 'Georgeanna');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgene", "Georgene");
+values ('Georgene', 'Georgene');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgetta", "Georgetta");
+values ('Georgetta', 'Georgetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgette", "Georgette");
+values ('Georgette', 'Georgette');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgia", "Georgia");
+values ('Georgia', 'Georgia');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgiana", "Georgiana");
+values ('Georgiana', 'Georgiana');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgiann", "Georgiann");
+values ('Georgiann', 'Georgiann');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgianna", "Georgianna");
+values ('Georgianna', 'Georgianna');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgianne", "Georgianne");
+values ('Georgianne', 'Georgianne');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgie", "Georgie");
+values ('Georgie', 'Georgie');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgina", "Georgina");
+values ('Georgina', 'Georgina');
 insert into StudentsList (`name`, `last_name`)
-values ("Georgine", "Georgine");
+values ('Georgine', 'Georgine');
 insert into StudentsList (`name`, `last_name`)
-values ("Gerald", "Gerald");
+values ('Gerald', 'Gerald');
 insert into StudentsList (`name`, `last_name`)
-values ("Geraldine", "Geraldine");
+values ('Geraldine', 'Geraldine');
 insert into StudentsList (`name`, `last_name`)
-values ("Geraldo", "Geraldo");
+values ('Geraldo', 'Geraldo');
 insert into StudentsList (`name`, `last_name`)
-values ("Geralyn", "Geralyn");
+values ('Geralyn', 'Geralyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Gerard", "Gerard");
+values ('Gerard', 'Gerard');
 insert into StudentsList (`name`, `last_name`)
-values ("Gerardo", "Gerardo");
+values ('Gerardo', 'Gerardo');
 insert into StudentsList (`name`, `last_name`)
-values ("Gerda", "Gerda");
+values ('Gerda', 'Gerda');
 insert into StudentsList (`name`, `last_name`)
-values ("Geri", "Geri");
+values ('Geri', 'Geri');
 insert into StudentsList (`name`, `last_name`)
-values ("Germaine", "Germaine");
+values ('Germaine', 'Germaine');
 insert into StudentsList (`name`, `last_name`)
-values ("German", "German");
+values ('German', 'German');
 insert into StudentsList (`name`, `last_name`)
-values ("Gerri", "Gerri");
+values ('Gerri', 'Gerri');
 insert into StudentsList (`name`, `last_name`)
-values ("Gerry", "Gerry");
+values ('Gerry', 'Gerry');
 insert into StudentsList (`name`, `last_name`)
-values ("Gertha", "Gertha");
+values ('Gertha', 'Gertha');
 insert into StudentsList (`name`, `last_name`)
-values ("Gertie", "Gertie");
+values ('Gertie', 'Gertie');
 insert into StudentsList (`name`, `last_name`)
-values ("Gertrud", "Gertrud");
+values ('Gertrud', 'Gertrud');
 insert into StudentsList (`name`, `last_name`)
-values ("Gertrude", "Gertrude");
+values ('Gertrude', 'Gertrude');
 insert into StudentsList (`name`, `last_name`)
-values ("Gertrudis", "Gertrudis");
+values ('Gertrudis', 'Gertrudis');
 insert into StudentsList (`name`, `last_name`)
-values ("Gertude", "Gertude");
+values ('Gertude', 'Gertude');
 insert into StudentsList (`name`, `last_name`)
-values ("Ghislaine", "Ghislaine");
+values ('Ghislaine', 'Ghislaine');
 insert into StudentsList (`name`, `last_name`)
-values ("Gia", "Gia");
+values ('Gia', 'Gia');
 insert into StudentsList (`name`, `last_name`)
-values ("Gianna", "Gianna");
+values ('Gianna', 'Gianna');
 insert into StudentsList (`name`, `last_name`)
-values ("Gidget", "Gidget");
+values ('Gidget', 'Gidget');
 insert into StudentsList (`name`, `last_name`)
-values ("Gigi", "Gigi");
+values ('Gigi', 'Gigi');
 insert into StudentsList (`name`, `last_name`)
-values ("Gil", "Gil");
+values ('Gil', 'Gil');
 insert into StudentsList (`name`, `last_name`)
-values ("Gilbert", "Gilbert");
+values ('Gilbert', 'Gilbert');
 insert into StudentsList (`name`, `last_name`)
-values ("Gilberte", "Gilberte");
+values ('Gilberte', 'Gilberte');
 insert into StudentsList (`name`, `last_name`)
-values ("Gilberto", "Gilberto");
+values ('Gilberto', 'Gilberto');
 insert into StudentsList (`name`, `last_name`)
-values ("Gilda", "Gilda");
+values ('Gilda', 'Gilda');
 insert into StudentsList (`name`, `last_name`)
-values ("Gillian", "Gillian");
+values ('Gillian', 'Gillian');
 insert into StudentsList (`name`, `last_name`)
-values ("Gilma", "Gilma");
+values ('Gilma', 'Gilma');
 insert into StudentsList (`name`, `last_name`)
-values ("Gina", "Gina");
+values ('Gina', 'Gina');
 insert into StudentsList (`name`, `last_name`)
-values ("Ginette", "Ginette");
+values ('Ginette', 'Ginette');
 insert into StudentsList (`name`, `last_name`)
-values ("Ginger", "Ginger");
+values ('Ginger', 'Ginger');
 insert into StudentsList (`name`, `last_name`)
-values ("Ginny", "Ginny");
+values ('Ginny', 'Ginny');
 insert into StudentsList (`name`, `last_name`)
-values ("Gino", "Gino");
+values ('Gino', 'Gino');
 insert into StudentsList (`name`, `last_name`)
-values ("Giovanna", "Giovanna");
+values ('Giovanna', 'Giovanna');
 insert into StudentsList (`name`, `last_name`)
-values ("Giovanni", "Giovanni");
+values ('Giovanni', 'Giovanni');
 insert into StudentsList (`name`, `last_name`)
-values ("Gisela", "Gisela");
+values ('Gisela', 'Gisela');
 insert into StudentsList (`name`, `last_name`)
-values ("Gisele", "Gisele");
+values ('Gisele', 'Gisele');
 insert into StudentsList (`name`, `last_name`)
-values ("Giselle", "Giselle");
+values ('Giselle', 'Giselle');
 insert into StudentsList (`name`, `last_name`)
-values ("Gita", "Gita");
+values ('Gita', 'Gita');
 insert into StudentsList (`name`, `last_name`)
-values ("Giuseppe", "Giuseppe");
+values ('Giuseppe', 'Giuseppe');
 insert into StudentsList (`name`, `last_name`)
-values ("Giuseppina", "Giuseppina");
+values ('Giuseppina', 'Giuseppina');
 insert into StudentsList (`name`, `last_name`)
-values ("Gladis", "Gladis");
+values ('Gladis', 'Gladis');
 insert into StudentsList (`name`, `last_name`)
-values ("Glady", "Glady");
+values ('Glady', 'Glady');
 insert into StudentsList (`name`, `last_name`)
-values ("Gladys", "Gladys");
+values ('Gladys', 'Gladys');
 insert into StudentsList (`name`, `last_name`)
-values ("Glayds", "Glayds");
+values ('Glayds', 'Glayds');
 insert into StudentsList (`name`, `last_name`)
-values ("Glen", "Glen");
+values ('Glen', 'Glen');
 insert into StudentsList (`name`, `last_name`)
-values ("Glenda", "Glenda");
+values ('Glenda', 'Glenda');
 insert into StudentsList (`name`, `last_name`)
-values ("Glendora", "Glendora");
+values ('Glendora', 'Glendora');
 insert into StudentsList (`name`, `last_name`)
-values ("Glenn", "Glenn");
+values ('Glenn', 'Glenn');
 insert into StudentsList (`name`, `last_name`)
-values ("Glenna", "Glenna");
+values ('Glenna', 'Glenna');
 insert into StudentsList (`name`, `last_name`)
-values ("Glennie", "Glennie");
+values ('Glennie', 'Glennie');
 insert into StudentsList (`name`, `last_name`)
-values ("Glennis", "Glennis");
+values ('Glennis', 'Glennis');
 insert into StudentsList (`name`, `last_name`)
-values ("Glinda", "Glinda");
+values ('Glinda', 'Glinda');
 insert into StudentsList (`name`, `last_name`)
-values ("Gloria", "Gloria");
+values ('Gloria', 'Gloria');
 insert into StudentsList (`name`, `last_name`)
-values ("Glory", "Glory");
+values ('Glory', 'Glory');
 insert into StudentsList (`name`, `last_name`)
-values ("Glynda", "Glynda");
+values ('Glynda', 'Glynda');
 insert into StudentsList (`name`, `last_name`)
-values ("Glynis", "Glynis");
+values ('Glynis', 'Glynis');
 insert into StudentsList (`name`, `last_name`)
-values ("Golda", "Golda");
+values ('Golda', 'Golda');
 insert into StudentsList (`name`, `last_name`)
-values ("Golden", "Golden");
+values ('Golden', 'Golden');
 insert into StudentsList (`name`, `last_name`)
-values ("Goldie", "Goldie");
+values ('Goldie', 'Goldie');
 insert into StudentsList (`name`, `last_name`)
-values ("Gonzalo", "Gonzalo");
+values ('Gonzalo', 'Gonzalo');
 insert into StudentsList (`name`, `last_name`)
-values ("Gordon", "Gordon");
+values ('Gordon', 'Gordon');
 insert into StudentsList (`name`, `last_name`)
-values ("Grace", "Grace");
+values ('Grace', 'Grace');
 insert into StudentsList (`name`, `last_name`)
-values ("Gracia", "Gracia");
+values ('Gracia', 'Gracia');
 insert into StudentsList (`name`, `last_name`)
-values ("Gracie", "Gracie");
+values ('Gracie', 'Gracie');
 insert into StudentsList (`name`, `last_name`)
-values ("Graciela", "Graciela");
+values ('Graciela', 'Graciela');
 insert into StudentsList (`name`, `last_name`)
-values ("Grady", "Grady");
+values ('Grady', 'Grady');
 insert into StudentsList (`name`, `last_name`)
-values ("Graham", "Graham");
+values ('Graham', 'Graham');
 insert into StudentsList (`name`, `last_name`)
-values ("Graig", "Graig");
+values ('Graig', 'Graig');
 insert into StudentsList (`name`, `last_name`)
-values ("Grant", "Grant");
+values ('Grant', 'Grant');
 insert into StudentsList (`name`, `last_name`)
-values ("Granville", "Granville");
+values ('Granville', 'Granville');
 insert into StudentsList (`name`, `last_name`)
-values ("Grayce", "Grayce");
+values ('Grayce', 'Grayce');
 insert into StudentsList (`name`, `last_name`)
-values ("Grazyna", "Grazyna");
+values ('Grazyna', 'Grazyna');
 insert into StudentsList (`name`, `last_name`)
-values ("Greg", "Greg");
+values ('Greg', 'Greg');
 insert into StudentsList (`name`, `last_name`)
-values ("Gregg", "Gregg");
+values ('Gregg', 'Gregg');
 insert into StudentsList (`name`, `last_name`)
-values ("Gregoria", "Gregoria");
+values ('Gregoria', 'Gregoria');
 insert into StudentsList (`name`, `last_name`)
-values ("Gregorio", "Gregorio");
+values ('Gregorio', 'Gregorio');
 insert into StudentsList (`name`, `last_name`)
-values ("Gregory", "Gregory");
+values ('Gregory', 'Gregory');
 insert into StudentsList (`name`, `last_name`)
-values ("Greta", "Greta");
+values ('Greta', 'Greta');
 insert into StudentsList (`name`, `last_name`)
-values ("Gretchen", "Gretchen");
+values ('Gretchen', 'Gretchen');
 insert into StudentsList (`name`, `last_name`)
-values ("Gretta", "Gretta");
+values ('Gretta', 'Gretta');
 insert into StudentsList (`name`, `last_name`)
-values ("Gricelda", "Gricelda");
+values ('Gricelda', 'Gricelda');
 insert into StudentsList (`name`, `last_name`)
-values ("Grisel", "Grisel");
+values ('Grisel', 'Grisel');
 insert into StudentsList (`name`, `last_name`)
-values ("Griselda", "Griselda");
+values ('Griselda', 'Griselda');
 insert into StudentsList (`name`, `last_name`)
-values ("Grover", "Grover");
+values ('Grover', 'Grover');
 insert into StudentsList (`name`, `last_name`)
-values ("Guadalupe", "Guadalupe");
+values ('Guadalupe', 'Guadalupe');
 insert into StudentsList (`name`, `last_name`)
-values ("Gudrun", "Gudrun");
+values ('Gudrun', 'Gudrun');
 insert into StudentsList (`name`, `last_name`)
-values ("Guillermina", "Guillermina");
+values ('Guillermina', 'Guillermina');
 insert into StudentsList (`name`, `last_name`)
-values ("Guillermo", "Guillermo");
+values ('Guillermo', 'Guillermo');
 insert into StudentsList (`name`, `last_name`)
-values ("Gus", "Gus");
+values ('Gus', 'Gus');
 insert into StudentsList (`name`, `last_name`)
-values ("Gussie", "Gussie");
+values ('Gussie', 'Gussie');
 insert into StudentsList (`name`, `last_name`)
-values ("Gustavo", "Gustavo");
+values ('Gustavo', 'Gustavo');
 insert into StudentsList (`name`, `last_name`)
-values ("Guy", "Guy");
+values ('Guy', 'Guy');
 insert into StudentsList (`name`, `last_name`)
-values ("Gwen", "Gwen");
+values ('Gwen', 'Gwen');
 insert into StudentsList (`name`, `last_name`)
-values ("Gwenda", "Gwenda");
+values ('Gwenda', 'Gwenda');
 insert into StudentsList (`name`, `last_name`)
-values ("Gwendolyn", "Gwendolyn");
+values ('Gwendolyn', 'Gwendolyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Gwenn", "Gwenn");
+values ('Gwenn', 'Gwenn');
 insert into StudentsList (`name`, `last_name`)
-values ("Gwyn", "Gwyn");
+values ('Gwyn', 'Gwyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Gwyneth", "Gwyneth");
+values ('Gwyneth', 'Gwyneth');
 insert into StudentsList (`name`, `last_name`)
-values ("Ha", "Ha");
+values ('Ha', 'Ha');
 insert into StudentsList (`name`, `last_name`)
-values ("Hae", "Hae");
+values ('Hae', 'Hae');
 insert into StudentsList (`name`, `last_name`)
-values ("Hai", "Hai");
+values ('Hai', 'Hai');
 insert into StudentsList (`name`, `last_name`)
-values ("Hailey", "Hailey");
+values ('Hailey', 'Hailey');
 insert into StudentsList (`name`, `last_name`)
-values ("Hal", "Hal");
+values ('Hal', 'Hal');
 insert into StudentsList (`name`, `last_name`)
-values ("Haley", "Haley");
+values ('Haley', 'Haley');
 insert into StudentsList (`name`, `last_name`)
-values ("Halina", "Halina");
+values ('Halina', 'Halina');
 insert into StudentsList (`name`, `last_name`)
-values ("Halley", "Halley");
+values ('Halley', 'Halley');
 insert into StudentsList (`name`, `last_name`)
-values ("Hallie", "Hallie");
+values ('Hallie', 'Hallie');
 insert into StudentsList (`name`, `last_name`)
-values ("Han", "Han");
+values ('Han', 'Han');
 insert into StudentsList (`name`, `last_name`)
-values ("Hana", "Hana");
+values ('Hana', 'Hana');
 insert into StudentsList (`name`, `last_name`)
-values ("Hang", "Hang");
+values ('Hang', 'Hang');
 insert into StudentsList (`name`, `last_name`)
-values ("Hanh", "Hanh");
+values ('Hanh', 'Hanh');
 insert into StudentsList (`name`, `last_name`)
-values ("Hank", "Hank");
+values ('Hank', 'Hank');
 insert into StudentsList (`name`, `last_name`)
-values ("Hanna", "Hanna");
+values ('Hanna', 'Hanna');
 insert into StudentsList (`name`, `last_name`)
-values ("Hannah", "Hannah");
+values ('Hannah', 'Hannah');
 insert into StudentsList (`name`, `last_name`)
-values ("Hannelore", "Hannelore");
+values ('Hannelore', 'Hannelore');
 insert into StudentsList (`name`, `last_name`)
-values ("Hans", "Hans");
+values ('Hans', 'Hans');
 insert into StudentsList (`name`, `last_name`)
-values ("Harlan", "Harlan");
+values ('Harlan', 'Harlan');
 insert into StudentsList (`name`, `last_name`)
-values ("Harland", "Harland");
+values ('Harland', 'Harland');
 insert into StudentsList (`name`, `last_name`)
-values ("Harley", "Harley");
+values ('Harley', 'Harley');
 insert into StudentsList (`name`, `last_name`)
-values ("Harmony", "Harmony");
+values ('Harmony', 'Harmony');
 insert into StudentsList (`name`, `last_name`)
-values ("Harold", "Harold");
+values ('Harold', 'Harold');
 insert into StudentsList (`name`, `last_name`)
-values ("Harriet", "Harriet");
+values ('Harriet', 'Harriet');
 insert into StudentsList (`name`, `last_name`)
-values ("Harriett", "Harriett");
+values ('Harriett', 'Harriett');
 insert into StudentsList (`name`, `last_name`)
-values ("Harriette", "Harriette");
+values ('Harriette', 'Harriette');
 insert into StudentsList (`name`, `last_name`)
-values ("Harris", "Harris");
+values ('Harris', 'Harris');
 insert into StudentsList (`name`, `last_name`)
-values ("Harrison", "Harrison");
+values ('Harrison', 'Harrison');
 insert into StudentsList (`name`, `last_name`)
-values ("Harry", "Harry");
+values ('Harry', 'Harry');
 insert into StudentsList (`name`, `last_name`)
-values ("Harvey", "Harvey");
+values ('Harvey', 'Harvey');
 insert into StudentsList (`name`, `last_name`)
-values ("Hassan", "Hassan");
+values ('Hassan', 'Hassan');
 insert into StudentsList (`name`, `last_name`)
-values ("Hassie", "Hassie");
+values ('Hassie', 'Hassie');
 insert into StudentsList (`name`, `last_name`)
-values ("Hattie", "Hattie");
+values ('Hattie', 'Hattie');
 insert into StudentsList (`name`, `last_name`)
-values ("Haydee", "Haydee");
+values ('Haydee', 'Haydee');
 insert into StudentsList (`name`, `last_name`)
-values ("Hayden", "Hayden");
+values ('Hayden', 'Hayden');
 insert into StudentsList (`name`, `last_name`)
-values ("Hayley", "Hayley");
+values ('Hayley', 'Hayley');
 insert into StudentsList (`name`, `last_name`)
-values ("Haywood", "Haywood");
+values ('Haywood', 'Haywood');
 insert into StudentsList (`name`, `last_name`)
-values ("Hazel", "Hazel");
+values ('Hazel', 'Hazel');
 insert into StudentsList (`name`, `last_name`)
-values ("Heath", "Heath");
+values ('Heath', 'Heath');
 insert into StudentsList (`name`, `last_name`)
-values ("Heather", "Heather");
+values ('Heather', 'Heather');
 insert into StudentsList (`name`, `last_name`)
-values ("Hector", "Hector");
+values ('Hector', 'Hector');
 insert into StudentsList (`name`, `last_name`)
-values ("Hedwig", "Hedwig");
+values ('Hedwig', 'Hedwig');
 insert into StudentsList (`name`, `last_name`)
-values ("Hedy", "Hedy");
+values ('Hedy', 'Hedy');
 insert into StudentsList (`name`, `last_name`)
-values ("Hee", "Hee");
+values ('Hee', 'Hee');
 insert into StudentsList (`name`, `last_name`)
-values ("Heide", "Heide");
+values ('Heide', 'Heide');
 insert into StudentsList (`name`, `last_name`)
-values ("Heidi", "Heidi");
+values ('Heidi', 'Heidi');
 insert into StudentsList (`name`, `last_name`)
-values ("Heidy", "Heidy");
+values ('Heidy', 'Heidy');
 insert into StudentsList (`name`, `last_name`)
-values ("Heike", "Heike");
+values ('Heike', 'Heike');
 insert into StudentsList (`name`, `last_name`)
-values ("Helaine", "Helaine");
+values ('Helaine', 'Helaine');
 insert into StudentsList (`name`, `last_name`)
-values ("Helen", "Helen");
+values ('Helen', 'Helen');
 insert into StudentsList (`name`, `last_name`)
-values ("Helena", "Helena");
+values ('Helena', 'Helena');
 insert into StudentsList (`name`, `last_name`)
-values ("Helene", "Helene");
+values ('Helene', 'Helene');
 insert into StudentsList (`name`, `last_name`)
-values ("Helga", "Helga");
+values ('Helga', 'Helga');
 insert into StudentsList (`name`, `last_name`)
-values ("Hellen", "Hellen");
+values ('Hellen', 'Hellen');
 insert into StudentsList (`name`, `last_name`)
-values ("Henrietta", "Henrietta");
+values ('Henrietta', 'Henrietta');
 insert into StudentsList (`name`, `last_name`)
-values ("Henriette", "Henriette");
+values ('Henriette', 'Henriette');
 insert into StudentsList (`name`, `last_name`)
-values ("Henry", "Henry");
+values ('Henry', 'Henry');
 insert into StudentsList (`name`, `last_name`)
-values ("Herb", "Herb");
+values ('Herb', 'Herb');
 insert into StudentsList (`name`, `last_name`)
-values ("Herbert", "Herbert");
+values ('Herbert', 'Herbert');
 insert into StudentsList (`name`, `last_name`)
-values ("Heriberto", "Heriberto");
+values ('Heriberto', 'Heriberto');
 insert into StudentsList (`name`, `last_name`)
-values ("Herlinda", "Herlinda");
+values ('Herlinda', 'Herlinda');
 insert into StudentsList (`name`, `last_name`)
-values ("Herma", "Herma");
+values ('Herma', 'Herma');
 insert into StudentsList (`name`, `last_name`)
-values ("Herman", "Herman");
+values ('Herman', 'Herman');
 insert into StudentsList (`name`, `last_name`)
-values ("Hermelinda", "Hermelinda");
+values ('Hermelinda', 'Hermelinda');
 insert into StudentsList (`name`, `last_name`)
-values ("Hermila", "Hermila");
+values ('Hermila', 'Hermila');
 insert into StudentsList (`name`, `last_name`)
-values ("Hermina", "Hermina");
+values ('Hermina', 'Hermina');
 insert into StudentsList (`name`, `last_name`)
-values ("Hermine", "Hermine");
+values ('Hermine', 'Hermine');
 insert into StudentsList (`name`, `last_name`)
-values ("Herminia", "Herminia");
+values ('Herminia', 'Herminia');
 insert into StudentsList (`name`, `last_name`)
-values ("Herschel", "Herschel");
+values ('Herschel', 'Herschel');
 insert into StudentsList (`name`, `last_name`)
-values ("Hershel", "Hershel");
+values ('Hershel', 'Hershel');
 insert into StudentsList (`name`, `last_name`)
-values ("Herta", "Herta");
+values ('Herta', 'Herta');
 insert into StudentsList (`name`, `last_name`)
-values ("Hertha", "Hertha");
+values ('Hertha', 'Hertha');
 insert into StudentsList (`name`, `last_name`)
-values ("Hester", "Hester");
+values ('Hester', 'Hester');
 insert into StudentsList (`name`, `last_name`)
-values ("Hettie", "Hettie");
+values ('Hettie', 'Hettie');
 insert into StudentsList (`name`, `last_name`)
-values ("Hiedi", "Hiedi");
+values ('Hiedi', 'Hiedi');
 insert into StudentsList (`name`, `last_name`)
-values ("Hien", "Hien");
+values ('Hien', 'Hien');
 insert into StudentsList (`name`, `last_name`)
-values ("Hilaria", "Hilaria");
+values ('Hilaria', 'Hilaria');
 insert into StudentsList (`name`, `last_name`)
-values ("Hilario", "Hilario");
+values ('Hilario', 'Hilario');
 insert into StudentsList (`name`, `last_name`)
-values ("Hilary", "Hilary");
+values ('Hilary', 'Hilary');
 insert into StudentsList (`name`, `last_name`)
-values ("Hilda", "Hilda");
+values ('Hilda', 'Hilda');
 insert into StudentsList (`name`, `last_name`)
-values ("Hilde", "Hilde");
+values ('Hilde', 'Hilde');
 insert into StudentsList (`name`, `last_name`)
-values ("Hildegard", "Hildegard");
+values ('Hildegard', 'Hildegard');
 insert into StudentsList (`name`, `last_name`)
-values ("Hildegarde", "Hildegarde");
+values ('Hildegarde', 'Hildegarde');
 insert into StudentsList (`name`, `last_name`)
-values ("Hildred", "Hildred");
+values ('Hildred', 'Hildred');
 insert into StudentsList (`name`, `last_name`)
-values ("Hillary", "Hillary");
+values ('Hillary', 'Hillary');
 insert into StudentsList (`name`, `last_name`)
-values ("Hilma", "Hilma");
+values ('Hilma', 'Hilma');
 insert into StudentsList (`name`, `last_name`)
-values ("Hilton", "Hilton");
+values ('Hilton', 'Hilton');
 insert into StudentsList (`name`, `last_name`)
-values ("Hipolito", "Hipolito");
+values ('Hipolito', 'Hipolito');
 insert into StudentsList (`name`, `last_name`)
-values ("Hiram", "Hiram");
+values ('Hiram', 'Hiram');
 insert into StudentsList (`name`, `last_name`)
-values ("Hiroko", "Hiroko");
+values ('Hiroko', 'Hiroko');
 insert into StudentsList (`name`, `last_name`)
-values ("Hisako", "Hisako");
+values ('Hisako', 'Hisako');
 insert into StudentsList (`name`, `last_name`)
-values ("Hoa", "Hoa");
+values ('Hoa', 'Hoa');
 insert into StudentsList (`name`, `last_name`)
-values ("Hobert", "Hobert");
+values ('Hobert', 'Hobert');
 insert into StudentsList (`name`, `last_name`)
-values ("Holley", "Holley");
+values ('Holley', 'Holley');
 insert into StudentsList (`name`, `last_name`)
-values ("Holli", "Holli");
+values ('Holli', 'Holli');
 insert into StudentsList (`name`, `last_name`)
-values ("Hollie", "Hollie");
+values ('Hollie', 'Hollie');
 insert into StudentsList (`name`, `last_name`)
-values ("Hollis", "Hollis");
+values ('Hollis', 'Hollis');
 insert into StudentsList (`name`, `last_name`)
-values ("Holly", "Holly");
+values ('Holly', 'Holly');
 insert into StudentsList (`name`, `last_name`)
-values ("Homer", "Homer");
+values ('Homer', 'Homer');
 insert into StudentsList (`name`, `last_name`)
-values ("Honey", "Honey");
+values ('Honey', 'Honey');
 insert into StudentsList (`name`, `last_name`)
-values ("Hong", "Hong");
+values ('Hong', 'Hong');
 insert into StudentsList (`name`, `last_name`)
-values ("Hope", "Hope");
+values ('Hope', 'Hope');
 insert into StudentsList (`name`, `last_name`)
-values ("Horace", "Horace");
+values ('Horace', 'Horace');
 insert into StudentsList (`name`, `last_name`)
-values ("Horacio", "Horacio");
+values ('Horacio', 'Horacio');
 insert into StudentsList (`name`, `last_name`)
-values ("Hortencia", "Hortencia");
+values ('Hortencia', 'Hortencia');
 insert into StudentsList (`name`, `last_name`)
-values ("Hortense", "Hortense");
+values ('Hortense', 'Hortense');
 insert into StudentsList (`name`, `last_name`)
-values ("Hortensia", "Hortensia");
+values ('Hortensia', 'Hortensia');
 insert into StudentsList (`name`, `last_name`)
-values ("Hosea", "Hosea");
+values ('Hosea', 'Hosea');
 insert into StudentsList (`name`, `last_name`)
-values ("Houston", "Houston");
+values ('Houston', 'Houston');
 insert into StudentsList (`name`, `last_name`)
-values ("Howard", "Howard");
+values ('Howard', 'Howard');
 insert into StudentsList (`name`, `last_name`)
-values ("Hoyt", "Hoyt");
+values ('Hoyt', 'Hoyt');
 insert into StudentsList (`name`, `last_name`)
-values ("Hsiu", "Hsiu");
+values ('Hsiu', 'Hsiu');
 insert into StudentsList (`name`, `last_name`)
-values ("Hubert", "Hubert");
+values ('Hubert', 'Hubert');
 insert into StudentsList (`name`, `last_name`)
-values ("Hue", "Hue");
+values ('Hue', 'Hue');
 insert into StudentsList (`name`, `last_name`)
-values ("Huey", "Huey");
+values ('Huey', 'Huey');
 insert into StudentsList (`name`, `last_name`)
-values ("Hugh", "Hugh");
+values ('Hugh', 'Hugh');
 insert into StudentsList (`name`, `last_name`)
-values ("Hugo", "Hugo");
+values ('Hugo', 'Hugo');
 insert into StudentsList (`name`, `last_name`)
-values ("Hui", "Hui");
+values ('Hui', 'Hui');
 insert into StudentsList (`name`, `last_name`)
-values ("Hulda", "Hulda");
+values ('Hulda', 'Hulda');
 insert into StudentsList (`name`, `last_name`)
-values ("Humberto", "Humberto");
+values ('Humberto', 'Humberto');
 insert into StudentsList (`name`, `last_name`)
-values ("Hung", "Hung");
+values ('Hung', 'Hung');
 insert into StudentsList (`name`, `last_name`)
-values ("Hunter", "Hunter");
+values ('Hunter', 'Hunter');
 insert into StudentsList (`name`, `last_name`)
-values ("Huong", "Huong");
+values ('Huong', 'Huong');
 insert into StudentsList (`name`, `last_name`)
-values ("Hwa", "Hwa");
+values ('Hwa', 'Hwa');
 insert into StudentsList (`name`, `last_name`)
-values ("Hyacinth", "Hyacinth");
+values ('Hyacinth', 'Hyacinth');
 insert into StudentsList (`name`, `last_name`)
-values ("Hye", "Hye");
+values ('Hye', 'Hye');
 insert into StudentsList (`name`, `last_name`)
-values ("Hyman", "Hyman");
+values ('Hyman', 'Hyman');
 insert into StudentsList (`name`, `last_name`)
-values ("Hyo", "Hyo");
+values ('Hyo', 'Hyo');
 insert into StudentsList (`name`, `last_name`)
-values ("Hyon", "Hyon");
+values ('Hyon', 'Hyon');
 insert into StudentsList (`name`, `last_name`)
-values ("Hyun", "Hyun");
+values ('Hyun', 'Hyun');
 insert into StudentsList (`name`, `last_name`)
-values ("Ian", "Ian");
+values ('Ian', 'Ian');
 insert into StudentsList (`name`, `last_name`)
-values ("Ida", "Ida");
+values ('Ida', 'Ida');
 insert into StudentsList (`name`, `last_name`)
-values ("Idalia", "Idalia");
+values ('Idalia', 'Idalia');
 insert into StudentsList (`name`, `last_name`)
-values ("Idell", "Idell");
+values ('Idell', 'Idell');
 insert into StudentsList (`name`, `last_name`)
-values ("Idella", "Idella");
+values ('Idella', 'Idella');
 insert into StudentsList (`name`, `last_name`)
-values ("Iesha", "Iesha");
+values ('Iesha', 'Iesha');
 insert into StudentsList (`name`, `last_name`)
-values ("Ignacia", "Ignacia");
+values ('Ignacia', 'Ignacia');
 insert into StudentsList (`name`, `last_name`)
-values ("Ignacio", "Ignacio");
+values ('Ignacio', 'Ignacio');
 insert into StudentsList (`name`, `last_name`)
-values ("Ike", "Ike");
+values ('Ike', 'Ike');
 insert into StudentsList (`name`, `last_name`)
-values ("Ila", "Ila");
+values ('Ila', 'Ila');
 insert into StudentsList (`name`, `last_name`)
-values ("Ilana", "Ilana");
+values ('Ilana', 'Ilana');
 insert into StudentsList (`name`, `last_name`)
-values ("Ilda", "Ilda");
+values ('Ilda', 'Ilda');
 insert into StudentsList (`name`, `last_name`)
-values ("Ileana", "Ileana");
+values ('Ileana', 'Ileana');
 insert into StudentsList (`name`, `last_name`)
-values ("Ileen", "Ileen");
+values ('Ileen', 'Ileen');
 insert into StudentsList (`name`, `last_name`)
-values ("Ilene", "Ilene");
+values ('Ilene', 'Ilene');
 insert into StudentsList (`name`, `last_name`)
-values ("Iliana", "Iliana");
+values ('Iliana', 'Iliana');
 insert into StudentsList (`name`, `last_name`)
-values ("Illa", "Illa");
+values ('Illa', 'Illa');
 insert into StudentsList (`name`, `last_name`)
-values ("Ilona", "Ilona");
+values ('Ilona', 'Ilona');
 insert into StudentsList (`name`, `last_name`)
-values ("Ilse", "Ilse");
+values ('Ilse', 'Ilse');
 insert into StudentsList (`name`, `last_name`)
-values ("Iluminada", "Iluminada");
+values ('Iluminada', 'Iluminada');
 insert into StudentsList (`name`, `last_name`)
-values ("Ima", "Ima");
+values ('Ima', 'Ima');
 insert into StudentsList (`name`, `last_name`)
-values ("Imelda", "Imelda");
+values ('Imelda', 'Imelda');
 insert into StudentsList (`name`, `last_name`)
-values ("Imogene", "Imogene");
+values ('Imogene', 'Imogene');
 insert into StudentsList (`name`, `last_name`)
-values ("In", "In");
+values ('In', 'In');
 insert into StudentsList (`name`, `last_name`)
-values ("Ina", "Ina");
+values ('Ina', 'Ina');
 insert into StudentsList (`name`, `last_name`)
-values ("India", "India");
+values ('India', 'India');
 insert into StudentsList (`name`, `last_name`)
-values ("Indira", "Indira");
+values ('Indira', 'Indira');
 insert into StudentsList (`name`, `last_name`)
-values ("Inell", "Inell");
+values ('Inell', 'Inell');
 insert into StudentsList (`name`, `last_name`)
-values ("Ines", "Ines");
+values ('Ines', 'Ines');
 insert into StudentsList (`name`, `last_name`)
-values ("Inez", "Inez");
+values ('Inez', 'Inez');
 insert into StudentsList (`name`, `last_name`)
-values ("Inga", "Inga");
+values ('Inga', 'Inga');
 insert into StudentsList (`name`, `last_name`)
-values ("Inge", "Inge");
+values ('Inge', 'Inge');
 insert into StudentsList (`name`, `last_name`)
-values ("Ingeborg", "Ingeborg");
+values ('Ingeborg', 'Ingeborg');
 insert into StudentsList (`name`, `last_name`)
-values ("Inger", "Inger");
+values ('Inger', 'Inger');
 insert into StudentsList (`name`, `last_name`)
-values ("Ingrid", "Ingrid");
+values ('Ingrid', 'Ingrid');
 insert into StudentsList (`name`, `last_name`)
-values ("Inocencia", "Inocencia");
+values ('Inocencia', 'Inocencia');
 insert into StudentsList (`name`, `last_name`)
-values ("Iola", "Iola");
+values ('Iola', 'Iola');
 insert into StudentsList (`name`, `last_name`)
-values ("Iona", "Iona");
+values ('Iona', 'Iona');
 insert into StudentsList (`name`, `last_name`)
-values ("Ione", "Ione");
+values ('Ione', 'Ione');
 insert into StudentsList (`name`, `last_name`)
-values ("Ira", "Ira");
+values ('Ira', 'Ira');
 insert into StudentsList (`name`, `last_name`)
-values ("Iraida", "Iraida");
+values ('Iraida', 'Iraida');
 insert into StudentsList (`name`, `last_name`)
-values ("Irena", "Irena");
+values ('Irena', 'Irena');
 insert into StudentsList (`name`, `last_name`)
-values ("Irene", "Irene");
+values ('Irene', 'Irene');
 insert into StudentsList (`name`, `last_name`)
-values ("Irina", "Irina");
+values ('Irina', 'Irina');
 insert into StudentsList (`name`, `last_name`)
-values ("Iris", "Iris");
+values ('Iris', 'Iris');
 insert into StudentsList (`name`, `last_name`)
-values ("Irish", "Irish");
+values ('Irish', 'Irish');
 insert into StudentsList (`name`, `last_name`)
-values ("Irma", "Irma");
+values ('Irma', 'Irma');
 insert into StudentsList (`name`, `last_name`)
-values ("Irmgard", "Irmgard");
+values ('Irmgard', 'Irmgard');
 insert into StudentsList (`name`, `last_name`)
-values ("Irvin", "Irvin");
+values ('Irvin', 'Irvin');
 insert into StudentsList (`name`, `last_name`)
-values ("Irving", "Irving");
+values ('Irving', 'Irving');
 insert into StudentsList (`name`, `last_name`)
-values ("Irwin", "Irwin");
+values ('Irwin', 'Irwin');
 insert into StudentsList (`name`, `last_name`)
-values ("Isa", "Isa");
+values ('Isa', 'Isa');
 insert into StudentsList (`name`, `last_name`)
-values ("Isaac", "Isaac");
+values ('Isaac', 'Isaac');
 insert into StudentsList (`name`, `last_name`)
-values ("Isabel", "Isabel");
+values ('Isabel', 'Isabel');
 insert into StudentsList (`name`, `last_name`)
-values ("Isabell", "Isabell");
+values ('Isabell', 'Isabell');
 insert into StudentsList (`name`, `last_name`)
-values ("Isabella", "Isabella");
+values ('Isabella', 'Isabella');
 insert into StudentsList (`name`, `last_name`)
-values ("Isabelle", "Isabelle");
+values ('Isabelle', 'Isabelle');
 insert into StudentsList (`name`, `last_name`)
-values ("Isadora", "Isadora");
+values ('Isadora', 'Isadora');
 insert into StudentsList (`name`, `last_name`)
-values ("Isaiah", "Isaiah");
+values ('Isaiah', 'Isaiah');
 insert into StudentsList (`name`, `last_name`)
-values ("Isaias", "Isaias");
+values ('Isaias', 'Isaias');
 insert into StudentsList (`name`, `last_name`)
-values ("Isaura", "Isaura");
+values ('Isaura', 'Isaura');
 insert into StudentsList (`name`, `last_name`)
-values ("Isela", "Isela");
+values ('Isela', 'Isela');
 insert into StudentsList (`name`, `last_name`)
-values ("Isiah", "Isiah");
+values ('Isiah', 'Isiah');
 insert into StudentsList (`name`, `last_name`)
-values ("Isidra", "Isidra");
+values ('Isidra', 'Isidra');
 insert into StudentsList (`name`, `last_name`)
-values ("Isidro", "Isidro");
+values ('Isidro', 'Isidro');
 insert into StudentsList (`name`, `last_name`)
-values ("Isis", "Isis");
+values ('Isis', 'Isis');
 insert into StudentsList (`name`, `last_name`)
-values ("Ismael", "Ismael");
+values ('Ismael', 'Ismael');
 insert into StudentsList (`name`, `last_name`)
-values ("Isobel", "Isobel");
+values ('Isobel', 'Isobel');
 insert into StudentsList (`name`, `last_name`)
-values ("Israel", "Israel");
+values ('Israel', 'Israel');
 insert into StudentsList (`name`, `last_name`)
-values ("Isreal", "Isreal");
+values ('Isreal', 'Isreal');
 insert into StudentsList (`name`, `last_name`)
-values ("Issac", "Issac");
+values ('Issac', 'Issac');
 insert into StudentsList (`name`, `last_name`)
-values ("Iva", "Iva");
+values ('Iva', 'Iva');
 insert into StudentsList (`name`, `last_name`)
-values ("Ivan", "Ivan");
+values ('Ivan', 'Ivan');
 insert into StudentsList (`name`, `last_name`)
-values ("Ivana", "Ivana");
+values ('Ivana', 'Ivana');
 insert into StudentsList (`name`, `last_name`)
-values ("Ivelisse", "Ivelisse");
+values ('Ivelisse', 'Ivelisse');
 insert into StudentsList (`name`, `last_name`)
-values ("Ivette", "Ivette");
+values ('Ivette', 'Ivette');
 insert into StudentsList (`name`, `last_name`)
-values ("Ivey", "Ivey");
+values ('Ivey', 'Ivey');
 insert into StudentsList (`name`, `last_name`)
-values ("Ivonne", "Ivonne");
+values ('Ivonne', 'Ivonne');
 insert into StudentsList (`name`, `last_name`)
-values ("Ivory", "Ivory");
+values ('Ivory', 'Ivory');
 insert into StudentsList (`name`, `last_name`)
-values ("Ivy", "Ivy");
+values ('Ivy', 'Ivy');
 insert into StudentsList (`name`, `last_name`)
-values ("Izetta", "Izetta");
+values ('Izetta', 'Izetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Izola", "Izola");
+values ('Izola', 'Izola');
 insert into StudentsList (`name`, `last_name`)
-values ("Ja", "Ja");
+values ('Ja', 'Ja');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacalyn", "Jacalyn");
+values ('Jacalyn', 'Jacalyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacelyn", "Jacelyn");
+values ('Jacelyn', 'Jacelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacinda", "Jacinda");
+values ('Jacinda', 'Jacinda');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacinta", "Jacinta");
+values ('Jacinta', 'Jacinta');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacinto", "Jacinto");
+values ('Jacinto', 'Jacinto');
 insert into StudentsList (`name`, `last_name`)
-values ("Jack", "Jack");
+values ('Jack', 'Jack');
 insert into StudentsList (`name`, `last_name`)
-values ("Jackeline", "Jackeline");
+values ('Jackeline', 'Jackeline');
 insert into StudentsList (`name`, `last_name`)
-values ("Jackelyn", "Jackelyn");
+values ('Jackelyn', 'Jackelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacki", "Jacki");
+values ('Jacki', 'Jacki');
 insert into StudentsList (`name`, `last_name`)
-values ("Jackie", "Jackie");
+values ('Jackie', 'Jackie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacklyn", "Jacklyn");
+values ('Jacklyn', 'Jacklyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jackqueline", "Jackqueline");
+values ('Jackqueline', 'Jackqueline');
 insert into StudentsList (`name`, `last_name`)
-values ("Jackson", "Jackson");
+values ('Jackson', 'Jackson');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaclyn", "Jaclyn");
+values ('Jaclyn', 'Jaclyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacob", "Jacob");
+values ('Jacob', 'Jacob');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacqualine", "Jacqualine");
+values ('Jacqualine', 'Jacqualine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacque", "Jacque");
+values ('Jacque', 'Jacque');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacquelin", "Jacquelin");
+values ('Jacquelin', 'Jacquelin');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacqueline", "Jacqueline");
+values ('Jacqueline', 'Jacqueline');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacquelyn", "Jacquelyn");
+values ('Jacquelyn', 'Jacquelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacquelyne", "Jacquelyne");
+values ('Jacquelyne', 'Jacquelyne');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacquelynn", "Jacquelynn");
+values ('Jacquelynn', 'Jacquelynn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacques", "Jacques");
+values ('Jacques', 'Jacques');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacquetta", "Jacquetta");
+values ('Jacquetta', 'Jacquetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacqui", "Jacqui");
+values ('Jacqui', 'Jacqui');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacquie", "Jacquie");
+values ('Jacquie', 'Jacquie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacquiline", "Jacquiline");
+values ('Jacquiline', 'Jacquiline');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacquline", "Jacquline");
+values ('Jacquline', 'Jacquline');
 insert into StudentsList (`name`, `last_name`)
-values ("Jacqulyn", "Jacqulyn");
+values ('Jacqulyn', 'Jacqulyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jada", "Jada");
+values ('Jada', 'Jada');
 insert into StudentsList (`name`, `last_name`)
-values ("Jade", "Jade");
+values ('Jade', 'Jade');
 insert into StudentsList (`name`, `last_name`)
-values ("Jadwiga", "Jadwiga");
+values ('Jadwiga', 'Jadwiga');
 insert into StudentsList (`name`, `last_name`)
-values ("Jae", "Jae");
+values ('Jae', 'Jae');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaime", "Jaime");
+values ('Jaime', 'Jaime');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaimee", "Jaimee");
+values ('Jaimee', 'Jaimee');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaimie", "Jaimie");
+values ('Jaimie', 'Jaimie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jake", "Jake");
+values ('Jake', 'Jake');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaleesa", "Jaleesa");
+values ('Jaleesa', 'Jaleesa');
 insert into StudentsList (`name`, `last_name`)
-values ("Jalisa", "Jalisa");
+values ('Jalisa', 'Jalisa');
 insert into StudentsList (`name`, `last_name`)
-values ("Jama", "Jama");
+values ('Jama', 'Jama');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamaal", "Jamaal");
+values ('Jamaal', 'Jamaal');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamal", "Jamal");
+values ('Jamal', 'Jamal');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamar", "Jamar");
+values ('Jamar', 'Jamar');
 insert into StudentsList (`name`, `last_name`)
-values ("Jame", "Jame");
+values ('Jame', 'Jame');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamee", "Jamee");
+values ('Jamee', 'Jamee');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamel", "Jamel");
+values ('Jamel', 'Jamel');
 insert into StudentsList (`name`, `last_name`)
-values ("James", "James");
+values ('James', 'James');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamey", "Jamey");
+values ('Jamey', 'Jamey');
 insert into StudentsList (`name`, `last_name`)
-values ("Jami", "Jami");
+values ('Jami', 'Jami');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamie", "Jamie");
+values ('Jamie', 'Jamie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamika", "Jamika");
+values ('Jamika', 'Jamika');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamila", "Jamila");
+values ('Jamila', 'Jamila');
 insert into StudentsList (`name`, `last_name`)
-values ("Jamison", "Jamison");
+values ('Jamison', 'Jamison');
 insert into StudentsList (`name`, `last_name`)
-values ("Jammie", "Jammie");
+values ('Jammie', 'Jammie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jan", "Jan");
+values ('Jan', 'Jan');
 insert into StudentsList (`name`, `last_name`)
-values ("Jana", "Jana");
+values ('Jana', 'Jana');
 insert into StudentsList (`name`, `last_name`)
-values ("Janae", "Janae");
+values ('Janae', 'Janae');
 insert into StudentsList (`name`, `last_name`)
-values ("Janay", "Janay");
+values ('Janay', 'Janay');
 insert into StudentsList (`name`, `last_name`)
-values ("Jane", "Jane");
+values ('Jane', 'Jane');
 insert into StudentsList (`name`, `last_name`)
-values ("Janean", "Janean");
+values ('Janean', 'Janean');
 insert into StudentsList (`name`, `last_name`)
-values ("Janee", "Janee");
+values ('Janee', 'Janee');
 insert into StudentsList (`name`, `last_name`)
-values ("Janeen", "Janeen");
+values ('Janeen', 'Janeen');
 insert into StudentsList (`name`, `last_name`)
-values ("Janel", "Janel");
+values ('Janel', 'Janel');
 insert into StudentsList (`name`, `last_name`)
-values ("Janell", "Janell");
+values ('Janell', 'Janell');
 insert into StudentsList (`name`, `last_name`)
-values ("Janella", "Janella");
+values ('Janella', 'Janella');
 insert into StudentsList (`name`, `last_name`)
-values ("Janelle", "Janelle");
+values ('Janelle', 'Janelle');
 insert into StudentsList (`name`, `last_name`)
-values ("Janene", "Janene");
+values ('Janene', 'Janene');
 insert into StudentsList (`name`, `last_name`)
-values ("Janessa", "Janessa");
+values ('Janessa', 'Janessa');
 insert into StudentsList (`name`, `last_name`)
-values ("Janet", "Janet");
+values ('Janet', 'Janet');
 insert into StudentsList (`name`, `last_name`)
-values ("Janeth", "Janeth");
+values ('Janeth', 'Janeth');
 insert into StudentsList (`name`, `last_name`)
-values ("Janett", "Janett");
+values ('Janett', 'Janett');
 insert into StudentsList (`name`, `last_name`)
-values ("Janetta", "Janetta");
+values ('Janetta', 'Janetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Janette", "Janette");
+values ('Janette', 'Janette');
 insert into StudentsList (`name`, `last_name`)
-values ("Janey", "Janey");
+values ('Janey', 'Janey');
 insert into StudentsList (`name`, `last_name`)
-values ("Jani", "Jani");
+values ('Jani', 'Jani');
 insert into StudentsList (`name`, `last_name`)
-values ("Janice", "Janice");
+values ('Janice', 'Janice');
 insert into StudentsList (`name`, `last_name`)
-values ("Janie", "Janie");
+values ('Janie', 'Janie');
 insert into StudentsList (`name`, `last_name`)
-values ("Janiece", "Janiece");
+values ('Janiece', 'Janiece');
 insert into StudentsList (`name`, `last_name`)
-values ("Janina", "Janina");
+values ('Janina', 'Janina');
 insert into StudentsList (`name`, `last_name`)
-values ("Janine", "Janine");
+values ('Janine', 'Janine');
 insert into StudentsList (`name`, `last_name`)
-values ("Janis", "Janis");
+values ('Janis', 'Janis');
 insert into StudentsList (`name`, `last_name`)
-values ("Janise", "Janise");
+values ('Janise', 'Janise');
 insert into StudentsList (`name`, `last_name`)
-values ("Janita", "Janita");
+values ('Janita', 'Janita');
 insert into StudentsList (`name`, `last_name`)
-values ("Jann", "Jann");
+values ('Jann', 'Jann');
 insert into StudentsList (`name`, `last_name`)
-values ("Janna", "Janna");
+values ('Janna', 'Janna');
 insert into StudentsList (`name`, `last_name`)
-values ("Jannet", "Jannet");
+values ('Jannet', 'Jannet');
 insert into StudentsList (`name`, `last_name`)
-values ("Jannette", "Jannette");
+values ('Jannette', 'Jannette');
 insert into StudentsList (`name`, `last_name`)
-values ("Jannie", "Jannie");
+values ('Jannie', 'Jannie');
 insert into StudentsList (`name`, `last_name`)
-values ("January", "January");
+values ('January', 'January');
 insert into StudentsList (`name`, `last_name`)
-values ("Janyce", "Janyce");
+values ('Janyce', 'Janyce');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaqueline", "Jaqueline");
+values ('Jaqueline', 'Jaqueline');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaquelyn", "Jaquelyn");
+values ('Jaquelyn', 'Jaquelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jared", "Jared");
+values ('Jared', 'Jared');
 insert into StudentsList (`name`, `last_name`)
-values ("Jarod", "Jarod");
+values ('Jarod', 'Jarod');
 insert into StudentsList (`name`, `last_name`)
-values ("Jarred", "Jarred");
+values ('Jarred', 'Jarred');
 insert into StudentsList (`name`, `last_name`)
-values ("Jarrett", "Jarrett");
+values ('Jarrett', 'Jarrett');
 insert into StudentsList (`name`, `last_name`)
-values ("Jarrod", "Jarrod");
+values ('Jarrod', 'Jarrod');
 insert into StudentsList (`name`, `last_name`)
-values ("Jarvis", "Jarvis");
+values ('Jarvis', 'Jarvis');
 insert into StudentsList (`name`, `last_name`)
-values ("Jasmin", "Jasmin");
+values ('Jasmin', 'Jasmin');
 insert into StudentsList (`name`, `last_name`)
-values ("Jasmine", "Jasmine");
+values ('Jasmine', 'Jasmine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jason", "Jason");
+values ('Jason', 'Jason');
 insert into StudentsList (`name`, `last_name`)
-values ("Jasper", "Jasper");
+values ('Jasper', 'Jasper');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaunita", "Jaunita");
+values ('Jaunita', 'Jaunita');
 insert into StudentsList (`name`, `last_name`)
-values ("Javier", "Javier");
+values ('Javier', 'Javier');
 insert into StudentsList (`name`, `last_name`)
-values ("Jay", "Jay");
+values ('Jay', 'Jay');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaye", "Jaye");
+values ('Jaye', 'Jaye');
 insert into StudentsList (`name`, `last_name`)
-values ("Jayme", "Jayme");
+values ('Jayme', 'Jayme');
 insert into StudentsList (`name`, `last_name`)
-values ("Jaymie", "Jaymie");
+values ('Jaymie', 'Jaymie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jayna", "Jayna");
+values ('Jayna', 'Jayna');
 insert into StudentsList (`name`, `last_name`)
-values ("Jayne", "Jayne");
+values ('Jayne', 'Jayne');
 insert into StudentsList (`name`, `last_name`)
-values ("Jayson", "Jayson");
+values ('Jayson', 'Jayson');
 insert into StudentsList (`name`, `last_name`)
-values ("Jazmin", "Jazmin");
+values ('Jazmin', 'Jazmin');
 insert into StudentsList (`name`, `last_name`)
-values ("Jazmine", "Jazmine");
+values ('Jazmine', 'Jazmine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jc", "Jc");
+values ('Jc', 'Jc');
 insert into StudentsList (`name`, `last_name`)
-values ("Jean", "Jean");
+values ('Jean', 'Jean');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeana", "Jeana");
+values ('Jeana', 'Jeana');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeane", "Jeane");
+values ('Jeane', 'Jeane');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanelle", "Jeanelle");
+values ('Jeanelle', 'Jeanelle');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanene", "Jeanene");
+values ('Jeanene', 'Jeanene');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanett", "Jeanett");
+values ('Jeanett', 'Jeanett');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanetta", "Jeanetta");
+values ('Jeanetta', 'Jeanetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanette", "Jeanette");
+values ('Jeanette', 'Jeanette');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanice", "Jeanice");
+values ('Jeanice', 'Jeanice');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanie", "Jeanie");
+values ('Jeanie', 'Jeanie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanine", "Jeanine");
+values ('Jeanine', 'Jeanine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanmarie", "Jeanmarie");
+values ('Jeanmarie', 'Jeanmarie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanna", "Jeanna");
+values ('Jeanna', 'Jeanna');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeanne", "Jeanne");
+values ('Jeanne', 'Jeanne');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeannetta", "Jeannetta");
+values ('Jeannetta', 'Jeannetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeannette", "Jeannette");
+values ('Jeannette', 'Jeannette');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeannie", "Jeannie");
+values ('Jeannie', 'Jeannie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeannine", "Jeannine");
+values ('Jeannine', 'Jeannine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jed", "Jed");
+values ('Jed', 'Jed');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeff", "Jeff");
+values ('Jeff', 'Jeff');
 insert into StudentsList (`name`, `last_name`)
-values ("Jefferey", "Jefferey");
+values ('Jefferey', 'Jefferey');
 insert into StudentsList (`name`, `last_name`)
-values ("Jefferson", "Jefferson");
+values ('Jefferson', 'Jefferson');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeffery", "Jeffery");
+values ('Jeffery', 'Jeffery');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeffie", "Jeffie");
+values ('Jeffie', 'Jeffie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeffrey", "Jeffrey");
+values ('Jeffrey', 'Jeffrey');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeffry", "Jeffry");
+values ('Jeffry', 'Jeffry');
 insert into StudentsList (`name`, `last_name`)
-values ("Jen", "Jen");
+values ('Jen', 'Jen');
 insert into StudentsList (`name`, `last_name`)
-values ("Jena", "Jena");
+values ('Jena', 'Jena');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenae", "Jenae");
+values ('Jenae', 'Jenae');
 insert into StudentsList (`name`, `last_name`)
-values ("Jene", "Jene");
+values ('Jene', 'Jene');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenee", "Jenee");
+values ('Jenee', 'Jenee');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenell", "Jenell");
+values ('Jenell', 'Jenell');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenelle", "Jenelle");
+values ('Jenelle', 'Jenelle');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenette", "Jenette");
+values ('Jenette', 'Jenette');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeneva", "Jeneva");
+values ('Jeneva', 'Jeneva');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeni", "Jeni");
+values ('Jeni', 'Jeni');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenice", "Jenice");
+values ('Jenice', 'Jenice');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenifer", "Jenifer");
+values ('Jenifer', 'Jenifer');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeniffer", "Jeniffer");
+values ('Jeniffer', 'Jeniffer');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenine", "Jenine");
+values ('Jenine', 'Jenine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenise", "Jenise");
+values ('Jenise', 'Jenise');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenna", "Jenna");
+values ('Jenna', 'Jenna');
 insert into StudentsList (`name`, `last_name`)
-values ("Jennefer", "Jennefer");
+values ('Jennefer', 'Jennefer');
 insert into StudentsList (`name`, `last_name`)
-values ("Jennell", "Jennell");
+values ('Jennell', 'Jennell');
 insert into StudentsList (`name`, `last_name`)
-values ("Jennette", "Jennette");
+values ('Jennette', 'Jennette');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenni", "Jenni");
+values ('Jenni', 'Jenni');
 insert into StudentsList (`name`, `last_name`)
-values ("Jennie", "Jennie");
+values ('Jennie', 'Jennie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jennifer", "Jennifer");
+values ('Jennifer', 'Jennifer');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenniffer", "Jenniffer");
+values ('Jenniffer', 'Jenniffer');
 insert into StudentsList (`name`, `last_name`)
-values ("Jennine", "Jennine");
+values ('Jennine', 'Jennine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jenny", "Jenny");
+values ('Jenny', 'Jenny');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerald", "Jerald");
+values ('Jerald', 'Jerald');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeraldine", "Jeraldine");
+values ('Jeraldine', 'Jeraldine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeramy", "Jeramy");
+values ('Jeramy', 'Jeramy');
 insert into StudentsList (`name`, `last_name`)
-values ("Jere", "Jere");
+values ('Jere', 'Jere');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeremiah", "Jeremiah");
+values ('Jeremiah', 'Jeremiah');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeremy", "Jeremy");
+values ('Jeremy', 'Jeremy');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeri", "Jeri");
+values ('Jeri', 'Jeri');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerica", "Jerica");
+values ('Jerica', 'Jerica');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerilyn", "Jerilyn");
+values ('Jerilyn', 'Jerilyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerlene", "Jerlene");
+values ('Jerlene', 'Jerlene');
 insert into StudentsList (`name`, `last_name`)
-values ("Jermaine", "Jermaine");
+values ('Jermaine', 'Jermaine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerold", "Jerold");
+values ('Jerold', 'Jerold');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerome", "Jerome");
+values ('Jerome', 'Jerome');
 insert into StudentsList (`name`, `last_name`)
-values ("Jeromy", "Jeromy");
+values ('Jeromy', 'Jeromy');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerrell", "Jerrell");
+values ('Jerrell', 'Jerrell');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerri", "Jerri");
+values ('Jerri', 'Jerri');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerrica", "Jerrica");
+values ('Jerrica', 'Jerrica');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerrie", "Jerrie");
+values ('Jerrie', 'Jerrie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerrod", "Jerrod");
+values ('Jerrod', 'Jerrod');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerrold", "Jerrold");
+values ('Jerrold', 'Jerrold');
 insert into StudentsList (`name`, `last_name`)
-values ("Jerry", "Jerry");
+values ('Jerry', 'Jerry');
 insert into StudentsList (`name`, `last_name`)
-values ("Jesenia", "Jesenia");
+values ('Jesenia', 'Jesenia');
 insert into StudentsList (`name`, `last_name`)
-values ("Jesica", "Jesica");
+values ('Jesica', 'Jesica');
 insert into StudentsList (`name`, `last_name`)
-values ("Jess", "Jess");
+values ('Jess', 'Jess');
 insert into StudentsList (`name`, `last_name`)
-values ("Jesse", "Jesse");
+values ('Jesse', 'Jesse');
 insert into StudentsList (`name`, `last_name`)
-values ("Jessenia", "Jessenia");
+values ('Jessenia', 'Jessenia');
 insert into StudentsList (`name`, `last_name`)
-values ("Jessi", "Jessi");
+values ('Jessi', 'Jessi');
 insert into StudentsList (`name`, `last_name`)
-values ("Jessia", "Jessia");
+values ('Jessia', 'Jessia');
 insert into StudentsList (`name`, `last_name`)
-values ("Jessica", "Jessica");
+values ('Jessica', 'Jessica');
 insert into StudentsList (`name`, `last_name`)
-values ("Jessie", "Jessie");
+values ('Jessie', 'Jessie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jessika", "Jessika");
+values ('Jessika', 'Jessika');
 insert into StudentsList (`name`, `last_name`)
-values ("Jestine", "Jestine");
+values ('Jestine', 'Jestine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jesus", "Jesus");
+values ('Jesus', 'Jesus');
 insert into StudentsList (`name`, `last_name`)
-values ("Jesusa", "Jesusa");
+values ('Jesusa', 'Jesusa');
 insert into StudentsList (`name`, `last_name`)
-values ("Jesusita", "Jesusita");
+values ('Jesusita', 'Jesusita');
 insert into StudentsList (`name`, `last_name`)
-values ("Jetta", "Jetta");
+values ('Jetta', 'Jetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Jettie", "Jettie");
+values ('Jettie', 'Jettie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jewel", "Jewel");
+values ('Jewel', 'Jewel');
 insert into StudentsList (`name`, `last_name`)
-values ("Jewell", "Jewell");
+values ('Jewell', 'Jewell');
 insert into StudentsList (`name`, `last_name`)
-values ("Ji", "Ji");
+values ('Ji', 'Ji');
 insert into StudentsList (`name`, `last_name`)
-values ("Jill", "Jill");
+values ('Jill', 'Jill');
 insert into StudentsList (`name`, `last_name`)
-values ("Jillian", "Jillian");
+values ('Jillian', 'Jillian');
 insert into StudentsList (`name`, `last_name`)
-values ("Jim", "Jim");
+values ('Jim', 'Jim');
 insert into StudentsList (`name`, `last_name`)
-values ("Jimmie", "Jimmie");
+values ('Jimmie', 'Jimmie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jimmy", "Jimmy");
+values ('Jimmy', 'Jimmy');
 insert into StudentsList (`name`, `last_name`)
-values ("Jin", "Jin");
+values ('Jin', 'Jin');
 insert into StudentsList (`name`, `last_name`)
-values ("Jina", "Jina");
+values ('Jina', 'Jina');
 insert into StudentsList (`name`, `last_name`)
-values ("Jinny", "Jinny");
+values ('Jinny', 'Jinny');
 insert into StudentsList (`name`, `last_name`)
-values ("Jo", "Jo");
+values ('Jo', 'Jo');
 insert into StudentsList (`name`, `last_name`)
-values ("Joan", "Joan");
+values ('Joan', 'Joan');
 insert into StudentsList (`name`, `last_name`)
-values ("Joana", "Joana");
+values ('Joana', 'Joana');
 insert into StudentsList (`name`, `last_name`)
-values ("Joane", "Joane");
+values ('Joane', 'Joane');
 insert into StudentsList (`name`, `last_name`)
-values ("Joanie", "Joanie");
+values ('Joanie', 'Joanie');
 insert into StudentsList (`name`, `last_name`)
-values ("Joann", "Joann");
+values ('Joann', 'Joann');
 insert into StudentsList (`name`, `last_name`)
-values ("Joanna", "Joanna");
+values ('Joanna', 'Joanna');
 insert into StudentsList (`name`, `last_name`)
-values ("Joanne", "Joanne");
+values ('Joanne', 'Joanne');
 insert into StudentsList (`name`, `last_name`)
-values ("Joannie", "Joannie");
+values ('Joannie', 'Joannie');
 insert into StudentsList (`name`, `last_name`)
-values ("Joaquin", "Joaquin");
+values ('Joaquin', 'Joaquin');
 insert into StudentsList (`name`, `last_name`)
-values ("Joaquina", "Joaquina");
+values ('Joaquina', 'Joaquina');
 insert into StudentsList (`name`, `last_name`)
-values ("Jocelyn", "Jocelyn");
+values ('Jocelyn', 'Jocelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jodee", "Jodee");
+values ('Jodee', 'Jodee');
 insert into StudentsList (`name`, `last_name`)
-values ("Jodi", "Jodi");
+values ('Jodi', 'Jodi');
 insert into StudentsList (`name`, `last_name`)
-values ("Jodie", "Jodie");
+values ('Jodie', 'Jodie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jody", "Jody");
+values ('Jody', 'Jody');
 insert into StudentsList (`name`, `last_name`)
-values ("Joe", "Joe");
+values ('Joe', 'Joe');
 insert into StudentsList (`name`, `last_name`)
-values ("Joeann", "Joeann");
+values ('Joeann', 'Joeann');
 insert into StudentsList (`name`, `last_name`)
-values ("Joel", "Joel");
+values ('Joel', 'Joel');
 insert into StudentsList (`name`, `last_name`)
-values ("Joella", "Joella");
+values ('Joella', 'Joella');
 insert into StudentsList (`name`, `last_name`)
-values ("Joelle", "Joelle");
+values ('Joelle', 'Joelle');
 insert into StudentsList (`name`, `last_name`)
-values ("Joellen", "Joellen");
+values ('Joellen', 'Joellen');
 insert into StudentsList (`name`, `last_name`)
-values ("Joesph", "Joesph");
+values ('Joesph', 'Joesph');
 insert into StudentsList (`name`, `last_name`)
-values ("Joetta", "Joetta");
+values ('Joetta', 'Joetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Joette", "Joette");
+values ('Joette', 'Joette');
 insert into StudentsList (`name`, `last_name`)
-values ("Joey", "Joey");
+values ('Joey', 'Joey');
 insert into StudentsList (`name`, `last_name`)
-values ("Johana", "Johana");
+values ('Johana', 'Johana');
 insert into StudentsList (`name`, `last_name`)
-values ("Johanna", "Johanna");
+values ('Johanna', 'Johanna');
 insert into StudentsList (`name`, `last_name`)
-values ("Johanne", "Johanne");
+values ('Johanne', 'Johanne');
 insert into StudentsList (`name`, `last_name`)
-values ("John", "John");
+values ('John', 'John');
 insert into StudentsList (`name`, `last_name`)
-values ("Johna", "Johna");
+values ('Johna', 'Johna');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnathan", "Johnathan");
+values ('Johnathan', 'Johnathan');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnathon", "Johnathon");
+values ('Johnathon', 'Johnathon');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnetta", "Johnetta");
+values ('Johnetta', 'Johnetta');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnette", "Johnette");
+values ('Johnette', 'Johnette');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnie", "Johnie");
+values ('Johnie', 'Johnie');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnna", "Johnna");
+values ('Johnna', 'Johnna');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnnie", "Johnnie");
+values ('Johnnie', 'Johnnie');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnny", "Johnny");
+values ('Johnny', 'Johnny');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnsie", "Johnsie");
+values ('Johnsie', 'Johnsie');
 insert into StudentsList (`name`, `last_name`)
-values ("Johnson", "Johnson");
+values ('Johnson', 'Johnson');
 insert into StudentsList (`name`, `last_name`)
-values ("Joi", "Joi");
+values ('Joi', 'Joi');
 insert into StudentsList (`name`, `last_name`)
-values ("Joie", "Joie");
+values ('Joie', 'Joie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jolanda", "Jolanda");
+values ('Jolanda', 'Jolanda');
 insert into StudentsList (`name`, `last_name`)
-values ("Joleen", "Joleen");
+values ('Joleen', 'Joleen');
 insert into StudentsList (`name`, `last_name`)
-values ("Jolene", "Jolene");
+values ('Jolene', 'Jolene');
 insert into StudentsList (`name`, `last_name`)
-values ("Jolie", "Jolie");
+values ('Jolie', 'Jolie');
 insert into StudentsList (`name`, `last_name`)
-values ("Joline", "Joline");
+values ('Joline', 'Joline');
 insert into StudentsList (`name`, `last_name`)
-values ("Jolyn", "Jolyn");
+values ('Jolyn', 'Jolyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jolynn", "Jolynn");
+values ('Jolynn', 'Jolynn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jon", "Jon");
+values ('Jon', 'Jon');
 insert into StudentsList (`name`, `last_name`)
-values ("Jona", "Jona");
+values ('Jona', 'Jona');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonah", "Jonah");
+values ('Jonah', 'Jonah');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonas", "Jonas");
+values ('Jonas', 'Jonas');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonathan", "Jonathan");
+values ('Jonathan', 'Jonathan');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonathon", "Jonathon");
+values ('Jonathon', 'Jonathon');
 insert into StudentsList (`name`, `last_name`)
-values ("Jone", "Jone");
+values ('Jone', 'Jone');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonell", "Jonell");
+values ('Jonell', 'Jonell');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonelle", "Jonelle");
+values ('Jonelle', 'Jonelle');
 insert into StudentsList (`name`, `last_name`)
-values ("Jong", "Jong");
+values ('Jong', 'Jong');
 insert into StudentsList (`name`, `last_name`)
-values ("Joni", "Joni");
+values ('Joni', 'Joni');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonie", "Jonie");
+values ('Jonie', 'Jonie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonna", "Jonna");
+values ('Jonna', 'Jonna');
 insert into StudentsList (`name`, `last_name`)
-values ("Jonnie", "Jonnie");
+values ('Jonnie', 'Jonnie');
 insert into StudentsList (`name`, `last_name`)
-values ("Jordan", "Jordan");
+values ('Jordan', 'Jordan');
 insert into StudentsList (`name`, `last_name`)
-values ("Jordon", "Jordon");
+values ('Jordon', 'Jordon');
 insert into StudentsList (`name`, `last_name`)
-values ("Jorge", "Jorge");
+values ('Jorge', 'Jorge');
 insert into StudentsList (`name`, `last_name`)
-values ("Jose", "Jose");
+values ('Jose', 'Jose');
 insert into StudentsList (`name`, `last_name`)
-values ("Josef", "Josef");
+values ('Josef', 'Josef');
 insert into StudentsList (`name`, `last_name`)
-values ("Josefa", "Josefa");
+values ('Josefa', 'Josefa');
 insert into StudentsList (`name`, `last_name`)
-values ("Josefina", "Josefina");
+values ('Josefina', 'Josefina');
 insert into StudentsList (`name`, `last_name`)
-values ("Josefine", "Josefine");
+values ('Josefine', 'Josefine');
 insert into StudentsList (`name`, `last_name`)
-values ("Joselyn", "Joselyn");
+values ('Joselyn', 'Joselyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Joseph", "Joseph");
+values ('Joseph', 'Joseph');
 insert into StudentsList (`name`, `last_name`)
-values ("Josephina", "Josephina");
+values ('Josephina', 'Josephina');
 insert into StudentsList (`name`, `last_name`)
-values ("Josephine", "Josephine");
+values ('Josephine', 'Josephine');
 insert into StudentsList (`name`, `last_name`)
-values ("Josette", "Josette");
+values ('Josette', 'Josette');
 insert into StudentsList (`name`, `last_name`)
-values ("Josh", "Josh");
+values ('Josh', 'Josh');
 insert into StudentsList (`name`, `last_name`)
-values ("Joshua", "Joshua");
+values ('Joshua', 'Joshua');
 insert into StudentsList (`name`, `last_name`)
-values ("Josiah", "Josiah");
+values ('Josiah', 'Josiah');
 insert into StudentsList (`name`, `last_name`)
-values ("Josie", "Josie");
+values ('Josie', 'Josie');
 insert into StudentsList (`name`, `last_name`)
-values ("Joslyn", "Joslyn");
+values ('Joslyn', 'Joslyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Jospeh", "Jospeh");
+values ('Jospeh', 'Jospeh');
 insert into StudentsList (`name`, `last_name`)
-values ("Josphine", "Josphine");
+values ('Josphine', 'Josphine');
 insert into StudentsList (`name`, `last_name`)
-values ("Josue", "Josue");
+values ('Josue', 'Josue');
 insert into StudentsList (`name`, `last_name`)
-values ("Jovan", "Jovan");
+values ('Jovan', 'Jovan');
 insert into StudentsList (`name`, `last_name`)
-values ("Jovita", "Jovita");
+values ('Jovita', 'Jovita');
 insert into StudentsList (`name`, `last_name`)
-values ("Joy", "Joy");
+values ('Joy', 'Joy');
 insert into StudentsList (`name`, `last_name`)
-values ("Joya", "Joya");
+values ('Joya', 'Joya');
 insert into StudentsList (`name`, `last_name`)
-values ("Joyce", "Joyce");
+values ('Joyce', 'Joyce');
 insert into StudentsList (`name`, `last_name`)
-values ("Joycelyn", "Joycelyn");
+values ('Joycelyn', 'Joycelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Joye", "Joye");
+values ('Joye', 'Joye');
 insert into StudentsList (`name`, `last_name`)
-values ("Juan", "Juan");
+values ('Juan', 'Juan');
 insert into StudentsList (`name`, `last_name`)
-values ("Juana", "Juana");
+values ('Juana', 'Juana');
 insert into StudentsList (`name`, `last_name`)
-values ("Juanita", "Juanita");
+values ('Juanita', 'Juanita');
 insert into StudentsList (`name`, `last_name`)
-values ("Jude", "Jude");
+values ('Jude', 'Jude');
 insert into StudentsList (`name`, `last_name`)
-values ("Judi", "Judi");
+values ('Judi', 'Judi');
 insert into StudentsList (`name`, `last_name`)
-values ("Judie", "Judie");
+values ('Judie', 'Judie');
 insert into StudentsList (`name`, `last_name`)
-values ("Judith", "Judith");
+values ('Judith', 'Judith');
 insert into StudentsList (`name`, `last_name`)
-values ("Judson", "Judson");
+values ('Judson', 'Judson');
 insert into StudentsList (`name`, `last_name`)
-values ("Judy", "Judy");
+values ('Judy', 'Judy');
 insert into StudentsList (`name`, `last_name`)
-values ("Jule", "Jule");
+values ('Jule', 'Jule');
 insert into StudentsList (`name`, `last_name`)
-values ("Julee", "Julee");
+values ('Julee', 'Julee');
 insert into StudentsList (`name`, `last_name`)
-values ("Julene", "Julene");
+values ('Julene', 'Julene');
 insert into StudentsList (`name`, `last_name`)
-values ("Jules", "Jules");
+values ('Jules', 'Jules');
 insert into StudentsList (`name`, `last_name`)
-values ("Juli", "Juli");
+values ('Juli', 'Juli');
 insert into StudentsList (`name`, `last_name`)
-values ("Julia", "Julia");
+values ('Julia', 'Julia');
 insert into StudentsList (`name`, `last_name`)
-values ("Julian", "Julian");
+values ('Julian', 'Julian');
 insert into StudentsList (`name`, `last_name`)
-values ("Juliana", "Juliana");
+values ('Juliana', 'Juliana');
 insert into StudentsList (`name`, `last_name`)
-values ("Juliane", "Juliane");
+values ('Juliane', 'Juliane');
 insert into StudentsList (`name`, `last_name`)
-values ("Juliann", "Juliann");
+values ('Juliann', 'Juliann');
 insert into StudentsList (`name`, `last_name`)
-values ("Julianna", "Julianna");
+values ('Julianna', 'Julianna');
 insert into StudentsList (`name`, `last_name`)
-values ("Julianne", "Julianne");
+values ('Julianne', 'Julianne');
 insert into StudentsList (`name`, `last_name`)
-values ("Julie", "Julie");
+values ('Julie', 'Julie');
 insert into StudentsList (`name`, `last_name`)
-values ("Julieann", "Julieann");
+values ('Julieann', 'Julieann');
 insert into StudentsList (`name`, `last_name`)
-values ("Julienne", "Julienne");
+values ('Julienne', 'Julienne');
 insert into StudentsList (`name`, `last_name`)
-values ("Juliet", "Juliet");
+values ('Juliet', 'Juliet');
 insert into StudentsList (`name`, `last_name`)
-values ("Julieta", "Julieta");
+values ('Julieta', 'Julieta');
 insert into StudentsList (`name`, `last_name`)
-values ("Julietta", "Julietta");
+values ('Julietta', 'Julietta');
 insert into StudentsList (`name`, `last_name`)
-values ("Juliette", "Juliette");
+values ('Juliette', 'Juliette');
 insert into StudentsList (`name`, `last_name`)
-values ("Julio", "Julio");
+values ('Julio', 'Julio');
 insert into StudentsList (`name`, `last_name`)
-values ("Julissa", "Julissa");
+values ('Julissa', 'Julissa');
 insert into StudentsList (`name`, `last_name`)
-values ("Julius", "Julius");
+values ('Julius', 'Julius');
 insert into StudentsList (`name`, `last_name`)
-values ("June", "June");
+values ('June', 'June');
 insert into StudentsList (`name`, `last_name`)
-values ("Jung", "Jung");
+values ('Jung', 'Jung');
 insert into StudentsList (`name`, `last_name`)
-values ("Junie", "Junie");
+values ('Junie', 'Junie');
 insert into StudentsList (`name`, `last_name`)
-values ("Junior", "Junior");
+values ('Junior', 'Junior');
 insert into StudentsList (`name`, `last_name`)
-values ("Junita", "Junita");
+values ('Junita', 'Junita');
 insert into StudentsList (`name`, `last_name`)
-values ("Junko", "Junko");
+values ('Junko', 'Junko');
 insert into StudentsList (`name`, `last_name`)
-values ("Justa", "Justa");
+values ('Justa', 'Justa');
 insert into StudentsList (`name`, `last_name`)
-values ("Justin", "Justin");
+values ('Justin', 'Justin');
 insert into StudentsList (`name`, `last_name`)
-values ("Justina", "Justina");
+values ('Justina', 'Justina');
 insert into StudentsList (`name`, `last_name`)
-values ("Justine", "Justine");
+values ('Justine', 'Justine');
 insert into StudentsList (`name`, `last_name`)
-values ("Jutta", "Jutta");
+values ('Jutta', 'Jutta');
 insert into StudentsList (`name`, `last_name`)
-values ("Ka", "Ka");
+values ('Ka', 'Ka');
 insert into StudentsList (`name`, `last_name`)
-values ("Kacey", "Kacey");
+values ('Kacey', 'Kacey');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaci", "Kaci");
+values ('Kaci', 'Kaci');
 insert into StudentsList (`name`, `last_name`)
-values ("Kacie", "Kacie");
+values ('Kacie', 'Kacie');
 insert into StudentsList (`name`, `last_name`)
-values ("Kacy", "Kacy");
+values ('Kacy', 'Kacy');
 insert into StudentsList (`name`, `last_name`)
-values ("Kai", "Kai");
+values ('Kai', 'Kai');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaila", "Kaila");
+values ('Kaila', 'Kaila');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaitlin", "Kaitlin");
+values ('Kaitlin', 'Kaitlin');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaitlyn", "Kaitlyn");
+values ('Kaitlyn', 'Kaitlyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Kala", "Kala");
+values ('Kala', 'Kala');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaleigh", "Kaleigh");
+values ('Kaleigh', 'Kaleigh');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaley", "Kaley");
+values ('Kaley', 'Kaley');
 insert into StudentsList (`name`, `last_name`)
-values ("Kali", "Kali");
+values ('Kali', 'Kali');
 insert into StudentsList (`name`, `last_name`)
-values ("Kallie", "Kallie");
+values ('Kallie', 'Kallie');
 insert into StudentsList (`name`, `last_name`)
-values ("Kalyn", "Kalyn");
+values ('Kalyn', 'Kalyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Kam", "Kam");
+values ('Kam', 'Kam');
 insert into StudentsList (`name`, `last_name`)
-values ("Kamala", "Kamala");
+values ('Kamala', 'Kamala');
 insert into StudentsList (`name`, `last_name`)
-values ("Kami", "Kami");
+values ('Kami', 'Kami');
 insert into StudentsList (`name`, `last_name`)
-values ("Kamilah", "Kamilah");
+values ('Kamilah', 'Kamilah');
 insert into StudentsList (`name`, `last_name`)
-values ("Kandace", "Kandace");
+values ('Kandace', 'Kandace');
 insert into StudentsList (`name`, `last_name`)
-values ("Kandi", "Kandi");
+values ('Kandi', 'Kandi');
 insert into StudentsList (`name`, `last_name`)
-values ("Kandice", "Kandice");
+values ('Kandice', 'Kandice');
 insert into StudentsList (`name`, `last_name`)
-values ("Kandis", "Kandis");
+values ('Kandis', 'Kandis');
 insert into StudentsList (`name`, `last_name`)
-values ("Kandra", "Kandra");
+values ('Kandra', 'Kandra');
 insert into StudentsList (`name`, `last_name`)
-values ("Kandy", "Kandy");
+values ('Kandy', 'Kandy');
 insert into StudentsList (`name`, `last_name`)
-values ("Kanesha", "Kanesha");
+values ('Kanesha', 'Kanesha');
 insert into StudentsList (`name`, `last_name`)
-values ("Kanisha", "Kanisha");
+values ('Kanisha', 'Kanisha');
 insert into StudentsList (`name`, `last_name`)
-values ("Kara", "Kara");
+values ('Kara', 'Kara');
 insert into StudentsList (`name`, `last_name`)
-values ("Karan", "Karan");
+values ('Karan', 'Karan');
 insert into StudentsList (`name`, `last_name`)
-values ("Kareem", "Kareem");
+values ('Kareem', 'Kareem');
 insert into StudentsList (`name`, `last_name`)
-values ("Kareen", "Kareen");
+values ('Kareen', 'Kareen');
 insert into StudentsList (`name`, `last_name`)
-values ("Karen", "Karen");
+values ('Karen', 'Karen');
 insert into StudentsList (`name`, `last_name`)
-values ("Karena", "Karena");
+values ('Karena', 'Karena');
 insert into StudentsList (`name`, `last_name`)
-values ("Karey", "Karey");
+values ('Karey', 'Karey');
 insert into StudentsList (`name`, `last_name`)
-values ("Kari", "Kari");
+values ('Kari', 'Kari');
 insert into StudentsList (`name`, `last_name`)
-values ("Karie", "Karie");
+values ('Karie', 'Karie');
 insert into StudentsList (`name`, `last_name`)
-values ("Karima", "Karima");
+values ('Karima', 'Karima');
 insert into StudentsList (`name`, `last_name`)
-values ("Karin", "Karin");
+values ('Karin', 'Karin');
 insert into StudentsList (`name`, `last_name`)
-values ("Karina", "Karina");
+values ('Karina', 'Karina');
 insert into StudentsList (`name`, `last_name`)
-values ("Karine", "Karine");
+values ('Karine', 'Karine');
 insert into StudentsList (`name`, `last_name`)
-values ("Karisa", "Karisa");
+values ('Karisa', 'Karisa');
 insert into StudentsList (`name`, `last_name`)
-values ("Karissa", "Karissa");
+values ('Karissa', 'Karissa');
 insert into StudentsList (`name`, `last_name`)
-values ("Karl", "Karl");
+values ('Karl', 'Karl');
 insert into StudentsList (`name`, `last_name`)
-values ("Karla", "Karla");
+values ('Karla', 'Karla');
 insert into StudentsList (`name`, `last_name`)
-values ("Karleen", "Karleen");
+values ('Karleen', 'Karleen');
 insert into StudentsList (`name`, `last_name`)
-values ("Karlene", "Karlene");
+values ('Karlene', 'Karlene');
 insert into StudentsList (`name`, `last_name`)
-values ("Karly", "Karly");
+values ('Karly', 'Karly');
 insert into StudentsList (`name`, `last_name`)
-values ("Karlyn", "Karlyn");
+values ('Karlyn', 'Karlyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Karma", "Karma");
+values ('Karma', 'Karma');
 insert into StudentsList (`name`, `last_name`)
-values ("Karmen", "Karmen");
+values ('Karmen', 'Karmen');
 insert into StudentsList (`name`, `last_name`)
-values ("Karol", "Karol");
+values ('Karol', 'Karol');
 insert into StudentsList (`name`, `last_name`)
-values ("Karole", "Karole");
+values ('Karole', 'Karole');
 insert into StudentsList (`name`, `last_name`)
-values ("Karoline", "Karoline");
+values ('Karoline', 'Karoline');
 insert into StudentsList (`name`, `last_name`)
-values ("Karolyn", "Karolyn");
+values ('Karolyn', 'Karolyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Karon", "Karon");
+values ('Karon', 'Karon');
 insert into StudentsList (`name`, `last_name`)
-values ("Karren", "Karren");
+values ('Karren', 'Karren');
 insert into StudentsList (`name`, `last_name`)
-values ("Karri", "Karri");
+values ('Karri', 'Karri');
 insert into StudentsList (`name`, `last_name`)
-values ("Karrie", "Karrie");
+values ('Karrie', 'Karrie');
 insert into StudentsList (`name`, `last_name`)
-values ("Karry", "Karry");
+values ('Karry', 'Karry');
 insert into StudentsList (`name`, `last_name`)
-values ("Kary", "Kary");
+values ('Kary', 'Kary');
 insert into StudentsList (`name`, `last_name`)
-values ("Karyl", "Karyl");
+values ('Karyl', 'Karyl');
 insert into StudentsList (`name`, `last_name`)
-values ("Karyn", "Karyn");
+values ('Karyn', 'Karyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Kasandra", "Kasandra");
+values ('Kasandra', 'Kasandra');
 insert into StudentsList (`name`, `last_name`)
-values ("Kasey", "Kasey");
+values ('Kasey', 'Kasey');
 insert into StudentsList (`name`, `last_name`)
-values ("Kasha", "Kasha");
+values ('Kasha', 'Kasha');
 insert into StudentsList (`name`, `last_name`)
-values ("Kasi", "Kasi");
+values ('Kasi', 'Kasi');
 insert into StudentsList (`name`, `last_name`)
-values ("Kasie", "Kasie");
+values ('Kasie', 'Kasie');
 insert into StudentsList (`name`, `last_name`)
-values ("Kassandra", "Kassandra");
+values ('Kassandra', 'Kassandra');
 insert into StudentsList (`name`, `last_name`)
-values ("Kassie", "Kassie");
+values ('Kassie', 'Kassie');
 insert into StudentsList (`name`, `last_name`)
-values ("Kate", "Kate");
+values ('Kate', 'Kate');
 insert into StudentsList (`name`, `last_name`)
-values ("Katelin", "Katelin");
+values ('Katelin', 'Katelin');
 insert into StudentsList (`name`, `last_name`)
-values ("Katelyn", "Katelyn");
+values ('Katelyn', 'Katelyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Katelynn", "Katelynn");
+values ('Katelynn', 'Katelynn');
 insert into StudentsList (`name`, `last_name`)
-values ("Katerine", "Katerine");
+values ('Katerine', 'Katerine');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathaleen", "Kathaleen");
+values ('Kathaleen', 'Kathaleen');
 insert into StudentsList (`name`, `last_name`)
-values ("Katharina", "Katharina");
+values ('Katharina', 'Katharina');
 insert into StudentsList (`name`, `last_name`)
-values ("Katharine", "Katharine");
+values ('Katharine', 'Katharine');
 insert into StudentsList (`name`, `last_name`)
-values ("Katharyn", "Katharyn");
+values ('Katharyn', 'Katharyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathe", "Kathe");
+values ('Kathe', 'Kathe');
 insert into StudentsList (`name`, `last_name`)
-values ("Katheleen", "Katheleen");
+values ('Katheleen', 'Katheleen');
 insert into StudentsList (`name`, `last_name`)
-values ("Katherin", "Katherin");
+values ('Katherin', 'Katherin');
 insert into StudentsList (`name`, `last_name`)
-values ("Katherina", "Katherina");
+values ('Katherina', 'Katherina');
 insert into StudentsList (`name`, `last_name`)
-values ("Katherine", "Katherine");
+values ('Katherine', 'Katherine');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathern", "Kathern");
+values ('Kathern', 'Kathern');
 insert into StudentsList (`name`, `last_name`)
-values ("Katheryn", "Katheryn");
+values ('Katheryn', 'Katheryn');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathey", "Kathey");
+values ('Kathey', 'Kathey');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathi", "Kathi");
+values ('Kathi', 'Kathi');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathie", "Kathie");
+values ('Kathie', 'Kathie');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathleen", "Kathleen");
+values ('Kathleen', 'Kathleen');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathlene", "Kathlene");
+values ('Kathlene', 'Kathlene');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathline", "Kathline");
+values ('Kathline', 'Kathline');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathlyn", "Kathlyn");
+values ('Kathlyn', 'Kathlyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathrin", "Kathrin");
+values ('Kathrin', 'Kathrin');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathrine", "Kathrine");
+values ('Kathrine', 'Kathrine');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathryn", "Kathryn");
+values ('Kathryn', 'Kathryn');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathryne", "Kathryne");
+values ('Kathryne', 'Kathryne');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathy", "Kathy");
+values ('Kathy', 'Kathy');
 insert into StudentsList (`name`, `last_name`)
-values ("Kathyrn", "Kathyrn");
+values ('Kathyrn', 'Kathyrn');
 insert into StudentsList (`name`, `last_name`)
-values ("Kati", "Kati");
+values ('Kati', 'Kati');
 insert into StudentsList (`name`, `last_name`)
-values ("Katia", "Katia");
+values ('Katia', 'Katia');
 insert into StudentsList (`name`, `last_name`)
-values ("Katie", "Katie");
+values ('Katie', 'Katie');
 insert into StudentsList (`name`, `last_name`)
-values ("Katina", "Katina");
+values ('Katina', 'Katina');
 insert into StudentsList (`name`, `last_name`)
-values ("Katlyn", "Katlyn");
+values ('Katlyn', 'Katlyn');
 insert into StudentsList (`name`, `last_name`)
-values ("Katrice", "Katrice");
+values ('Katrice', 'Katrice');
 insert into StudentsList (`name`, `last_name`)
-values ("Katrina", "Katrina");
+values ('Katrina', 'Katrina');
 insert into StudentsList (`name`, `last_name`)
-values ("Kattie", "Kattie");
+values ('Kattie', 'Kattie');
 insert into StudentsList (`name`, `last_name`)
-values ("Katy", "Katy");
+values ('Katy', 'Katy');
 insert into StudentsList (`name`, `last_name`)
-values ("Kay", "Kay");
+values ('Kay', 'Kay');
 insert into StudentsList (`name`, `last_name`)
-values ("Kayce", "Kayce");
+values ('Kayce', 'Kayce');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaycee", "Kaycee");
+values ('Kaycee', 'Kaycee');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaye", "Kaye");
+values ('Kaye', 'Kaye');
 insert into StudentsList (`name`, `last_name`)
-values ("Kayla", "Kayla");
+values ('Kayla', 'Kayla');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaylee", "Kaylee");
+values ('Kaylee', 'Kaylee');
 insert into StudentsList (`name`, `last_name`)
-values ("Kayleen", "Kayleen");
+values ('Kayleen', 'Kayleen');
 insert into StudentsList (`name`, `last_name`)
-values ("Kayleigh", "Kayleigh");
+values ('Kayleigh', 'Kayleigh');
 insert into StudentsList (`name`, `last_name`)
-values ("Kaylene", "Kaylene");
+values ('Kaylene', 'Kaylene');
 insert into StudentsList (`name`, `last_name`)
-values ("Kazuko", "Kazuko");
+values ('Kazuko', 'Kazuko');
 insert into StudentsList (`name`, `last_name`)
-values ("Kecia", "Kecia");
+values ('Kecia', 'Kecia');
 insert into StudentsList (`name`, `last_name`)
-values ("Keeley", "Keeley");
+values ('Keeley', 'Keeley');
 insert into StudentsList (`name`, `last_name`)
-values ("Keely", "Keely");
+values ('Keely', 'Keely');
 insert into StudentsList (`name`, `last_name`)
-values ("Keena", "Keena");
+values ('Keena', 'Keena');
 insert into StudentsList (`name`, `last_name`)
-values ("Keenan", "Keenan");
+values ('Keenan', 'Keenan');
 insert into StudentsList (`name`, `last_name`)
-values ("Keesha", "Keesha");
+values ('Keesha', 'Keesha');
 insert into StudentsList (`name`, `last_name`)
-values ("Keiko", "Keiko");
+values ('Keiko', 'Keiko');
 insert into StudentsList (`name`, `last_name`)
-values ("Keila", "Keila");
+values ('Keila', 'Keila');
 insert into StudentsList (`name`, `last_name`)
-values ("Keira", "Keira");
+values ('Keira', 'Keira');
 insert into StudentsList (`name`, `last_name`)
-values ("Keisha", "Keisha");
+values ('Keisha', 'Keisha');
 insert into StudentsList (`name`, `last_name`)
-values ("Keith", "Keith");
+values ('Keith', 'Keith');
 insert into StudentsList (`name`, `last_name`)
-values ("Keitha", "Keitha");
+values ('Keitha', 'Keitha');
 insert into StudentsList (`name`, `last_name`)
-values ("Keli", "Keli");
+values ('Keli', 'Keli');
 insert into StudentsList (`name`, `last_name`)
-values ("Kelle", "Kelle");
+values ('Kelle', 'Kelle');
 /* Insert students */
 insert into `stu_class` (`stu_id`, `niv_scho`, `class`)
 values (1, 1, 1);

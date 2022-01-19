@@ -9,7 +9,10 @@ import javafx.scene.input.KeyEvent;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 
 //@SuppressWarnings("all")
@@ -17,7 +20,6 @@ public class etudiantController implements Initializable {
     
     private final DbUtils db = new DbUtils();
     private final HashMap<String, String> lst = new HashMap<>();
-    private final List<String> columnNames = new ArrayList<>();
     
     @FXML
     TableView<ObservableList<String>> tv;
@@ -46,7 +48,7 @@ public class etudiantController implements Initializable {
             for (int cl : set) {
                 cls.getItems().add(cl + "");
             }
-            db.populateData(tv, "SELECT name,last_name,class FROM StudentsList,stu_class WHERE StudentsList.stu_id = stu_class.stu_id AND niv_scho = " + niv.getValue());
+            db.populateData(tv, "SELECT name,last_name,class FROM StudentsList,stu_class WHERE id = stu_class.stu_id AND niv_scho = " + niv.getValue());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,13 +57,11 @@ public class etudiantController implements Initializable {
     @FXML
     private void getStudentsCount () {
         if (!etu.getItems().isEmpty()) etu.getItems().removeAll(etu.getItems());
-        String query =
-         "SELECT StudentsList.`stu_id`,`name`,`last_name` FROM StudentsList,`stu_class` WHERE StudentsList.`stu_id` = `stu_class`.`stu_id` AND `stu_class`.`niv_scho` = " + niv.getValue() + " AND `stu_class`.`class` = " + cls.getValue();
+        String query = "SELECT `id`,`name`,`last_name` FROM StudentsList,`stu_class` WHERE `id` = `stu_class`.`stu_id` AND `stu_class`.`niv_scho` = " + niv.getValue() + " AND `stu_class`.`class` = " + cls.getValue();
         ResultSet rs = db.runQuery(query);
         try {
-            while (rs.next()) etu.getItems().add(rs.getString("stu_id").concat(" " + rs.getString("name").concat(" " + rs.getString("last_name"))));
-            db.populateData(tv, "SELECT `stu_class`.`stu_id` AS `ID` ,`name` AS `Nom`, `last_name` AS `Prenom` FROM StudentsList, stu_class WHERE niv_scho = " + niv.getValue() + " AND class = " + cls.getValue() + " AND StudentsList" +
-             ".stu_id " + "=" + " " + "stu_class.stu_id");
+            while (rs.next()) etu.getItems().add(rs.getString("id").concat(" " + rs.getString("name").concat(" " + rs.getString("last_name"))));
+            db.populateData(tv, "SELECT `stu_id` AS `ID` ,`name` AS `Nom`, `last_name` AS `Prenom` FROM StudentsList, stu_class WHERE niv_scho = " + niv.getValue() + " AND class = " + cls.getValue() + " AND id = stu_class.stu_id");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,14 +70,17 @@ public class etudiantController implements Initializable {
     
     @FXML
     private void showStudent () {
-        String[] stu = etu.getValue().split(" ");
-        id.setText(stu[0]);
         try {
+            String[] stu = etu.getValue().split(" ");
+            id.setText(stu[0]);
             db.populateData(tv,
              "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " " + "AND " +
               "notes_moy.stu_id = " + id.getText());
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (NullPointerException ignored) {
+        
+        
         }
     }
     
@@ -85,8 +88,7 @@ public class etudiantController implements Initializable {
     private void showSpecModul () {
         try {
             db.populateData(tv,
-             "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " " + "AND " +
-              "notes_moy.stu_id = " + id.getText());
+             "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " AND notes_moy" + ".stu_id = " + id.getText());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -192,8 +194,6 @@ public class etudiantController implements Initializable {
     private void insert () {
         // TODO
         // insert statement
-        String table = "notes_moy";
-        switchNotesTable();
         String query =
          "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + (cb.isSelected() ? null : getDouble(in)) + "," + (cb1.isSelected() ? null : getDouble(mu)) + ")";
         if (db.run(query).equals("Execution Successful")) id.setStyle("-fx-text-fill: green");

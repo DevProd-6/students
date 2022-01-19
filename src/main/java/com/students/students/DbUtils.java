@@ -16,9 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressWarnings("all")
 public class DbUtils {
     private final List<String> columnNames = new ArrayList<>();
     private Connection con;
+    
+    DbUtils () {
+        try {
+            connect();
+            con.setAutoCommit(true);
+            run("SET SESSION foreign_key_checks=OFF");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
     private String connect () {
         try {
@@ -32,8 +43,7 @@ public class DbUtils {
     }
     
     public ResultSet runQuery (String query) {
-        String status = connect();
-        if (status.equals("Connection successful")) {
+        if (connect().equals("Connection successful")) {
             try {
                 return con.createStatement().executeQuery(query);
             } catch (SQLException e) {
@@ -44,8 +54,7 @@ public class DbUtils {
     }
     
     public String run (String query) {
-        String status = connect();
-        if (status.equals("Connection successful")) {
+        if (connect().equals("Connection successful")) {
             try {
                 con.createStatement().execute(query);
             } catch (SQLException e) {
