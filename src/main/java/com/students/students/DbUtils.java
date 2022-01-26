@@ -96,8 +96,15 @@ public class DbUtils {
             data.add(row);
             
         }
-        
         //FINALLY ADDED TO TableView
         tv.setItems(data);
+    }
+    
+    private void close () {
+        try {
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
