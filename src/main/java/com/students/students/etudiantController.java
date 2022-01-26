@@ -29,7 +29,7 @@ public class etudiantController implements Initializable {
     @FXML
     Label id;
     @FXML
-    TextField ar, mt, ph, is, fr, en, gh, mu, in, sp, sc, ci;
+    TextField ar, mt, ph, is, fr, en, gh, mu, in, sp, sc, ci, ds;
     @FXML
     Button ins, edt, bult;
     
@@ -37,12 +37,11 @@ public class etudiantController implements Initializable {
     private void getClassCount () {
         Set<Integer> set = new LinkedHashSet<>();
         if (!cls.getItems().isEmpty()) cls.getItems().removeAll(cls.getItems());
-        String query = "SELECT `ens_class`.`class`,`stu_class`.`class` FROM `ens_class`,`stu_class` WHERE `stu_class`.`niv_scho` = " + niv.getValue() + " AND `ens_class`.`niv_scho` = " + niv.getValue();
+        String query = "SELECT `class` FROM `stu_class` WHERE `niv_scho` = " + niv.getValue() + " ORDER BY class";
         ResultSet rs = db.runQuery(query);
         try {
             while (rs.next()) {
                 set.add(rs.getInt(1));
-                set.add(rs.getInt(2));
             }
             for (int cl : set) {
                 cls.getItems().add(cl + "");
@@ -60,7 +59,7 @@ public class etudiantController implements Initializable {
         ResultSet rs = db.runQuery(query);
         try {
             while (rs.next()) etu.getItems().add(rs.getString("id").concat(" " + rs.getString("name").concat(" " + rs.getString("last_name"))));
-            db.populateData(tv, "SELECT `stu_id` AS `ID` ,`name` AS `Nom`, `last_name` AS `Prenom` FROM StudentsList, stu_class WHERE niv_scho = " + niv.getValue() + " AND class = " + cls.getValue() + " AND id = stu_class.stu_id");
+            db.populateData(tv, "SELECT `id`,`name` AS `Nom`, `last_name` AS `Prenom` FROM StudentsList, stu_class WHERE niv_scho = " + niv.getValue() + " AND class = " + cls.getValue() + " AND id = stu_class.stu_id");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,8 +72,7 @@ public class etudiantController implements Initializable {
             String[] stu = etu.getValue().split(" ");
             id.setText(stu[0]);
             db.populateData(tv,
-             "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " " + "AND " +
-              "notes_moy.stu_id = " + id.getText());
+             "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " AND notes_moy" + ".stu_id = " + id.getText());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NullPointerException ignored) {
@@ -87,7 +85,8 @@ public class etudiantController implements Initializable {
     private void showSpecModul () {
         try {
             db.populateData(tv,
-             "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " AND notes_moy" + ".stu_id = " + id.getText());
+             "SELECT " + aff.getValue() + "_cc, " + aff.getValue() + "_dv, " + aff.getValue() + "_exmn, " + aff.getValue() + " FROM notes_cc,notes_dv,notes_exmn,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " " + "AND notes_dv" +
+              ".stu_id = " + id.getText() + " AND notes_exmn.stu_id = " + id.getText() + " AND notes_moy.stu_id = " + id.getText());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -121,6 +120,7 @@ public class etudiantController implements Initializable {
         is.setText("");
         fr.setText("");
         en.setText("");
+        ds.setText("");
     }
     
     private void clearStyle (TextField ar, TextField mt, TextField ph, TextField is, TextField fr, TextField en) {
@@ -130,6 +130,7 @@ public class etudiantController implements Initializable {
         is.getStylesheets().removeAll(is.getStyle());
         fr.getStylesheets().removeAll(fr.getStyle());
         en.getStylesheets().removeAll(en.getStyle());
+        ds.getStylesheets().removeAll(ds.getStyle());
     }
     
     private void failAll (TextField ar, TextField mt, TextField ph, TextField is, TextField fr, TextField en) {
@@ -139,6 +140,7 @@ public class etudiantController implements Initializable {
         lst.replace(is.getId(), "fail");
         lst.replace(fr.getId(), "fail");
         lst.replace(en.getId(), "fail");
+        lst.replace(ds.getId(), "fail");
     }
     
     @FXML
@@ -151,21 +153,22 @@ public class etudiantController implements Initializable {
             if (str.matches("\\d+(\\.\\d+)?") && str.length() <= 5) {
                 d = Double.parseDouble(str);
                 if (d >= 00.00 && d <= 20.00) {
-                    src.setStyle("-fx-border-color: green");
-                    lst.replace(src.getId(), lst.get(src.getId()), "pass");
+                    sub(src, "pass");
                 } else {
-                    src.setStyle("-fx-border-color: red");
-                    lst.replace(src.getId(), lst.get(src.getId()), "fail");
+                    sub(src, "fail");
                 }
             } else {
-                src.setStyle("-fx-border-color: red");
-                lst.replace(src.getId(), lst.get(src.getId()), "fail");
+                sub(src, "fail");
             }
         } else {
-            src.setStyle("-fx-border-color: red");
-            lst.replace(src.getId(), lst.get(src.getId()), "fail");
+            sub(src, "fail");
         }
         check();
+    }
+    
+    private void sub (TextField tf, String judg) {
+        tf.setStyle("-fx-border-color: " + (judg.equals("pass") ? "green" : "red"));
+        lst.replace(tf.getId(), lst.get(tf.getId()), judg);
     }
     
     private void check () {
@@ -175,8 +178,13 @@ public class etudiantController implements Initializable {
     
     @FXML
     private void getNotes () {
-        stc.calcGenMoy(id.getText());
-        
+        try {
+            bultienPDF bPDF = new bultienPDF();
+            double[] moyenne = stc.calcGenMoy(id.getText());
+            bPDF.createDocument(new Student(id.getId()), moyenne);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML
@@ -184,7 +192,7 @@ public class etudiantController implements Initializable {
         // TODO
         // insert statement
         String query =
-         "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + getDouble(in) + "," + getDouble(mu) + ")";
+         "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + getDouble(in) + "," + getDouble(mu) + "," + getDouble(ds) + ")";
         if (db.run(query).equals("Execution Successful")) id.setStyle("-fx-text-fill: green");
         else id.setStyle("-fx-text-fill: red");
     }
@@ -222,7 +230,7 @@ public class etudiantController implements Initializable {
             niv.getItems().addAll("1", "2", "3", "4");
             nt.getItems().addAll("CC", "Devoir", "Examen");
             nt.setValue("CC");
-            aff.getItems().addAll("math", "arabic", "french", "english", "islamic", "music", "geo_histo", "sport", "physics", "science", "informatique");
+            aff.getItems().addAll("math", "arabic", "french", "english", "islamic", "music", "geo_histo", "sport", "physics", "science", "informatique", "design");
             aff.setValue("math");
         } catch (SQLException e) {
             e.printStackTrace();
