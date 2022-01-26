@@ -58,7 +58,8 @@ public class DbUtils {
             try {
                 con.createStatement().execute(query);
             } catch (SQLException e) {
-                System.out.println("run() exception starts here : " + e);
+                System.out.println("run() exception starts here : ");
+                e.printStackTrace();
                 return "Execution failed";
             }
         }
@@ -100,7 +101,7 @@ public class DbUtils {
         tv.setItems(data);
     }
     
-    private void close () {
+    public void close () {
         try {
             con.close();
         } catch (SQLException e) {
