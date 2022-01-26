@@ -20,6 +20,7 @@ public class etudiantController implements Initializable {
     
     private final DbUtils db = new DbUtils();
     private final HashMap<String, String> lst = new HashMap<>();
+    stuCalcul stc = new stuCalcul();
     
     @FXML
     TableView<ObservableList<String>> tv;
@@ -30,9 +31,7 @@ public class etudiantController implements Initializable {
     @FXML
     TextField ar, mt, ph, is, fr, en, gh, mu, in, sp, sc, ci;
     @FXML
-    Button ins, edt;
-    @FXML
-    CheckBox cb, cb1;
+    Button ins, edt, bult;
     
     @FXML
     private void getClassCount () {
@@ -170,24 +169,14 @@ public class etudiantController implements Initializable {
     }
     
     private void check () {
-        if (cb.isSelected() && cb1.isSelected()) {
-            ins.setDisable(lst.containsValue("fail") || lst.size() < 10);
-            edt.setDisable(lst.containsValue("fail") || lst.size() < 10);
-            return;
-        }
-        if (cb.isSelected() || cb1.isSelected()) {
-            ins.setDisable(lst.containsValue("fail") || lst.size() < 11);
-            edt.setDisable(lst.containsValue("fail") || lst.size() < 11);
-            return;
-        }
         ins.setDisable(lst.containsValue("fail") || lst.size() < 12);
         edt.setDisable(lst.containsValue("fail") || lst.size() < 12);
     }
     
     @FXML
-    private void exempt () {
-        in.setDisable(cb.isSelected());
-        mu.setDisable(cb1.isSelected());
+    private void getNotes () {
+        stc.calcGenMoy(id.getText());
+        
     }
     
     @FXML
@@ -195,7 +184,7 @@ public class etudiantController implements Initializable {
         // TODO
         // insert statement
         String query =
-         "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + (cb.isSelected() ? null : getDouble(in)) + "," + (cb1.isSelected() ? null : getDouble(mu)) + ")";
+         "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + getDouble(in) + "," + getDouble(mu) + ")";
         if (db.run(query).equals("Execution Successful")) id.setStyle("-fx-text-fill: green");
         else id.setStyle("-fx-text-fill: red");
     }
