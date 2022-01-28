@@ -57,6 +57,7 @@ public class DbUtils {
         if (connect().equals("Connection successful")) {
             try {
                 con.createStatement().execute(query);
+                close();
             } catch (SQLException e) {
                 System.out.println("run() exception starts here : ");
                 e.printStackTrace();
