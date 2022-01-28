@@ -33,7 +33,7 @@ public class ensController implements Initializable {
     @FXML
     TableView<ObservableList<String>> tv;
     @FXML
-    private TextField nm, ln, em, pn, cls, ser;
+    private TextField nm, ln, em, pn, cls, mdl, ser;
     private DbUtils db = new DbUtils();
     
     @FXML
@@ -41,6 +41,7 @@ public class ensController implements Initializable {
         TextField src = (TextField) ae.getSource();
         String str = src.getText();
         lst.putIfAbsent(src.getId(), "fail");
+        validate(src, str.isEmpty() ? "fail" : "pass");
         switch (src.getAccessibleText()) {
             case "name":
                 validate(src, str.matches("(?<=\\s|^)[a-zA-Z]*(?=[.,;:]?\\s|$)") ? "pass" : "fail");
@@ -59,17 +60,16 @@ public class ensController implements Initializable {
                 validate(src, (str.matches("\\d+$") && str.length() == 10) ? "pass" : "fail");
                 break;
         }
-        validate(src, str.isEmpty() ? "fail" : "pass");
         check();
     }
     
     private void check () {
         try {
-          /*  if (!tb.isSelected()) ins.setDisable((isPassed(nm) && isPassed(ln) && isPassed(cls)));
-            else ins.setDisable((isPassed(nm) && isPassed(ln) && isPassed(cls) && isPassed(em) && isPassed(pn)));*/
-            //  ins.setDisable(cb.getValue().isEmpty() || lv.getValue().isEmpty() || dt.getValue().toString().isEmpty());
+            if (!tb.isSelected()) ins.setDisable((isPassed(nm) && isPassed(ln) && isPassed(cls)));
+            else ins.setDisable((isPassed(nm) && isPassed(ln) && isPassed(cls) && isPassed(em) && isPassed(pn)));
+            ins.setDisable(cb.getValue().isEmpty() || lv.getValue().isEmpty() || dt.getValue().toString().isEmpty());
         } catch (NullPointerException e) {
-            // ins.setDisable(true);
+            ins.setDisable(true);
         }
     }
     
@@ -86,14 +86,22 @@ public class ensController implements Initializable {
     private void insert () throws SQLException {
         String table = switchTable();
         ResultSet rs;
+        int a;
         switch (table) {
             case "EnsiegnantsList":
-                setSucceed(db.run("INSERT INTO " + table + " (name,last_name,date_nais,email,num_tel,gender) VALUES ('" + nm.getText() + "','" + ln.getText() + "','" + getDate() + "','" + em.getText() + "','" + pn.getText() + "'," + getGender() + ")"));
-                System.out.println(db.run("INSERT INTO ens_class (ens_id,niv_scho,class) values (LAST_INSERT_ID()," + lv.getValue().trim() + "," + cls.getText().trim() + ")"));
+                //  Ensiegnant ensiegnant = new Ensiegnant(nm.getText(), ln.getText(), getDate(), getGender(), em.getText(), mdl.getText(), cls.getText(), pn.getText(), lv.getValue());
+                setSucceed(db.run("INSERT INTO " + table + " (name,last_name,date_nais,email,num_tel,gender,module) VALUES ('" + nm.getText() + "','" + ln.getText() + "','" + getDate() + "','" + em.getText() + "','" + pn.getText() + "'," + getGender() + ",'" + mdl.getText() + "')"));
+                rs = db.runQuery("SELECT id FROM EnsiegnantsList WHERE name = '" + nm.getText() + "' and last_name = '" + ln.getText() + "' and date_nais = '" + getDate() + "'");
+                a = (rs.next() ? rs.getInt(1) : null);
+                db.close();
+                System.out.println(db.run("INSERT INTO ens_class (ens_id,niv_scho,class) values (" + a + "," + lv.getValue() + "," + cls.getText() + ")"));
                 break;
             case "StudentsList":
                 setSucceed(db.run("INSERT INTO " + table + " (name,last_name,date_nais,gender) VALUES ('" + nm.getText() + "','" + ln.getText() + "','" + getDate() + "'," + getGender() + ")"));
-                System.out.println(db.run("INSERT INTO stu_class (stu_id,niv_scho,class) values (LAST_INSERT_ID()," + lv.getValue() + "," + cls.getText() + ")"));
+                rs = db.runQuery("SELECT id FROM StudentsList WHERE name = '" + nm.getText() + "' and last_name = '" + ln.getText() + "' and date_nais = '" + getDate() + "'");
+                a = (rs.next() ? rs.getInt(1) : null);
+                db.close();
+                System.out.println(db.run("INSERT INTO stu_class (stu_id,niv_scho,class) values (" + a + "," + lv.getValue() + "," + cls.getText() + ")"));
                 break;
         }
     }
