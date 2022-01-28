@@ -10,44 +10,89 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 public class bultienPDF {
-    public static final String PDF_PATH = System.getProperty("user.home") + File.separatorChar + "Desktop";
-    private Document document = new Document();
     
-    public void createDocument (Student student, double[] notes) {
+    public boolean createDocument (ArrayList<Student> StuList, Ensiegnant ensiegnant) {
+        
+        String FOLDER_PATH = System.getProperty("user.home") + File.separatorChar + "Desktop" + File.separatorChar + ensiegnant.getNiv().concat("M" + ensiegnant.getCls()) + File.separatorChar + ensiegnant.getModule() + File.separatorChar;
+        String PDF_NAME = ensiegnant.getLast_name().toUpperCase().concat(ensiegnant.getName().concat(".pdf"));
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(PDF_PATH + File.separatorChar + student.last_name.toUpperCase().concat(student.name.concat(".pdf"))));
+            Document document = new Document();
+            System.out.println(FOLDER_PATH);
+            File folder = new File(FOLDER_PATH);
+            System.out.println(folder.getAbsolutePath());
+            try {
+                folder.mkdirs();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            System.out.println(FOLDER_PATH + PDF_NAME);
+            String FILE_PATH_NAME = FOLDER_PATH + PDF_NAME;
+            PdfWriter.getInstance(document, new FileOutputStream(FILE_PATH_NAME));
             Font font = new Font(Font.COURIER, 12, Font.BOLD);
             Table table = new Table(8);
-            table.setPadding(5);
-            table.setSpacing(1);
-            table.setWidth(100);
+            table.setPadding(3);
+            table.setSpacing(0);
+            table.setWidth(110);
             // Setting table headers
-            Cell cell = new Cell("اللأستاذ : ");
+            Cell cell = new Cell("Ensiegnant : " + ensiegnant.getLast_name().concat(" " + ensiegnant.getName()));
             cell.setHeader(true);
             cell.setVerticalAlignment(VerticalAlignment.CENTER);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
-            cell.setColspan(3);
+            cell.setColspan(4);
             cell.setBackgroundColor(Color.LIGHT_GRAY);
             table.addCell(cell);
+            Cell cell1 = new Cell("Class : " + ensiegnant.getNiv().concat("M" + ensiegnant.getCls()));
+            cell1.setHeader(true);
+            cell1.setVerticalAlignment(VerticalAlignment.CENTER);
+            cell1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            cell1.setColspan(2);
+            cell1.setBackgroundColor(Color.LIGHT_GRAY);
+            table.addCell(cell1);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+            Date date = new Date();
+            Cell cell2 = new Cell("Année : " + formatter.format(date));
+            cell2.setHeader(true);
+            cell2.setVerticalAlignment(VerticalAlignment.CENTER);
+            cell2.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            cell2.setColspan(2);
+            cell2.setBackgroundColor(Color.LIGHT_GRAY);
+            table.addCell(cell2);
             
-            table.addCell(new Phrase("المادة", font));
-            table.addCell(new Phrase("التقويم", font));
-            table.addCell(new Phrase("الفرض 1", font));
-            table.addCell(new Phrase("الفرض 2", font));
-            table.addCell(new Phrase("الإختبار", font));
-            table.addCell(new Phrase("معدل المادة", font));
-            table.addCell(new Phrase("الملاحظة", font));
-            table.addCell(new Phrase("الترتيب", font));
+            table.addCell(new Phrase("Nom Complete", font));
+            table.addCell(new Phrase("Control Continue", font));
+            table.addCell(new Phrase("Devoire 1", font));
+            table.addCell(new Phrase("Devoire 2", font));
+            table.addCell(new Phrase("Examen", font));
+            table.addCell(new Phrase("Moyenne Module", font));
+            table.addCell(new Phrase("Observation", new Font(Font.COURIER, 9, Font.BOLD)));
+            table.addCell(new Phrase("Classement", new Font(Font.COURIER, 10, Font.BOLD)));
+            for (Student student : StuList) {
+                Cell cel = new Cell(student.getName() + " " + student.getLast_name());
+                cel.setColspan(2);
+                table.addCell(cel);
+                table.addCell(student.getNotes().get(0) + "");
+                table.addCell(student.getNotes().get(1) + "");
+                table.addCell(student.getNotes().get(2) + "");
+                table.addCell(student.getNotes().get(3) + "");
+                table.addCell(student.getObsrv().get(0) + "");
+                table.addCell("classement");
+            }
             table.endHeaders();
             document.open();
             document.add(table);
             document.close();
+            return true;
         } catch (DocumentException | FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return false;
         }
     }
     
