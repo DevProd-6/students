@@ -9,18 +9,14 @@ import javafx.scene.input.KeyEvent;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 
-//@SuppressWarnings("all")
+@SuppressWarnings("all")
 public class etudiantController implements Initializable {
     
     private final DbUtils db = new DbUtils();
     private final HashMap<String, String> lst = new HashMap<>();
-    stuCalcul stc = new stuCalcul();
     
     @FXML
     TableView<ObservableList<String>> tv;
@@ -55,7 +51,7 @@ public class etudiantController implements Initializable {
     @FXML
     private void getStudentsCount () {
         if (!etu.getItems().isEmpty()) etu.getItems().removeAll(etu.getItems());
-        String query = "SELECT `id`,`name`,`last_name` FROM StudentsList,`stu_class` WHERE `id` = `stu_class`.`stu_id` AND `stu_class`.`niv_scho` = " + niv.getValue() + " AND `stu_class`.`class` = " + cls.getValue();
+        String query = "SELECT `id`,`name`,`last_name` FROM StudentsList,`stu_class` WHERE `id` = `stu_id` AND `niv_scho` = " + niv.getValue() + " AND `class` = " + cls.getValue();
         ResultSet rs = db.runQuery(query);
         try {
             while (rs.next()) etu.getItems().add(rs.getString("id").concat(" " + rs.getString("name").concat(" " + rs.getString("last_name"))));
@@ -71,22 +67,22 @@ public class etudiantController implements Initializable {
         try {
             String[] stu = etu.getValue().split(" ");
             id.setText(stu[0]);
-            db.populateData(tv,
-             "SELECT " + aff.getValue() + "_cc," + aff.getValue() + "_dv," + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " AND notes_dv.stu_id = " + id.getText() + " AND notes_moy" + ".stu_id = " + id.getText());
+            String query = "SELECT " + aff.getValue() + "_cc, " + aff.getValue() + "_dv, " + aff.getValue() + "_ex, " + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_exmn,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " " +
+             "AND " + "notes_dv.stu_id = " + id.getText() + " AND notes_exmn.stu_id = " + id.getText() + " AND notes_moy.stu_id = " + id.getText();
+            db.populateData(tv, query);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NullPointerException ignored) {
-        
-        
+            
         }
     }
     
     @FXML
     private void showSpecModul () {
+        String query = "SELECT " + aff.getValue() + "_cc, " + aff.getValue() + "_dv, " + aff.getValue() + "_ex, " + aff.getValue() + "_moy FROM notes_cc,notes_dv,notes_exmn,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " " + "AND "
+         + "notes_dv.stu_id = " + id.getText() + " AND notes_exmn.stu_id = " + id.getText() + " AND notes_moy.stu_id = " + id.getText();
         try {
-            db.populateData(tv,
-             "SELECT " + aff.getValue() + "_cc, " + aff.getValue() + "_dv, " + aff.getValue() + "_exmn, " + aff.getValue() + " FROM notes_cc,notes_dv,notes_exmn,notes_moy WHERE notes_cc.stu_id = " + id.getText() + " " + "AND notes_dv" +
-              ".stu_id = " + id.getText() + " AND notes_exmn.stu_id = " + id.getText() + " AND notes_moy.stu_id = " + id.getText());
+            db.populateData(tv, query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,6 +106,9 @@ public class etudiantController implements Initializable {
         clearStyle(gh, mu, in, sp, sc, ci);
         failAll(ar, mt, ph, is, fr, en);
         failAll(gh, mu, in, sp, sc, ci);
+        ds.getStylesheets().removeAll(ds.getStyle());
+        lst.replace(ds.getId(), "fail");
+        ds.setText("");
         check();
     }
     
@@ -120,7 +119,6 @@ public class etudiantController implements Initializable {
         is.setText("");
         fr.setText("");
         en.setText("");
-        ds.setText("");
     }
     
     private void clearStyle (TextField ar, TextField mt, TextField ph, TextField is, TextField fr, TextField en) {
@@ -130,7 +128,6 @@ public class etudiantController implements Initializable {
         is.getStylesheets().removeAll(is.getStyle());
         fr.getStylesheets().removeAll(fr.getStyle());
         en.getStylesheets().removeAll(en.getStyle());
-        ds.getStylesheets().removeAll(ds.getStyle());
     }
     
     private void failAll (TextField ar, TextField mt, TextField ph, TextField is, TextField fr, TextField en) {
@@ -140,7 +137,6 @@ public class etudiantController implements Initializable {
         lst.replace(is.getId(), "fail");
         lst.replace(fr.getId(), "fail");
         lst.replace(en.getId(), "fail");
-        lst.replace(ds.getId(), "fail");
     }
     
     @FXML
@@ -172,25 +168,36 @@ public class etudiantController implements Initializable {
     }
     
     private void check () {
-        ins.setDisable(lst.containsValue("fail") || lst.size() < 12);
-        edt.setDisable(lst.containsValue("fail") || lst.size() < 12);
+        ins.setDisable(lst.containsValue("fail") || lst.size() < 13);
+        edt.setDisable(lst.containsValue("fail") || lst.size() < 13);
     }
     
     @FXML
-    private void getNotes () {
+    private void prepareBultien () {
+        bultienPDF bPDF = new bultienPDF();
+        ArrayList<Student> StuList = new ArrayList<>();
+        Ensiegnant ens;
+        id.setText("Preparation du bultien....");
         try {
-            bultienPDF bPDF = new bultienPDF();
-            double[] moyenne = stc.calcGenMoy(id.getText());
-            bPDF.createDocument(new Student(id.getId()), moyenne);
+            String module;
+            module = aff.getValue();
+            for (String stu_id : etu.getItems()) {
+                String[] ids = stu_id.split(" ");
+                StuList.add(new Student(ids[0], module));
+            }
+            ResultSet rs = db.runQuery("SELECT id FROM EnsiegnantsList,ens_class WHERE niv_scho = " + niv.getValue() + " AND class = " + cls.getValue() + " and module = '" + module + "'");
+            if (rs.next()) {
+                ens = new Ensiegnant(rs.getInt("id") + "", niv.getValue(), cls.getValue());
+            } else ens = new Ensiegnant(Integer.valueOf(niv.getValue()), Integer.valueOf(cls.getValue()), aff.getValue());
         } catch (SQLException e) {
+            ens = new Ensiegnant(Integer.valueOf(niv.getValue()), Integer.valueOf(cls.getValue()), aff.getValue());
             e.printStackTrace();
         }
+        id.setText("Preparation du bultien...." + bPDF.createDocument(StuList, ens));
     }
     
     @FXML
     private void insert () {
-        // TODO
-        // insert statement
         String query =
          "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + getDouble(in) + "," + getDouble(mu) + "," + getDouble(ds) + ")";
         if (db.run(query).equals("Execution Successful")) id.setStyle("-fx-text-fill: green");
