@@ -53,9 +53,9 @@
       <Label layoutX="465.0" layoutY="151.0" text="Etudiant" AnchorPane.rightAnchor="307.0" />
       <Label layoutX="465.0" layoutY="23.0" text="Afficher" AnchorPane.rightAnchor="307.0" />
       <Separator layoutX="456.0" layoutY="55.0" prefHeight="2.0" prefWidth="370.0" AnchorPane.rightAnchor="0.0" />
-      <Label fx:id="id" layoutX="456.0" layoutY="219.0" prefHeight="15.0" prefWidth="201.0" AnchorPane.rightAnchor="167.0" />
-      <Button fx:id="bult" layoutX="464.0" layoutY="234.0" mnemonicParsing="false" onAction="#getNotes" prefHeight="23.0" prefWidth="94.0" text="Bulltien" AnchorPane.rightAnchor="266.0" />
-      <TextField fx:id="ds" layoutX="575.0" layoutY="490.0" AnchorPane.rightAnchor="155.0" />
+      <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" layoutX="539.0" layoutY="219.0" prefHeight="15.0" prefWidth="201.0" AnchorPane.rightAnchor="84.0" />
+      <Button fx:id="bult" layoutX="464.0" layoutY="234.0" mnemonicParsing="false" onAction="#prepareBultien" prefHeight="23.0" prefWidth="94.0" text="Bulltien" AnchorPane.rightAnchor="266.0" />
+      <TextField fx:id="ds" layoutX="575.0" layoutY="490.0" onKeyReleased="#acceptDigitOnly" AnchorPane.rightAnchor="155.0" />
       <Label layoutX="575.0" layoutY="475.0" text="Dessin" AnchorPane.rightAnchor="210.0" />
    </children>
 </AnchorPane>
