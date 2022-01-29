@@ -2,23 +2,29 @@ package com.students.students;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
-import java.util.stream.DoubleStream;
+import java.util.ArrayList;
 
 
 public class stuCalcul {
     DbUtils db = new DbUtils();
     
-    private double[] getNotes (String mdl, String id) {
+    private ArrayList<Double> getNotes (String mdl, String id) {
         System.out.println("getNotes started...");
-        double[] notes = new double[3];
-        ResultSet rs = db.runQuery("SELECT " + mdl.concat("_cc," + mdl.concat("_dv," + mdl.concat("_ex"))) + " FROM notes_cc,notes_dv,notes_exmn WHERE notes_cc.stu_id = " + id + " and notes_dv.stu_id = " + id + " and notes_exmn" +
-         ".stu_id = " + id);
+        ArrayList<Double> notes = new ArrayList<>();
+        String query;
+        boolean priciple = mdl.equals("math") || mdl.equals("arabic") || mdl.equals("english") || mdl.equals("french");
+        if (priciple) {
+            query =
+             "SELECT " + mdl.concat("_cc," + mdl.concat("_dv," + mdl.concat("_dv2,") + mdl.concat("_ex"))) + " FROM notes_cc,notes_dv,notes_dv2,notes_exmn WHERE notes_cc.stu_id = " + id + " and notes_dv.stu_id = " + id + " and " +
+              "notes_dv2" + ".stu_id = " + id + " and notes_exmn" + ".stu_id = " + id;
+        } else query = "SELECT " + mdl.concat("_cc," + mdl.concat("_dv," + mdl.concat("_ex"))) + " FROM notes_cc,notes_dv,notes_exmn WHERE notes_cc.stu_id = " + id + " and notes_dv.stu_id = " + id + " and notes_exmn" + ".stu_id = " + id;
+        ResultSet rs = db.runQuery(query);
         try {
             if (rs.next()) {
-                notes[0] = rs.getDouble(mdl + "_cc");
-                notes[1] = rs.getDouble(mdl + "_dv");
-                notes[2] = rs.getDouble(mdl + "_ex");
+                notes.add(rs.getDouble(mdl + "_cc"));
+                notes.add(rs.getDouble(mdl + "_dv"));
+                if (priciple) notes.add(rs.getDouble(mdl + "_dv2"));
+                notes.add(rs.getDouble(mdl + "_ex"));
             }
             System.out.println("getNotes finished...");
             db.close();
@@ -33,27 +39,18 @@ public class stuCalcul {
     private double calcModuleMoy (String mdl, String id) {
         System.out.println("calcModuleMoy started...");
         System.out.println("calcModuleMoy finished...");
-        return DoubleStream.of(Objects.requireNonNull(getNotes(mdl, id))).sum() / 3;
+        ArrayList<Double> list = getNotes(mdl, id);
+        return sum(list);
     }
     
     public double[] calcGenMoy (String StudentID) throws SQLException {
         double[] notes = new double[13];
         String[] modules = {"math", "arabic", "french", "english", "islamic", "civil", "geo_histo", "sport", "physics", "science", "informatique", "music", "design"};
-        ResultSet rs = db.runQuery("SELECT * FROM notes_moy WHERE stu_id = " + StudentID);
-        if (rs.next()) {
-            for (int i = 0; i < 13; i++) {
-                System.out.println("iteration " + i);
-                notes[i] = calcModuleMoy(modules[i], StudentID);
-            }
-            db.close();
-            db.run("DELETE FROM notes_moy WHERE stu_id = " + StudentID);
-        } else {
-            for (int i = 0; i < 13; i++) {
-                System.out.println("iteration " + i);
-                notes[i] = calcModuleMoy(modules[i], StudentID);
-            }
-            db.close();
+        for (int i = 0; i < modules.length; i++) {
+            System.out.println("iteration " + i);
+            notes[i] = calcModuleMoy(modules[i], StudentID);
         }
+        db.run("DELETE FROM notes_moy WHERE stu_id = " + StudentID);
         db.run("INSERT INTO notes_moy VALUES (" + StudentID + "," + notes[0] + "," + notes[1] + "," + notes[2] + "," + notes[3] + "," + notes[4] + "," + notes[5] + "," + notes[6] + "," + notes[7] + "," + notes[8] + "," + notes[9] + "," + notes[10] + "," + notes[11] + "," + notes[12] + ")");
         insertRemark(notes, StudentID);
         for (int i = 0; i < 13; i++) notes[i] = notes[i] * getCoef(modules[i], getStudentLev(StudentID));
@@ -100,5 +97,12 @@ public class stuCalcul {
         } else {
             return "'Mauvaise'";
         }
+    }
+    
+    private double sum (ArrayList<Double> lst) {
+        double a = 0;
+        if (lst.size() == 4) a = (lst.get(0) + ((lst.get(1) + lst.get(2)) / 2) + lst.get(3)) / 3;
+        else if (lst.size() == 3) a = (lst.get(0) + lst.get(1) + lst.get(2)) / 3;
+        return a;
     }
 }

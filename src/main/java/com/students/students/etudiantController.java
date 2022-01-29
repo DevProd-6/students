@@ -104,8 +104,7 @@ public class etudiantController implements Initializable {
         clearText(gh, mu, in, sp, sc, ci);
         clearStyle(ar, mt, ph, is, fr, en);
         clearStyle(gh, mu, in, sp, sc, ci);
-        failAll(ar, mt, ph, is, fr, en);
-        failAll(gh, mu, in, sp, sc, ci);
+        lst.clear();
         ds.getStylesheets().removeAll(ds.getStyle());
         lst.replace(ds.getId(), "fail");
         ds.setText("");
@@ -168,40 +167,48 @@ public class etudiantController implements Initializable {
     }
     
     private void check () {
-        ins.setDisable(lst.containsValue("fail") || lst.size() < 13);
-        edt.setDisable(lst.containsValue("fail") || lst.size() < 13);
+        ins.setDisable(lst.containsValue("fail"));
+        edt.setDisable(lst.containsValue("fail"));
     }
     
     @FXML
     private void prepareBultien () {
         bultienPDF bPDF = new bultienPDF();
         ArrayList<Student> StuList = new ArrayList<>();
-        Ensiegnant ens;
-        id.setText("Preparation du bultien....");
-        try {
-            String module;
-            module = aff.getValue();
-            for (String stu_id : etu.getItems()) {
-                String[] ids = stu_id.split(" ");
-                StuList.add(new Student(ids[0], module));
-            }
-            ResultSet rs = db.runQuery("SELECT id FROM EnsiegnantsList,ens_class WHERE niv_scho = " + niv.getValue() + " AND class = " + cls.getValue() + " and module = '" + module + "'");
-            if (rs.next()) {
-                ens = new Ensiegnant(rs.getInt("id") + "", niv.getValue(), cls.getValue());
-            } else ens = new Ensiegnant(Integer.valueOf(niv.getValue()), Integer.valueOf(cls.getValue()), aff.getValue());
-        } catch (SQLException e) {
-            ens = new Ensiegnant(Integer.valueOf(niv.getValue()), Integer.valueOf(cls.getValue()), aff.getValue());
-            e.printStackTrace();
+        Ensiegnant ens = new Ensiegnant(Integer.valueOf(niv.getValue()), Integer.valueOf(cls.getValue()), aff.getValue());
+        String module = aff.getValue();
+        for (String stu_id : etu.getItems()) {
+            String[] ids = stu_id.split(" ");
+            StuList.add(new Student(ids[0], module));
         }
-        id.setText("Preparation du bultien...." + bPDF.createDocument(StuList, ens));
+        
+        for (Student element : StuList) {
+            System.out.println(element.getLast_name());
+            System.out.println(element.getNotes() + " " + element.getObsrv());
+        }
+        System.out.println(ens.getName() + " " + ens.getLast_name() + " " + ens.getNiv() + " " + ens.getCls() + " " + ens.getModule());
+        System.out.println(bPDF.createDocument(StuList, ens));
     }
     
     @FXML
     private void insert () {
         String query =
          "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + getDouble(in) + "," + getDouble(mu) + "," + getDouble(ds) + ")";
-        if (db.run(query).equals("Execution Successful")) id.setStyle("-fx-text-fill: green");
-        else id.setStyle("-fx-text-fill: red");
+        if (db.run(query).equals("Execution Successful")) {
+            id.setStyle("-fx-text-fill: green");
+            if (nt.getValue().equals("devoir")) {
+                ph.setDisable(true);
+                sc.setDisable(true);
+                sp.setDisable(true);
+                gh.setDisable(true);
+                ci.setDisable(true);
+                is.setDisable(true);
+                in.setDisable(true);
+                mu.setDisable(true);
+                ds.setDisable(true);
+            }
+        } else id.setStyle("-fx-text-fill: red");
+        showSpecific();
     }
     
     private double getDouble (TextField tf) {

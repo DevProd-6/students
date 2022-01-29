@@ -29,6 +29,7 @@
       <TextField fx:id="sp" layoutX="470.0" layoutY="444.0" onKeyReleased="#acceptDigitOnly" AnchorPane.rightAnchor="260.0" />
       <TextField fx:id="in" layoutX="575.0" layoutY="444.0" onKeyReleased="#acceptDigitOnly" AnchorPane.rightAnchor="155.0" />
       <TextField fx:id="mu" layoutX="683.0" layoutY="444.0" onKeyReleased="#acceptDigitOnly" AnchorPane.rightAnchor="47.0" />
+      <TextField fx:id="ds" layoutX="575.0" layoutY="490.0" onKeyReleased="#acceptDigitOnly" AnchorPane.rightAnchor="155.0" />
       <Label layoutX="470.0" layoutY="282.0" text="Arabic" AnchorPane.rightAnchor="315.0" />
       <Label layoutX="575.0" layoutY="282.0" text="French" AnchorPane.rightAnchor="210.0" />
       <Label layoutX="683.0" layoutY="282.0" text="English" AnchorPane.rightAnchor="95.0" />
@@ -55,7 +56,6 @@
       <Separator layoutX="456.0" layoutY="55.0" prefHeight="2.0" prefWidth="370.0" AnchorPane.rightAnchor="0.0" />
       <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" layoutX="539.0" layoutY="219.0" prefHeight="15.0" prefWidth="201.0" AnchorPane.rightAnchor="84.0" />
       <Button fx:id="bult" layoutX="464.0" layoutY="234.0" mnemonicParsing="false" onAction="#prepareBultien" prefHeight="23.0" prefWidth="94.0" text="Bulltien" AnchorPane.rightAnchor="266.0" />
-      <TextField fx:id="ds" layoutX="575.0" layoutY="490.0" onKeyReleased="#acceptDigitOnly" AnchorPane.rightAnchor="155.0" />
       <Label layoutX="575.0" layoutY="475.0" text="Dessin" AnchorPane.rightAnchor="210.0" />
    </children>
 </AnchorPane>

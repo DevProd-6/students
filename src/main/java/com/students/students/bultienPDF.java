@@ -36,7 +36,7 @@ public class bultienPDF {
             String FILE_PATH_NAME = FOLDER_PATH + PDF_NAME;
             PdfWriter.getInstance(document, new FileOutputStream(FILE_PATH_NAME));
             Font font = new Font(Font.COURIER, 12, Font.BOLD);
-            Table table = new Table(8);
+            Table table = new Table(9);
             table.setPadding(3);
             table.setSpacing(0);
             table.setWidth(110);
@@ -44,7 +44,7 @@ public class bultienPDF {
             Cell cell = new Cell("Ensiegnant : " + ensiegnant.getLast_name().concat(" " + ensiegnant.getName()));
             cell.setHeader(true);
             cell.setVerticalAlignment(VerticalAlignment.CENTER);
-            cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            cell.setHorizontalAlignment(HorizontalAlignment.LEFT);
             cell.setColspan(4);
             cell.setBackgroundColor(Color.LIGHT_GRAY);
             table.addCell(cell);
@@ -64,8 +64,14 @@ public class bultienPDF {
             cell2.setColspan(2);
             cell2.setBackgroundColor(Color.LIGHT_GRAY);
             table.addCell(cell2);
-            
-            table.addCell(new Phrase("Nom Complete", font));
+            table.addCell(new Phrase(ensiegnant.getModule()));
+            Cell cell3 = new Cell("Nom Complete");
+            cell3.setHeader(true);
+            cell3.setVerticalAlignment(VerticalAlignment.CENTER);
+            cell3.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            cell3.setColspan(2);
+            cell3.setBackgroundColor(Color.LIGHT_GRAY);
+            table.addCell(cell3);
             table.addCell(new Phrase("Control Continue", font));
             table.addCell(new Phrase("Devoire 1", font));
             table.addCell(new Phrase("Devoire 2", font));
@@ -73,14 +79,17 @@ public class bultienPDF {
             table.addCell(new Phrase("Moyenne Module", font));
             table.addCell(new Phrase("Observation", new Font(Font.COURIER, 9, Font.BOLD)));
             table.addCell(new Phrase("Classement", new Font(Font.COURIER, 10, Font.BOLD)));
+            boolean principle = ensiegnant.getModule().equals("math") || ensiegnant.getModule().equals("arabic") || ensiegnant.getModule().equals("english") || ensiegnant.getModule().equals("french");
             for (Student student : StuList) {
                 Cell cel = new Cell(student.getName() + " " + student.getLast_name());
                 cel.setColspan(2);
                 table.addCell(cel);
                 table.addCell(student.getNotes().get(0) + "");
                 table.addCell(student.getNotes().get(1) + "");
-                table.addCell(student.getNotes().get(2) + "");
+                if (principle) table.addCell(student.getNotes().get(2) + "");
+                else table.addCell("/");
                 table.addCell(student.getNotes().get(3) + "");
+                table.addCell(student.getNotes().get(4) + "");
                 table.addCell(student.getObsrv().get(0) + "");
                 table.addCell("classement");
             }

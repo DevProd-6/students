@@ -64,13 +64,13 @@ public class ensController implements Initializable {
     }
     
     private void check () {
-        try {
+      /*  try {
             if (!tb.isSelected()) ins.setDisable((isPassed(nm) && isPassed(ln) && isPassed(cls)));
             else ins.setDisable((isPassed(nm) && isPassed(ln) && isPassed(cls) && isPassed(em) && isPassed(pn)));
             ins.setDisable(cb.getValue().isEmpty() || lv.getValue().isEmpty() || dt.getValue().toString().isEmpty());
         } catch (NullPointerException e) {
             ins.setDisable(true);
-        }
+        }*/
     }
     
     private boolean isPassed (Object obj) {
