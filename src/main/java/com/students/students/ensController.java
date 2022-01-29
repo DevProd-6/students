@@ -56,7 +56,6 @@ public class ensController implements Initializable {
                 else validate(src, "pass");
                 break;
             case "phone":
-                System.out.println((str.matches("\\d+$") && str.length() == 10));
                 validate(src, (str.matches("\\d+$") && str.length() == 10) ? "pass" : "fail");
                 break;
         }
@@ -94,14 +93,14 @@ public class ensController implements Initializable {
                 rs = db.runQuery("SELECT id FROM EnsiegnantsList WHERE name = '" + nm.getText() + "' and last_name = '" + ln.getText() + "' and date_nais = '" + getDate() + "'");
                 a = (rs.next() ? rs.getInt(1) : null);
                 db.close();
-                System.out.println(db.run("INSERT INTO ens_class (ens_id,niv_scho,class) values (" + a + "," + lv.getValue() + "," + cls.getText() + ")"));
+                db.run("INSERT INTO ens_class (ens_id,niv_scho,class) values (" + a + "," + lv.getValue() + "," + cls.getText() + ")");
                 break;
             case "StudentsList":
                 setSucceed(db.run("INSERT INTO " + table + " (name,last_name,date_nais,gender) VALUES ('" + nm.getText() + "','" + ln.getText() + "','" + getDate() + "'," + getGender() + ")"));
                 rs = db.runQuery("SELECT id FROM StudentsList WHERE name = '" + nm.getText() + "' and last_name = '" + ln.getText() + "' and date_nais = '" + getDate() + "'");
                 a = (rs.next() ? rs.getInt(1) : null);
                 db.close();
-                System.out.println(db.run("INSERT INTO stu_class (stu_id,niv_scho,class) values (" + a + "," + lv.getValue() + "," + cls.getText() + ")"));
+                db.run("INSERT INTO stu_class (stu_id,niv_scho,class) values (" + a + "," + lv.getValue() + "," + cls.getText() + ")");
                 break;
         }
     }

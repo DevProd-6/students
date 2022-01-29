@@ -181,13 +181,7 @@ public class etudiantController implements Initializable {
             String[] ids = stu_id.split(" ");
             StuList.add(new Student(ids[0], module));
         }
-        
-        for (Student element : StuList) {
-            System.out.println(element.getLast_name());
-            System.out.println(element.getNotes() + " " + element.getObsrv());
-        }
-        System.out.println(ens.getName() + " " + ens.getLast_name() + " " + ens.getNiv() + " " + ens.getCls() + " " + ens.getModule());
-        System.out.println(bPDF.createDocument(StuList, ens));
+        bPDF.createDocument(StuList, ens);
     }
     
     @FXML

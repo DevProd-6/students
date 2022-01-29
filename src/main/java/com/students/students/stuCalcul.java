@@ -9,7 +9,6 @@ public class stuCalcul {
     DbUtils db = new DbUtils();
     
     private ArrayList<Double> getNotes (String mdl, String id) {
-        System.out.println("getNotes started...");
         ArrayList<Double> notes = new ArrayList<>();
         String query;
         boolean priciple = mdl.equals("math") || mdl.equals("arabic") || mdl.equals("english") || mdl.equals("french");
@@ -26,7 +25,6 @@ public class stuCalcul {
                 if (priciple) notes.add(rs.getDouble(mdl + "_dv2"));
                 notes.add(rs.getDouble(mdl + "_ex"));
             }
-            System.out.println("getNotes finished...");
             db.close();
             return notes;
         } catch (SQLException ex) {
@@ -37,8 +35,6 @@ public class stuCalcul {
     }
     
     private double calcModuleMoy (String mdl, String id) {
-        System.out.println("calcModuleMoy started...");
-        System.out.println("calcModuleMoy finished...");
         ArrayList<Double> list = getNotes(mdl, id);
         return sum(list);
     }
@@ -46,10 +42,7 @@ public class stuCalcul {
     public double[] calcGenMoy (String StudentID) throws SQLException {
         double[] notes = new double[13];
         String[] modules = {"math", "arabic", "french", "english", "islamic", "civil", "geo_histo", "sport", "physics", "science", "informatique", "music", "design"};
-        for (int i = 0; i < modules.length; i++) {
-            System.out.println("iteration " + i);
-            notes[i] = calcModuleMoy(modules[i], StudentID);
-        }
+        for (int i = 0; i < modules.length; i++) notes[i] = calcModuleMoy(modules[i], StudentID);
         db.run("DELETE FROM notes_moy WHERE stu_id = " + StudentID);
         db.run("INSERT INTO notes_moy VALUES (" + StudentID + "," + notes[0] + "," + notes[1] + "," + notes[2] + "," + notes[3] + "," + notes[4] + "," + notes[5] + "," + notes[6] + "," + notes[7] + "," + notes[8] + "," + notes[9] + "," + notes[10] + "," + notes[11] + "," + notes[12] + ")");
         insertRemark(notes, StudentID);

@@ -23,16 +23,12 @@ public class bultienPDF {
         String PDF_NAME = ensiegnant.getLast_name().toUpperCase().concat(ensiegnant.getName().concat(".pdf"));
         try {
             Document document = new Document();
-            System.out.println(FOLDER_PATH);
             File folder = new File(FOLDER_PATH);
-            System.out.println(folder.getAbsolutePath());
             try {
                 folder.mkdirs();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
-            System.out.println(FOLDER_PATH + PDF_NAME);
             String FILE_PATH_NAME = FOLDER_PATH + PDF_NAME;
             PdfWriter.getInstance(document, new FileOutputStream(FILE_PATH_NAME));
             Font font = new Font(Font.COURIER, 12, Font.BOLD);
