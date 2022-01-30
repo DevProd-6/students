@@ -5,7 +5,8 @@ module com.students.students {
     requires org.mariadb.jdbc;
     requires com.github.librepdf.openpdf;
     requires java.desktop;
-    
+    requires transitive javafx.web;
+    requires transitive javafx.swing;
     
     opens com.students.students to javafx.fxml;
     exports com.students.students;

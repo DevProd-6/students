@@ -15,10 +15,11 @@
             <Image url="@../img/whitenotebook.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="usr" layoutX="61.0" layoutY="61.0" prefHeight="23.0" prefWidth="224.0" promptText="user" />
-      <PasswordField fx:id="pwd" layoutX="61.0" layoutY="108.0" prefHeight="23.0" prefWidth="224.0" promptText="password" />
-      <Button fx:id="submit" layoutX="251.0" layoutY="185.0" mnemonicParsing="false" onAction="#submit" prefHeight="23.0" prefWidth="71.0" text="submit" />
-      <Button fx:id="exit" layoutX="18.0" layoutY="185.0" mnemonicParsing="false" onAction="#exit" prefHeight="23.0" prefWidth="71.0" text="exit" />
+      <TextField fx:id="usr" layoutX="61.0" layoutY="61.0" prefHeight="31.0" prefWidth="224.0" promptText="user" />
+      <PasswordField fx:id="pwd" layoutX="61.0" layoutY="115.0" prefHeight="31.0" prefWidth="224.0" promptText="password" />
+      <Button fx:id="submit" layoutX="208.0" layoutY="185.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#submit" prefHeight="39.0" prefWidth="114.0" text="submit" />
+      <Button fx:id="exit" layoutX="18.0" layoutY="185.0" mnemonicParsing="false" onAction="#exit" prefHeight="29.0" prefWidth="114.0" text="exit" />
       <Label fx:id="lb" layoutX="18.0" layoutY="225.0" prefHeight="23.0" prefWidth="310.0" />
+      <Label alignment="CENTER" layoutX="61.0" layoutY="21.0" prefHeight="15.0" prefWidth="224.0" text="LOGIN" />
    </children>
 </AnchorPane>

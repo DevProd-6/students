@@ -1,0 +1,29 @@
+<component name="libraryTable">
+  <library name="openjfx.javafx.swing" type="repository">
+    <properties maven-id="org.openjfx:javafx-swing:11.0.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javafx-swing-11.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-swing-11.0.1-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-11.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-11.0.1-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-base-11.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-base-11.0.1-linux.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/javafx-swing-11.0.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-swing-11.0.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-11.0.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-11.0.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-base-11.0.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-base-11.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/javafx-swing-11.0.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-swing-11.0.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-11.0.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-11.0.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-base-11.0.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-base-11.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
