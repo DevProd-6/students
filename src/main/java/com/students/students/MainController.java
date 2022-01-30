@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -46,6 +47,7 @@ public class MainController implements Initializable {
                 Thread.sleep(2000);
                 FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("adminPanel.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/students/css/ui.css")).toExternalForm());
                 Stage stage = new Stage();
                 stage.setTitle("Management");
                 stage.setScene(scene);

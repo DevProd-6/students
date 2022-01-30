@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 
@@ -90,6 +91,9 @@ public class etudiantController implements Initializable {
     
     @FXML
     private void showSpecific () {
+        if (aff.getValue().equals("math") || aff.getValue().equals("arabic") || aff.getValue().equals("french") || aff.getValue().equals("english")) {
+        
+        }
         String query = "SELECT * FROM " + switchNotesTable() + " WHERE stu_id = " + id.getText();
         try {
             db.populateData(tv, query);
@@ -181,6 +185,9 @@ public class etudiantController implements Initializable {
             String[] ids = stu_id.split(" ");
             StuList.add(new Student(ids[0], module));
         }
+        System.out.println(StuList);
+        for (Student s : StuList) System.out.println(s.getNotes().isEmpty());
+        System.out.println(ens.getName());
         bPDF.createDocument(StuList, ens);
     }
     
@@ -190,8 +197,8 @@ public class etudiantController implements Initializable {
          "INSERT INTO " + switchNotesTable() + " VALUES (" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + "," + getDouble(is) + "," + getDouble(ci) + "," + getDouble(gh) + "," + getDouble(sp) + "," + getDouble(ph) + "," + getDouble(sc) + "," + getDouble(in) + "," + getDouble(mu) + "," + getDouble(ds) + ")";
         if (db.run(query).equals("Execution Successful")) {
             id.setStyle("-fx-text-fill: green");
-            if (nt.getValue().equals("devoir")) {
-                ph.setDisable(true);
+            if (nt.getValue().equals("Devoir")) {
+                /*ph.setDisable(true);
                 sc.setDisable(true);
                 sp.setDisable(true);
                 gh.setDisable(true);
@@ -199,14 +206,17 @@ public class etudiantController implements Initializable {
                 is.setDisable(true);
                 in.setDisable(true);
                 mu.setDisable(true);
-                ds.setDisable(true);
+                ds.setDisable(true);*/
+                db.run("INSERT INTO notes_dv2 values(" + id.getText() + "," + getDouble(mt) + "," + getDouble(ar) + "," + getDouble(fr) + "," + getDouble(en) + ")");
             }
         } else id.setStyle("-fx-text-fill: red");
         showSpecific();
+        clear();
     }
     
     private double getDouble (TextField tf) {
-        return Double.parseDouble(tf.getText());
+        String str = tf.getText();
+        return Double.parseDouble(new DecimalFormat("##.##").format(Double.parseDouble(str)));
     }
     
     private String switchNotesTable () {
