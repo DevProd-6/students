@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class adminPanelController {
@@ -21,6 +22,7 @@ public class adminPanelController {
                 String fileName = src.getText().concat(".fxml").toLowerCase();
                 FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fileName));
                 Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/students/css/ui.css")).toExternalForm());
                 Stage stage = new Stage();
                 stage.setTitle(src.getText() + " Management");
                 stage.setScene(scene);
