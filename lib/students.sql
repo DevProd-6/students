@@ -123,7 +123,7 @@ create table `notes_cc`
     `science_cc`      double,
     `informatique_cc` double,
     `music_cc`        double,
-    `design_cc`        double,
+    `design_cc`       double,
     foreign key (`stu_id`) references StudentsList (`id`)
 );
 create table `remark`
