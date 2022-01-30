@@ -2,7 +2,9 @@ package com.students.students;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class stuCalcul {
@@ -20,10 +22,11 @@ public class stuCalcul {
         ResultSet rs = db.runQuery(query);
         try {
             if (rs.next()) {
-                notes.add(rs.getDouble(mdl + "_cc"));
-                notes.add(rs.getDouble(mdl + "_dv"));
-                if (priciple) notes.add(rs.getDouble(mdl + "_dv2"));
-                notes.add(rs.getDouble(mdl + "_ex"));
+                notes.add(round(rs.getDouble(mdl + "_cc")));
+                notes.add(round(rs.getDouble(mdl + "_dv")));
+                if (priciple) notes.add(round(rs.getDouble(mdl + "_dv2")));
+                else notes.add(0.0);
+                notes.add(round(rs.getDouble(mdl + "_ex")));
             }
             db.close();
             return notes;
@@ -35,18 +38,22 @@ public class stuCalcul {
     }
     
     private double calcModuleMoy (String mdl, String id) {
-        ArrayList<Double> list = getNotes(mdl, id);
-        return sum(list);
+        //ArrayList<Double> list = getNotes(mdl, id);
+        return sum(Objects.requireNonNull(getNotes(mdl, id)));
     }
     
     public double[] calcGenMoy (String StudentID) throws SQLException {
         double[] notes = new double[13];
         String[] modules = {"math", "arabic", "french", "english", "islamic", "civil", "geo_histo", "sport", "physics", "science", "informatique", "music", "design"};
-        for (int i = 0; i < modules.length; i++) notes[i] = calcModuleMoy(modules[i], StudentID);
+        for (int i = 0; i < modules.length; i++) notes[i] = round(calcModuleMoy(modules[i], StudentID));
         db.run("DELETE FROM notes_moy WHERE stu_id = " + StudentID);
+        for (double dbl : notes) {
+            System.out.println(dbl);
+        }
         db.run("INSERT INTO notes_moy VALUES (" + StudentID + "," + notes[0] + "," + notes[1] + "," + notes[2] + "," + notes[3] + "," + notes[4] + "," + notes[5] + "," + notes[6] + "," + notes[7] + "," + notes[8] + "," + notes[9] + "," + notes[10] + "," + notes[11] + "," + notes[12] + ")");
         insertRemark(notes, StudentID);
-        for (int i = 0; i < 13; i++) notes[i] = notes[i] * getCoef(modules[i], getStudentLev(StudentID));
+        System.out.println("Remark inserted");
+        //for (int i = 0; i < 13; i++) notes[i] = notes[i] * getCoef(modules[i], getStudentLev(StudentID));
         return notes;
     }
     
@@ -93,9 +100,13 @@ public class stuCalcul {
     }
     
     private double sum (ArrayList<Double> lst) {
-        double a = 0;
-        if (lst.size() == 4) a = (lst.get(0) + ((lst.get(1) + lst.get(2)) / 2) + lst.get(3)) / 3;
-        else if (lst.size() == 3) a = (lst.get(0) + lst.get(1) + lst.get(2)) / 3;
-        return a;
+        for (double dbl : lst) {
+            System.out.println(dbl);
+        }
+        return (lst.get(0) + ((lst.get(1) + lst.get(2)) / 2) + lst.get(3)) / 3;
+    }
+    
+    private double round (double a) {
+        return Double.parseDouble(new DecimalFormat("##.##").format(a));
     }
 }
