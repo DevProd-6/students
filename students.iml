@@ -18,12 +18,10 @@
     <orderEntry type="library" name="junit.platform.commons" level="project" />
     <orderEntry type="library" name="junit.platform.engine" level="project" />
     <orderEntry type="library" name="opentest4j" level="project" />
-    <orderEntry type="library" name="ibm.icu.icu4j" level="project" />
     <orderEntry type="library" name="openjfx.javafx.base" level="project" />
     <orderEntry type="library" name="openjfx.javafx.controls" level="project" />
     <orderEntry type="library" name="openjfx.javafx.fxml" level="project" />
     <orderEntry type="library" name="openjfx.javafx.graphics" level="project" />
-    <orderEntry type="library" name="mybatis.base.bundle.descriptor" level="project" />
     <orderEntry type="library" name="apache.ibatis.core" level="project" />
   </component>
 </module>
