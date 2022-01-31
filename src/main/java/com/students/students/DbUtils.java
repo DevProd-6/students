@@ -50,6 +50,7 @@ public class DbUtils {
             ScriptRunner sr = new ScriptRunner(con);
             Reader reader = new BufferedReader(new FileReader(filePath));
             sr.runScript(reader);
+            reader.close();
             return true;
         } catch (Exception err) {
             err.printStackTrace();
