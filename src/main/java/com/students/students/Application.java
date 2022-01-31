@@ -21,19 +21,34 @@ public class Application extends javafx.application.Application {
     public void start (Stage stage) throws IOException {
         String file = "src/main/resources/com/students/setup/setup.dev";
         BufferedReader reader = new BufferedReader(new FileReader(file));
+        FileWriter myWriter = null;
+        if (!reader.readLine().contains(System.getProperty("user.name"))) {
+            myWriter = new FileWriter(file);
+            myWriter.write("false");
+            myWriter.flush();
+            myWriter.close();
+        }
+        reader.close();
+        reader = new BufferedReader(new FileReader(file));
         boolean st = reader.readLine().contains("false");
+        System.out.println(reader.readLine());
         reader.close();
         if (st) {
             TextInputDialog td = new TextInputDialog("root");
             td.setHeaderText("enter database username");
             TextInputDialog td2 = new TextInputDialog("");
             td2.setHeaderText("enter database password");
+            String line = td.showAndWait().get() + "," + td2.showAndWait().get();
+            myWriter = new FileWriter(file);
+            myWriter.write(line);
+            myWriter.flush();
+            myWriter.close();
             DbUtils db = new DbUtils();
             if (db.excuteFile("src/main/resources/com/students/sql/sql.sql")) {
-                FileWriter myWriter = new FileWriter(file);
-                myWriter.write(td.showAndWait().get() + "," + td2.showAndWait().get() + ",true");
+                myWriter = new FileWriter(file);
+                myWriter.write(line + ",true," + System.getProperty("user.name"));
                 myWriter.close();
-            } else return;
+            }
         }
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("Logview.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
