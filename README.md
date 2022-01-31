@@ -1,7 +1,7 @@
 # Students/Teacher/Notes Manager
 ## easy manager and helper
 
-StudentManager is designed fro teacher to manipulate their students marks with ease
+StudentManager is designed for teacher to manipulate their students marks with ease
 
 ## Features
 
