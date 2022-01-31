@@ -4,7 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -18,7 +20,8 @@ public class etudiantController implements Initializable {
     
     private final DbUtils db = new DbUtils();
     private final HashMap<String, String> lst = new HashMap<>();
-    
+    @FXML
+    ImageView img;
     @FXML
     TableView<ObservableList<String>> tv;
     @FXML
@@ -29,6 +32,8 @@ public class etudiantController implements Initializable {
     TextField ar, mt, ph, is, fr, en, gh, mu, in, sp, sc, ci, ds;
     @FXML
     Button ins, edt, bult;
+    @FXML
+    AnchorPane ap;
     
     @FXML
     private void getClassCount () {
@@ -250,6 +255,8 @@ public class etudiantController implements Initializable {
             nt.setValue("CC");
             aff.getItems().addAll("math", "arabic", "french", "english", "islamic", "music", "geo_histo", "sport", "physics", "science", "informatique", "design");
             aff.setValue("math");
+            img.fitWidthProperty().bind(ap.widthProperty());
+            img.fitHeightProperty().bind(ap.heightProperty());
         } catch (SQLException e) {
             e.printStackTrace();
         }

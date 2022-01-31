@@ -4,7 +4,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -32,6 +34,10 @@ public class ensController implements Initializable {
     Button ins, edt, dlt;
     @FXML
     TableView<ObservableList<String>> tv;
+    @FXML
+    AnchorPane ap;
+    @FXML
+    ImageView img;
     @FXML
     private TextField nm, ln, em, pn, cls, mdl, ser;
     private DbUtils db = new DbUtils();
@@ -131,6 +137,11 @@ public class ensController implements Initializable {
         return tb.getText().concat("sList");
     }
     
+    @FXML
+    private void search () {
+        ResultSet rs = db.runQuery("SELECT * FROM " + (tb.isSelected() ? "Ensiegnant" : "Student") + "List ");
+    }
+    
     private String getGender () {
         return "'" + cb.getValue().charAt(0) + "'";
     }
@@ -140,6 +151,8 @@ public class ensController implements Initializable {
     public void initialize (URL location, ResourceBundle resources) {
         cb.getItems().addAll("Male", "Female");
         lv.getItems().addAll("1", "2", "3", "4");
+        img.fitWidthProperty().bind(ap.widthProperty());
+        img.fitHeightProperty().bind(ap.heightProperty());
         try {
             db.populateData(tv, "SELECT * FROM StudentsList");
         } catch (SQLException e) {

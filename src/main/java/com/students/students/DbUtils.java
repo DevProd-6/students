@@ -7,7 +7,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
+import org.apache.ibatis.jdbc.ScriptRunner;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,21 +25,42 @@ import java.util.List;
 public class DbUtils {
     private final List<String> columnNames = new ArrayList<>();
     private Connection con;
+    private String usr, pwd;
     
     DbUtils () {
         try {
+            String file = "src/main/resources/com/students/setup/setup.dev";
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String[] setup = reader.readLine().split(",");
+            usr = setup[0];
+            pwd = setup[1];
+            reader.close();
             connect();
             con.setAutoCommit(true);
             run("SET SESSION foreign_key_checks=OFF");
-        } catch (SQLException e) {
+            close();
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public boolean excuteFile (String filePath) {
+        try {
+            connect();
+            ScriptRunner sr = new ScriptRunner(con);
+            Reader reader = new BufferedReader(new FileReader(filePath));
+            sr.runScript(reader);
+            return true;
+        } catch (Exception err) {
+            err.printStackTrace();
+            return false;
         }
     }
     
     private String connect () {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/students", "root", "devprod");
+            con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/students", usr, pwd);
             return "Connection successful";
         } catch (Exception e) {
             System.out.println("Connection exception starts here : \n" + e + "\nconnection exception ends here.");

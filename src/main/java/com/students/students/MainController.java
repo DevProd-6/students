@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,7 +22,6 @@ import java.util.ResourceBundle;
 
 
 public class MainController implements Initializable {
-    static MyThread th;
     @FXML
     Label lb;
     @FXML
@@ -28,12 +29,15 @@ public class MainController implements Initializable {
     @FXML
     PasswordField pwd;
     @FXML
+    AnchorPane ap;
+    @FXML
+    ImageView img;
+    @FXML
     Button exit, submit;
     DbUtils db = new DbUtils();
     
     @FXML
     public void exit () {
-        th.thread.interrupt();
         Platform.exit();
     }
     
@@ -62,9 +66,15 @@ public class MainController implements Initializable {
         }
     }
     
+    @FXML
+    private void check () {
+        submit.setDisable((usr.getText().isEmpty() || pwd.getText().isEmpty()) || (usr.getText().replace("\\s+", "").isEmpty() || pwd.getText().replace("\\s+", "").isEmpty()));
+    }
+    
     @Override
     public void initialize (URL location, ResourceBundle resources) {
-        th = new MyThread(submit, usr, pwd);
+        img.fitWidthProperty().bind(ap.widthProperty());
+        img.fitHeightProperty().bind(ap.heightProperty());
     }
 }
 

@@ -45,24 +45,64 @@
     -fx-background-color: transparent;
 }
 
-/*
-.table-view .column-header,
-.table-view .filler,
-.table-view,
-.table-view.filler {
-    -fx-background-color: #557C55;
-    -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
-    -fx-font-weight: bold;
-    -fx-text-fill: -fx-selection-bar-text;
-    -fx-padding: 0.166667em;
+.combo-box .combo-box-popup .list-view, .combo-box .combo-box-popup .list-cell {
+    -fx-background-color: #043700;
+    -fx-text-fill: white;
 }
 
-
-.table-view .column-header .label,
-.tree-table-view .column-header .label {
-    -fx-alignment: center;
+.combo-box .combo-box-popup .list-cell:hover {
+    -fx-text-fill: yellow;
+    -fx-background-color: green;
 }
-*/
+
+.choice-box {
+    -fx-background-color: transparent;
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: #043700;
+    -fx-text-fill: white;
+}
+
+.choice-box .menu-item:hover {
+    -fx-text-fill: yellow;
+    -fx-background-color: green;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: white;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: white;
+}
+
+.date-picker {
+    -fx-background-color: transparent;
+}
+
+.date-picker:editable > .arrow-button > * {
+    -fx-background-color: white;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.toggle-button {
+    -fx-background-radius: 16;
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 16px;
+    -jfx-button-type: flat;
+    -fx-background-color: #694E4E;
+    -fx-text-fill: white;
+}
+
+.toggle-button:armed {
+    -fx-background-color: black;
+}
 
 .table-view {
     -fx-background-color: transparent;
@@ -147,7 +187,7 @@
     -fx-background-radius: 16;
     -fx-padding: 0.7em 0.57em;
     -fx-font-size: 16px;
-    -jfx-button-type: raised;
+    -jfx-button-type: flat;
     -fx-background-color: #694E4E;
     -fx-text-fill: white;
 }
@@ -162,4 +202,8 @@
 .button:pressed {
     -fx-padding: 10 15 13 15;
     -fx-background-insets: 2 0 0 0, 2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+.textfield {
+    -fx-background-color: #694E4E;
 }
