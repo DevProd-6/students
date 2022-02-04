@@ -51,12 +51,13 @@ public class MainController implements Initializable {
                 Thread.sleep(2000);
                 FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("adminPanel.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
-                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/students/css/ui.css")).toExternalForm());
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/student/student/css/ui.css")).toExternalForm());
                 Stage stage = new Stage();
                 stage.setTitle("Management");
                 stage.setScene(scene);
                 stage.setResizable(false);
                 stage.show();
+                ap.getScene().getWindow().hide();
             } else {
                 lb.setText("Credentials not valid!");
                 lb.setStyle("-fx-text-fill : red");

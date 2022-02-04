@@ -22,7 +22,7 @@ public class adminPanelController {
                 String fileName = src.getText().concat(".fxml").toLowerCase();
                 FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fileName));
                 Scene scene = new Scene(fxmlLoader.load());
-                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/students/css/ui.css")).toExternalForm());
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/student/student/css/ui.css")).toExternalForm());
                 Stage stage = new Stage();
                 stage.setTitle(src.getText() + " Management");
                 stage.setScene(scene);

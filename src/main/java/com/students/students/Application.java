@@ -19,19 +19,18 @@ public class Application extends javafx.application.Application {
     
     @Override
     public void start (Stage stage) throws IOException {
-        String file = "src/main/resources/com/students/setup/setup.dev";
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        FileWriter myWriter = null;
+        String filePath = "src/main/resources/com/student/student/setup/setup.dev";
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        FileWriter myWriter;
         if (!reader.readLine().contains(System.getProperty("user.name"))) {
-            myWriter = new FileWriter(file);
+            myWriter = new FileWriter(filePath);
             myWriter.write("false");
             myWriter.flush();
             myWriter.close();
         }
         reader.close();
-        reader = new BufferedReader(new FileReader(file));
+        reader = new BufferedReader(new FileReader(filePath));
         boolean st = reader.readLine().contains("false");
-        System.out.println(reader.readLine());
         reader.close();
         if (st) {
             TextInputDialog td = new TextInputDialog("root");
@@ -39,20 +38,21 @@ public class Application extends javafx.application.Application {
             TextInputDialog td2 = new TextInputDialog("");
             td2.setHeaderText("enter database password");
             String line = td.showAndWait().get() + "," + td2.showAndWait().get();
-            myWriter = new FileWriter(file);
+            myWriter = new FileWriter(filePath);
             myWriter.write(line);
             myWriter.flush();
             myWriter.close();
             DbUtils db = new DbUtils();
-            if (db.excuteFile("src/main/resources/com/students/sql/sql.sql")) {
-                myWriter = new FileWriter(file);
+            boolean executed = db.excuteFile("src/main/resources/com/student/student/script/sql_script.sql");
+            if (executed) {
+                myWriter = new FileWriter(filePath);
                 myWriter.write(line + ",true," + System.getProperty("user.name"));
                 myWriter.close();
             }
         }
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("Logview.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/students/css/ui.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/student/student/css/ui.css")).toExternalForm());
         stage.setTitle("Students Management");
         stage.setScene(scene);
         stage.setResizable(false);

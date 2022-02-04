@@ -29,7 +29,7 @@ public class DbUtils {
     
     DbUtils () {
         try {
-            String file = "src/main/resources/com/students/setup/setup.dev";
+            String file = "src/main/resources/com/student/student/setup/setup.dev";
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String[] setup = reader.readLine().split(",");
             usr = setup[0];
